@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= API Billing Lab
+
+.Goals
+
+== Overview
+
+Inner and outer services.
+Seperation of concerns of groups of services.
+
+3Scale plugin for inner services for analytics.
+No gateway needed.
+
+
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+endif::showscript[]

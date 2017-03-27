@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= Custom Development Portal
+
+.Goals
+
+== Overview
+
+. Custom Developer Portal
+.. LiquidTags
+.. CMS ???
+.. Catalog and API Discovery ( https://github.com/picsoung/3scale-discover-APIs/blob/master/apilist.html )
+.. Integration with Red Hat SSO (Available on enterprise plans only)
+... Developer users
+
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+endif::showscript[]

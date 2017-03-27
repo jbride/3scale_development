@@ -1,0 +1,34 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= Microservices API Lab
+
+.Goals
+. Every Microservice should understand JWT
+. By Reference to By Value translator
+
+== Overview
+
+https://www.youtube.com/watch?v=BdKmZ7mPNns&index=2&list=PL_yCemEhwrxfs9LL6yS6D33-6kjl0FAAH&t=302s
+http://pages.3scale.net/microservices-api-management-wb.html
+
+Inner and outer services.
+Seperation of concerns of groups of services.
+
+3Scale plugin for inner services for analytics.
+No gateway needed.
+
+. transformation and validation
+.. All payload processing should occur in Fuse
+
+
+
+
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+endif::showscript[]

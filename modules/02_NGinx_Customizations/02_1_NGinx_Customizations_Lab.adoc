@@ -1,0 +1,25 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= NGinx Customizations Lab
+
+.Goals
+.Customization of XC Gateway
+
+== Overview
+
+. lua code customizations for docker based APIcast v2
+. NGinx customizations in OCP
+.. OpenResty
+.. Lua
+... Very fast, used in gaming
+
+
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+endif::showscript[]
