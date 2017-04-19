@@ -7,9 +7,13 @@
 = NGinx Customizations Lab
 
 .Goals
-.Customization of XC Gateway
+. Customization of XC Gateway
 
 == Overview
+
+The APIcast XC gateway caches authorization responses for a configurable time (TTL) and reports the usages periodically. 
+The metrics are less accurate but much higher throughputs are possible. 
+See https://github.com/3scale/apicast-xc
 
 . lua code customizations for docker based APIcast v2
 . NGinx customizations in OCP
@@ -22,4 +26,6 @@
 [blue]#Congratulations!#.
 
 ifdef::showscript[]
+
+
 endif::showscript[]
