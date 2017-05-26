@@ -31,4 +31,25 @@ No gateway needed.
 [blue]#Congratulations!#.
 
 ifdef::showscript[]
+
+
+    This is my presentation in SKO, talks about Agile Integration, our new opinionated way of implementing next generation SOA
+. 
+    https://drive.google.com/open?id=1BCAnQV6TgVDXM_BxppzF3W3LDnsTti6E9cX308MlftY
+
+    There are three important pillars/factors that make up Agile integration, allowing developers to take more control over the lifecycle of their applications and become more agile when it comes to doing software update/releases. 
+
+    1. Distributed Integration 
+    2. Container
+    3. API
+
+    Instead of doing centralized integration on a single ESB, and slowly became difficult to manage. We want to create lightweight integration chunk, and they should be maintained within it’s application domain. These integration units should be small and implemented in MSA. This is when "container" comes in for rapid, fast, immutable deployment package, with distributed deployment Env. And have OpenShift be the platform that helps all the HA, load balance, and even the CI/CD pipeline. 
+
+    Lastly the APIs. By exposing API, like web service before. Hide away the implementation complexity but at the same time a much easier consumable format through HTTP. And modularized layer of service/assets that can be later monitored by management product. 
+
+And I don't have a real reference architecture at this moment, but take a look at slide 23-25. That might help. 
+
+-Christina L 
+
+
 endif::showscript[]

@@ -1,0 +1,21 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= Stream Events to External Analytics Tool Lab
+
+.Goals
+. Streaming events to external data analytics tools (e.g. Elasticsearch) at gateway (push mechanism), rather exporting data from 3scale management (pull mechanism)
+
+
+== Overview
+
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+
+
+endif::showscript[]
