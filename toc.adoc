@@ -1,0 +1,98 @@
+[source,text]
+----
+Version 0.1 : Satya Jayanti (31 May 2017)
+----         
+
+= 1. Introduction
+== Architecture
+== Deployment Options (Covered in the 3Scale Implementation Course)
+=== Using APICast SaaS vs Apicast on OpenShift 
+=== Others (docker, AWS)
+=== Plugins & Code Libraries (Ruby, Python)
+= 2. Security: (Partly covered in 3Scale Implementation Course)
+== Authentication
+=== Authentication Patterns (API Keys, Application Identifier & Key Pairs)
+=== OAuth 2.0
+=== SSO
+== Access Control
+=== Defining your API
+=== Mapping Rules
+=== Application Plans
+== Accounts
+=== Configuration
+=== Tokens
+=== Notifications
+= 3. API Documentation 
+== ActiveDocs (Swagger)
+== API Spec
+== Publish to Dev Portal
+= 4. Developer Portal
+== CMS, Portlets, Content & Layout
+== Custom Domain & email
+== Signup & flow customisation
+== Authentication & SSO
+== Using Liquid
+= 5. API DevOps 
+== Staging & production environments
+== Production Tips
+=== Load balancing
+=== DNS setup
+== Using Ansible
+= 6. API BizOps
+== Developers
+=== Adding
+=== Approving dev account
+=== Inviting/contacting developers
+== Applications
+=== Finding apps
+=== Changing plans
+=== Suspending apps
+== WebHooks
+= 7. Analytics
+== Out-of-the-box
+=== Traffic log
+=== Statistics
+=== Applications
+== Exporting
+=== Using 3Scale Account & Analytics API
+=== Use ActiveDocs for API testing
+=== Write scripts for analytics (Ruby)
+== Response Codes
+= 8. Billing
+== Configuration
+== Payment Gateway & Stripe Integration
+== Integrations:
+=== Braintree
+=== Ogone
+=== Adyen
+= 9. Advanced Topics
+== Advanced APIcast configuration
+=== Secret Tokens
+=== Credentials
+=== Error Messages
+=== Debugging
+== Extending the Gateway (NGINX and Lua Scripts)
+=== NGINX API Proxy
+=== OpenResty
+=== Data Transformation
+=== Data Aggregation
+=== Rewrite APIs
+== SOAP Integration with APIcast
+=== SOAP Envelope changes
+=== NGINX/Lua Configuration
+== Microservices & API Management
+=== Using Fuse & 3Scale
+
+
+.References
+* https://support.3scale.net/docs/
+* https://drive.google.com/open?id=1oAuFflMOnIg6uzUCtguhV6ChnlWn8LBmrNQeaBpI4zQ
+* https://drive.google.com/drive/u/1/folders/0B_ZtWYFjvMK0VDJYTENyaFVwYmc
+* https://github.com/redhat-gpe/3scale_onpremise_implementation/blob/master/docs/Reference.adoc
+* https://github.com/redhat-gpe/3scale_foundational
+* https://mojo.redhat.com/docs/DOC-1092366
+
+
+
+
+
