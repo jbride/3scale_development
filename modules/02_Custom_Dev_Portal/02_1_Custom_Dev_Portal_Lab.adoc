@@ -18,6 +18,9 @@
 .. Integration with Red Hat SSO (Available on enterprise plans only)
 ... Developer users
 
+. Localization
+.. From Kevin on 7 April, 2017:  I have actually built one portal with localization myself using some custom JS, HTML & the liquid that is built into the 3scale portal. I still have the tutorial pending to compliment this work. I will share both with you as soon as I have it done. I'm not sure if there is a plan to have this built into the CMS itself though.
+
 
 [blue]#Congratulations!#.
 
