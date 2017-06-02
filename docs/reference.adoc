@@ -1,0 +1,29 @@
+= Reference
+
+== APIs.io
+
+
+API.io and API.json (http://apisjson.org/) are both open source discovery and search tools developed by 3scale team. 
+API providers can use it to describe and publish the APIs while enabling API consumers to search and find services. 
+
+3Scale created the APIs.json format in collaboration with API Evangelist (Kin Lane), and we envisioned it as a solution to the "API Discovery" problem that we've seen raising.
+There were many marketplaces available, many listings... ProgrammableWeb was the only source to identify the number of APIs out there...
+Nothing was automated. Nothing close to a "search/discovery" experience you could have on Google.
+
+The idea was to everything about an API that not's on the technical level: what it does, who supports it, it's version, its T&C, pricing, ...
+APIs.json is a machine-readable format, the same way Swagger (OpenAPI) is. So we could build tools powered by this format.
+
+That was the idea behind APIs.io, a showcase of what you could achieve using this new "robots.txt" for APIs.
+It's a search engine for APIs. I never got the time to build the crawler, but the idea was to crawl regularly for changes.
+We have more than 1000 listed included official support from Paypal, Spotify or Taiwain Gov.
+
+Using this same principle I've built something that could be embedded into 3scale Dev Portal:
+example
+Github repo 
+
+What could be the future of this project?
+- containerization to have local install of the directory, internal to companies
+- automatization with CI/CD flow, every time you change the API, it's reported to the directory, new APIs are posted automatically
+- (tech) rewrite in a more standard JS framework to drive more community support
+
+
