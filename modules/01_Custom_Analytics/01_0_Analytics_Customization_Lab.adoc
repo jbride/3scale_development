@@ -8,6 +8,7 @@
 
 .Goals
 * Customization of Analytics Dashboard in SaaS environment
+* Retrieve Analytics using the Platform REST APIs (https://support.3scale.net/docs/3scale-apis-activedocs Analytics )
 
 == Overview
 
