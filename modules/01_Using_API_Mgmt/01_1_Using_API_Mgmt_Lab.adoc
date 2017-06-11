@@ -1,0 +1,37 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= Using Red Hat 3Scale API Management Lab
+
+.Goals
+. Take an existing API and integrate with 3scale, eg:
+.. http://api.zalando.com/
+.. https://swapi.co/   
+.. http://developer.nytimes.com  
+. Secure it with an API key as parameter or header
+. Create at least 2 methods and mappings
+. Create at least 2 application plans
+. Create at least 2 rate limitation policies per application plan
+. Create an Application or verify if there is already one associated to the plan
+. Verify that the API is secured
+. Verify that Analytics is updated
+. API consumer portal:
+.. Change look & feel (content, colours...)
+.. Display new Swagger spec
+.. Present different application plan
+. API Billing:
+.. Setup a test account in Stripe
+.. Configure the integration in the API Platform
+.. Add monetization rules to one Application Plan
+.. Use the Application Plan
+.. Review invoices
+
+== Overview
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+endif::showscript[]
