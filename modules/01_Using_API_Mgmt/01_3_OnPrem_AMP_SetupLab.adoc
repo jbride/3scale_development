@@ -103,8 +103,11 @@ image::images/ocp_amp_application_create.png[]
 +
 NOTE: Keep a note of the URL and user credentials, so that you can access the 3scale AMP Portal when it is provisioned.
 +
-. Click on `Go to Overview`, and wait until all the pods are in BLUE state.
-
+. Click on `Go to Overview`, and wait until all the pods are started.
+. You can find the list of pods required for AMP here:
++
+image::images/ocp_amp_pods_list.png[]
++
 . Once the provisioning is complete, point your browser to the URL of the 3scale admin and login.
 +
 image::images/ocp_amp_admin_login.png[]

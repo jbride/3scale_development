@@ -153,9 +153,6 @@ image::images/ocp_create_new_project.png[]
 .. Click on the `Create` button.
 
 . You are now in the `bservices` project home page and can deploy the business services in this project.
-+
-image::images/ocp_bservices_project_home.png[]
-
 
 === Deploy and Test Swarm-Based Business Service
 
@@ -166,7 +163,7 @@ image::images/ocp_bservices_project_home.png[]
 . Deploy the WildFly Swarm docker image available in the registry `docker.io/rhtgptetraining/wf_swarm_datestamp_service:1.0`:
 .. Select the radio button for `Image Name`.
 .. Enter the image registry URL: `docker.io/rhtgptetraining/wf_swarm_datestamp_service:1.0`.
-.. Click on the search button.
+.. Click on the `Search` button.
 +
 image::images/ocp_bservices_wfswarm_deploy_image.png[]
 +
