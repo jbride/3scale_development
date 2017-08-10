@@ -24,6 +24,11 @@ IMPORTANT: The 3scale URL for your lab environment will be `https://3scale-admin
 
 In the previous labs, you installed and configured an OpenShift Container Platform environment, installed the AMP On-premise, and RESTFul business services. In this lab, you install use the AMP to manage the RESTful business service APIs. 
 
+Use your new on-premise 3scale by Red Hat AMP to manage and monitor your business services. A deployment topology of your two business service clients invoking your on-premise APIcast and AMP environment is as shown here:
+
+image::images/on_prem_amp_host_routing.png[]
+
+NOTE: The business services for Vertx and Swarm are the ones created in the earlier lab in the `bservices` project. Please confirm that the project exists and the services are available.
 
 == Create Routes for Business Service APIs
 
@@ -63,16 +68,9 @@ image::images/ocp_amp_list_routes.png[]
 
 == API Management Using 3scale AMP Admin Portal
 
-Use your new on-premise 3scale by Red Hat AMP to manage and monitor your business services.
+== API Management Using 3scale REST APIs
 
-* To do this, you need to create Accounts, Developers, Application Plans, etc., in your new self-managed AMP environment.
-
-. Use the `curl` utility to test communication to your business services while they are managed by your on-premise APIcast and AMP.
-* A deployment topology of your two business service clients invoking your on-premise APIcast and AMP environment is as shown here:
-+
-image::images/on_prem_amp_host_routing.png[]
-
-
+== API Management Using 3scale Command Line Interface (CLI)
 
 [blue]#Congratulations!#.
 
