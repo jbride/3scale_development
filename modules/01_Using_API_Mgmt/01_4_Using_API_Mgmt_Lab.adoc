@@ -68,7 +68,95 @@ image::images/ocp_amp_list_routes.png[]
 
 == API Management Using 3scale AMP Admin Portal
 
+Now, you will expose the VertX business services created in an earlier lab using the 3scale APICast Gateway. We will use the 3scale Admin Portal to create the accounts, applications, application plans, services and API definitions.
+
+
+=== Login
+
+. In a browser window, access the 3scale Admin Portal URL.
++
+NOTE: The 3scale admin portal is as noted in the previous lab. It should be of the form https://3scale-admin.cloudapps.$GUID.3scale.opentlc.com, where $GUID is the unique GUID of your OPENTLC host.
++
+. Login to the 3scale portal using credentials `admin/admin`.
++
+image::images/3scale_amp_admin_portal_login.png[]
++
+. Navigate to `Developers` and delete the default user `John Doe`.
++
+image::images/3scale_amp_admin_delete_developers.png[]
+
+
+=== Define accounts and users
+
+. Create a new account `vertx_dev` with following credentials:
+.. `Username`: `vertx_dev`
+.. `Email` : PROVIDE A UNIQUE EMAIL ADDRESS
+.. `PASSWORD`: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
+.. `Organization/Group Name` : `vertx_group`
+
+=== Define VertX Service
+
+In this section, you define a service that manages access to the Vertx business service that you provisioned in the previous lab.
+
+. Navigate to the API tab.
+. Create a new service with following information:
+.. `Name` : `vertx_service`
+.. `System Name` : `vertx_service`
+.. `Authentication` : `API Key (user_key)`
+
+=== Define Application Plan
+
+. In the newly created `vertx_service`, create a new Application Plan.
+. Use the following parameters:
+.. `Name` : `vertx_app_plan`
+.. `System Name` : `vertx_app_plan`
+
+=== Create Application
+
+In this section, you associate an application to your previously defined users. This generates a user key to the application. The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
+
+. Navigate to the `Developers` tab.
+. Select the `vertx_account` and create a new application.
+.. `Application Plan` : `vertx_app_plan`
+.. `Service Plan` : `Default`
+.. `Name`: `vertx_app`
+.. `Description` : `Vertx business service application.`
+
+. After the Application is created, make a note of the User Key.
+
+=== Stage Vertx Service Integration
+
+. Navigate to the API tab.
+. In the `vertx_service`, select *Application Plans*.
+. *Publish* the `vertx_app_plan`.
+. In your `vertx_service`, select *Integration*.
+. Enter the vertx API and Business Service routes to the configuration:
+.. `Private Base URL` : _Route to the Vertx Business Service Endpoint_
++
+image::images/ocp_bservices_vertx_route.png[]
++
+.. `Staging Public Base URL` : _Route to the Vertx APICast Staging Endpoint_
++
+image::images/ocp_amp_list_routes_highlight_vertx_stage.png[]
++
+.. `Production Public Base URL` : _Route to the Vertx APICast Production Endpoint_
++
+image::images/ocp_amp_list_routes_highlight_vertx_prod.png[]
++
+.. Keep the rest of the configuration same and `Update & test in Staging Environment`.
+.. `API test GET Request` : `/hello`
+
+. Now make a request based on the curl request generated in the Client to ensure the staging API URL is accessed correctly.
+. Once it is successful, `Promote to Production` and test the curl request for Production. 
+
 == API Management Using 3scale REST APIs
+
+In this lab, you will expose the WildFly Swarm business services created in an earlier lab using the 3scale APICast Gateway. We will use the REST API calls to create the accounts, applications, application plans, services and API definitions.
+
+
+=== Identify Admin Access Token
+
+You need the Admin Access Token for your new on-premise AMP environment. You use it when programmatically invoking the RESTful APIs of your 3scale by Red Hat on-premise AMP environment.
 
 == API Management Using 3scale Command Line Interface (CLI)
 
