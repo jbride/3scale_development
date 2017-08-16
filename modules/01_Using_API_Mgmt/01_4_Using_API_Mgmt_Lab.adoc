@@ -439,6 +439,7 @@ NOTE: Ensure the promotion has been successful.
 -----
 $ curl -v -k GET "https://<<swarm-prod-apicast route url>>/time/now?user_key=<<user_key>>“ 
 
+-----
 
 == API Management Using 3scale Command Line Interface (CLI)
 
