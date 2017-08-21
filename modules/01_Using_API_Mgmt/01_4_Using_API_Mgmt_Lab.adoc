@@ -92,7 +92,7 @@ image::images/3scale_amp_admin_delete_developers.png[]
 .. `Username`: `vertx_dev`
 .. `Email` : PROVIDE A UNIQUE EMAIL ADDRESS
 .. `PASSWORD`: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
-.. `Organization/Group Name` : `vertx_group`
+.. `Organization/Group Name` : `vertx_account`
 
 === Define VertX Service
 
@@ -236,7 +236,6 @@ $ mkdir -p $API_RESPONSE_DIR
 NOTE: For the REST requests below, you can either use `curl` or directly execute the REST requests from the api_docs documentation interface. 
 
 In case you wish to use `curl` from the client VM, please install `xmlstarlet`  
-+
 [source,text]
 -----
 $ sudo yum install xmlstarlet
@@ -298,7 +297,7 @@ NOTE: Note the service plan id of the default plan above.
 image::images/3scale_api_call_application_plan_create.png[]
 +
 NOTE: Note the application plan id of the default plan above.
-+
+
 
 ==== Create Limit for `hit` Metric
 
@@ -443,7 +442,187 @@ $ curl -v -k GET "https://<<swarm-prod-apicast route url>>/time/now?user_key=<<u
 
 == API Management Using 3scale Command Line Interface (CLI)
 
-[blue]#Congratulations!#.
+In this lab, you will expose an external business service using the 3scale APICast Gateway. We will use the 3scale Command Line Interface (CLI) to create the accounts, applications, application plans, services and API definitions.
+
+For this lab, we will use the REST API services provided by Finto (https://api.finto.fi). Check out the list of available APIs documented here: https://api.finto.fi/doc/
+
+The APICast Gateway will be routing to the backend business service and provide a staging and production URLs for customers. The deployment topology will look like this:
+
+image::images/on_prem_amp_finto_routing.png[]
+
+=== Create Staging and Production Routes
+
+As discussed in Section 2, create the following 2 routes in the OpenShift Containper Platform for the Finto API services.
+
+. `finto-stage-apicast` - A *secure* route connecting to the *apicast-staging* service.
+. `finto-prod-apicast` - A *secure* route connecting to the *apicast-production* service.
++
+image::images/ocp_amp_list_routes_highlight_finto.png[]
+
+=== Install 3scale CLI
+
+3scale CLI is the command line tool available for configuring and managing 3scale API Management Platform. It depends on Node.js and NPM.
+
+To install, follow the below steps:
+
+. Login to the client VM and switch user to `jboss`.
+. Install node.js:
++
+[source,text]
+-----
+
+$ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+$ sudo yum -y install nodejs
+-----
++
+. You can optionally also install build tools:
++
+[source,text]
+-----
+
+$ sudo yum install gcc-c++ make
+-----
++
+. Install 3scale CLI:
++
+[source,text]
+-----
+
+$ sudo npm install -g node-3scale-cli
+-----
++
+. execute the following command to check if the 3scale-cli has been installed successfully.
++
+[source,text]
+-----
+
+$ 3scale-cli --help
+-----
+
+=== Configure 3scale CLI
+
+To configure CLI with the your 3scale AMP, it first needs to be configured with the access details. 
+
+. Configure using the 3scale config command:
++
+[source,text]
+-----
+$ export NODE_TLS_REJECT_UNAUTHORIZED=0
+$ 3scale-cli config
+[ 3scale-cli ] Please answer the following questions to configure 3scale cli.
+? 3scale access token <<your on-prem admin access token>>
+? 3scale id 3scale
+? 3scale wildcard domain <<your $OCP_WILDCARD_DOMAIN>>
+[3scale-cli] 3scale cli tool configured
+-----
+
+. Test whether the connection to AMP is working by executing a list command:
++
+[source,text]
+-----
+
+$ 3scale-cli services list
+[ 3scale-cli ] There are 2 services on your account.
+ id  name  state       system_name  end_user_registration_required  created_at            updated_at
+--  ----  ----------  -----------  ------------------------------  --------------------  --------------------
+2   API   incomplete  api          true                            2017-08-21T07:28:04Z  2017-08-21T07:28:04Z
+3   Test  incomplete  Test         true                            2017-08-21T09:35:25Z  2017-08-21T09:35:26Z
+-----
+
+=== Define accounts and users
+
+`3scale-cli` does not currently allow for defining users and accounts using the Command Line Interface. Hence, use either the Admin Console or the REST API and create the following user and account:
+
+. Create a new account finto_dev with following credentials:
+
+Username: finto_dev
+
+Email : PROVIDE A UNIQUE EMAIL ADDRESS
+
+PASSWORD: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
+
+Organization/Group Name : finto_account
+
+=== Define Finto Service
+
+In this section, you define a service that manages access to the Finto business service.
+
+. Login to the client VM console as user `jboss`. 
+. Use `3scale-cli` for creating the new service.
++
+[source,text]
+-----
+
+$ 3scale-cli services create --serviceName finto_service
+[ 3scale-cli ] Service with name finto_service created.
+
+-----
++
+. List the services and not the service_id of the `finto_service`.
++
+[source,text]
+-----
+
+$ 3scale-cli services list | grep finto_service
+4   finto_service34  incomplete  finto_service34  true                            2017-08-21T12:27:48Z  2017-08-21T12:27:48Z
+
+-----
++
+NOTE: In the above, the service id is `4`.
+
+=== Define Application Plan
+
+In the newly created `finto_service`, create a new Application Plan.
+
+
+. Login to the client VM console as user `jboss`. 
+. Use `3scale-cli` for creating the new service.
++
+[source,text]
+-----
+
+$ 3scale-cli app-plan --plan finto_app_plan create -s <service_id>
+
+[ 3scale-cli ] Application plan named finto_app_plan with id 10 created on 3scale
+
+-----
++
+NOTE: Note the Application Plan id of the `finto_app_plan`.
+
+=== Create Application
+
+
+In this section, you associate an application to your previously defined users. This generates a user key to the application. The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
+
+NOTE: The `3scale-cli` does not have a command for creating an application. Hence, use the Admin Console or the REST Administration APIs to create the application.
+
+. Select the `finto_account` and create a new application.
+.. `Application Plan` : *finto_app_plan*
+.. `Service Plan` : *Default*
+.. `Name` : *finto_application*
+.. `Description` : *Finto Application*
++
+NOTE: Note the `user_key` generated. This will be used as a parameter for the API requests.
+
+=== Stage Finto Service Integration
+
+In this step, you need to specify the Integrations for the `finto_service`, and provide the configuration for staging, production APIs, and the backend API. There is no 3scale-cli command to stage service intregrations, hence use the Admin Console for creating the integrations.
+
+. Navigate to the API tab.
+. In the `finto_service`, select *Application Plans*.
+. *Publish* the `finto_app_plan`.
+. In your `finto_service`, select *Integration*.
+. Enter the Finto API service URL:
+.. `Private Base URL` : *https://api.finto.fi:443*
+.. `Staging Public Base URL` : _Route to the Finto APICast Staging Endpoint_
+.. `Production Public Base URL` : _Route to the Finto APICast Production Endpoint_
+.. Keep the rest of the configuration same and `Update & test in Staging Environment`.
+.. `API test GET Request` : `/rest/v1/vocabularies?lang=en`
+
+. Now make a request based on the curl request generated in the Client to ensure the staging API URL is accessed correctly.
+. Once it is successful, `Promote to Production` and test the curl request for Production. 
+
+
 
 ifdef::showscript[]
 endif::showscript[]
