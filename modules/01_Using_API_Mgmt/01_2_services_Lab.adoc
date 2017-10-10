@@ -73,7 +73,7 @@ $ oc create -f /home/jboss/lab/3scale_development_labs/templates/products-api.js
 +
 [source,text]
 -----
-$ oc new-app --template=products-api --param HOSTNAME_HTTP=products.$OCP_WILDCARD_DOMAIN
+$ oc new-app --template=products-api --param HOSTNAME_HTTP=products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
 -----
 
 . Test the Products API service deployed in your OpenShift Container Platform environment:
@@ -88,15 +88,15 @@ products-api-1-02s28               1/1       Running     0          4m
 productsdb-1-39dkc                 1/1       Running     0          5m
 $ oc get routes
 NAME                       HOST/PORT                                                                                   PATH      SERVICES               PORT      TERMINATION   WILDCARD
-products-api               products.apps.na1.openshift.opentlc.com                                                              products-api           <all>                   None
+products-api               products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com                                                              products-api           <all>                   None
 -----
 +
-.. Note the HOST/PORT above, this is the URL to connect to the Products API service. This will be `http://products.$OCP_WILDCARD_DOMAIN`.
+.. Note the HOST/PORT above, this is the URL to connect to the Products API service. This will be `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN`.
 .. Now test that the Products API service is accepting requests and returning the right response:
 +
 [source,text]
 -----
-$ curl -v -k http://products.$OCP_WILDCARD_DOMAIN/rest/services/product/1
+$ curl -v -k http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/services/product/1
 -----
 +
 .Sample Output

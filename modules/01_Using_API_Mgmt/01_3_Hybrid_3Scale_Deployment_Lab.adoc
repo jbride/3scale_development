@@ -179,7 +179,6 @@ In this section, you expose a single service with two different _routes_, one fo
 
 In this scenario, you want the single on-premise APIcast gateway to manage the RESTful endpoints of your business services. You do this by configuring _host-based routing_. Inbound traffic from remote clients to your single APIcast gateway uses different URLs. Based on these URLs, your APIcast gateway routes to the appropriate business service.
 
-image::images/apicast_host_routing.png[]
 
 Use these steps to create the unique routes to your newly provisioned APIcast gateway:
 

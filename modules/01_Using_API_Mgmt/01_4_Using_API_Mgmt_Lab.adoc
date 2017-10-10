@@ -6,9 +6,14 @@
 
 = Using Red Hat 3Scale API Management Lab
 
+In this lab, you will create your first API Management Service in 3Scale AMP, exposing the Products API REST JEE application deployed in the previous lab. 
+
+
 .Goals:
 
-. Use the 3scale Admin Portal, REST APIs and Command Line Interface to manage RESTful APIs using the AMP hosted on OpenShift Container Platform.
+. Expose Products API REST Service with 3scale.
+. Create Application Plans for Basic and Premium users.
+. Apply rate limits for basic users to control access to the API.
 
 .Prerequisites
 * Completion of the previous labs of this course
@@ -17,67 +22,25 @@
 TIP: To check if your shell still has this environment variable set, execute the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
 +
 * 3scale Admin Portal URL and user credentials to login.
-+
-IMPORTANT: The 3scale URL for your lab environment will be `https://3scale-admin.$OCP_WILDCARD_DOMAIN`. The userid/password is `admin/admin`.
+
 
 == Overview
 
-In the previous labs, you installed and configured an OpenShift Container Platform environment, installed the AMP On-premise, and RESTFul business services. In this lab, you install use the AMP to manage the RESTful business service APIs. 
+In the previous labs, you installed and configured an OpenShift Container Platform environment, installed the APICast On-premise, and REST API business services. In this lab, you use the 3scale SaaS AMP to manage the business service APIs. 
 
-Use your new on-premise 3scale by Red Hat AMP to manage and monitor your business services. A deployment topology of your two business service clients invoking your on-premise APIcast and AMP environment is as shown here:
-
-image::images/on_prem_amp_host_routing.png[]
-
-NOTE: The business services for Vertx and Swarm are the ones created in the earlier lab in the `bservices` project. Please confirm that the project exists and the services are available.
-
-== Create Routes for Business Service APIs
-
-You now have both APIcast and AMP environments installed on-premise in your OpenShift Container Platform lab environment.
-
-. Open a browser window and navigate to the OpenShift Management Console URL
-+
-NOTE: The URL for Management Console is https://${EXTERNAL_HOST}:8443/
-+
-image::images/ocp_login.png[]
-+
-. Login as user `developer` with password `developer`. 
-. Navigate to the `3scale-amp` project.
-. Delete the out-of-the-box default routes that are assigned to both of your new `apicast` gateways.
-.. Navigate to `Applications` -> `Routes`.
-.. Delete the route `api-apicast-production-route`.
-+
-image::images/ocp_amp_delete_apicast_prod_route.png[]
-+
-.. Delete the route `api-apicast-staging-route`.
-+
-image::images/ocp_amp_delete_apicast_stage_route.png[]
-+
-. For each business service, create an HTTPS route for both of your new `apicast` gateways. 
-.. For swarm, create the `swarm-stage-apicast` route for the staging environment.
-+
-image::images/ocp_amp_apicast_stage_swarm_route.png[]
-+
-.. Similarly, create the `swarm-prod-apicast` route for the production environment.
-+
-image::images/ocp_amp_apicast_prod_swarm_route.png[]
-+
-.. Repeat the process to create the `vertx-stage-apicast` and `vertx-prod-apicast` routes.
-.. You should now have the following routes in your list:
-+
-image::images/ocp_amp_list_routes.png[]
 
 == API Management Using 3scale AMP Admin Portal
 
-Now, you will expose the VertX business services created in an earlier lab using the 3scale APICast Gateway. We will use the 3scale Admin Portal to create the accounts, applications, application plans, services and API definitions.
+Now, you will expose the Products API business services created in an earlier lab using the 3scale APICast Gateway. We will use the 3scale SaaS Portal to create the accounts, applications, application plans, services and API definitions.
 
 
 === Login
 
-. In a browser window, access the 3scale Admin Portal URL.
+. In a browser window, access the 3scale SaaS Admin Portal URL.
 +
-NOTE: The 3scale admin portal is as noted in the previous lab. It should be of the form https://3scale-admin.cloudapps.$GUID.3scale.opentlc.com, where $GUID is the unique GUID of your OPENTLC host.
+NOTE: The 3scale admin portal is as noted in the previous lab. It should be of the form https://<<your_domain>>-admin.3scale.net, where <<your_domain>> is the THREESCALE_DOMAIN_NAME of your account on 3scale.net.
 +
-. Login to the 3scale portal using credentials `admin/admin`.
+. Login to the 3scale portal using your login credentials.
 +
 image::images/3scale_amp_admin_portal_login.png[]
 +
@@ -86,542 +49,166 @@ image::images/3scale_amp_admin_portal_login.png[]
 image::images/3scale_amp_admin_delete_developers.png[]
 
 
-=== Define accounts and users
 
-. Create a new account `vertx_dev` with following credentials:
-.. `Username`: `vertx_dev`
-.. `Email` : PROVIDE A UNIQUE EMAIL ADDRESS
-.. `PASSWORD`: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
-.. `Organization/Group Name` : `vertx_account`
 
-=== Define VertX Service
+=== Define ProductsAPI Service
 
-In this section, you define a service that manages access to the Vertx business service that you provisioned in the previous lab.
+In this section, you define a service that manages access to the Products API business service that you provisioned in the previous lab.
 
 . Navigate to the API tab.
-. Create a new service with following information:
-.. `Name` : `vertx_service`
-.. `System Name` : `vertx_service`
++
+NOTE: Notice that there is already a service defined for Echo API. This is useful for testing the 3scale routing, so do not delete this service.
++
+. Click on `Create Service` to create a new service with following information:
+.. `Name` : `Products`
+.. `System Name` : `products_system`
+.. `Description` : `RHMart Products API`
+.. `Gateway : `NGINX APIcast self-managed`
 .. `Authentication` : `API Key (user_key)`
++
+image::images/3scale_amp_products_create_service_1.png[]
++
+. Keep the rest of the default fields unchanged and click on `Create Service` button.
++
+image::images/3scale_amp_products_create_service_2.png[]
+
 
 === Define Application Plan
 
-. In the newly created `vertx_service`, create a new Application Plan.
+Plans are used for granting access to specific APIs and endpoints, limiting traffic and monetizing API usage. Application plans let you configure access rights to an API by specifying rate limits and pricing rules. All applications must be associated with a plan. Application plans can be customized for each application.
+
+. In the newly created `Products` service, create a new Application Plan.
++
+image::images/3scale_amp_products_app_plan.png[]
++
+. In the APIs section, expand the `Products` API and scroll down to the *Published Application Plans* section.
+. Click on `Create Application Plan` link.
 . Use the following parameters:
-.. `Name` : `vertx_app_plan`
-.. `System Name` : `vertx_app_plan`
+.. `Name` : `ProductsBasicPlan`
+.. `System Name` : `products/basic`
+. Click on `Create Application Plan` link.
++
+image::images/3scale_amp_products_app_plan2.png[]
++
+. Create another Application Plan with Name `ProductsPremiumPlan` and System Name `products/premium`.
+. Select the *ProductsBasicPlan* as Default Plan.
+. Click on the *Publish* link for both `ProductsBasicPlan` and `ProductsPremiumPlan`.
++
+image::images/3scale_amp_products_app_plan_publish.png[]
+
+
+=== Define accounts and users
+
+. Click on the `Developers` link.
+. Click on `Create`.
+. Create a new account `RHMart` with following credentials:
+.. `Username`: `rhbankdev`
+.. `Email` : PROVIDE A UNIQUE EMAIL ADDRESS
+.. `PASSWORD`: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
+.. `Organization/Group Name` : `RHBank`
++
+image::images/3scale_amp_products_create_dev.png[]
 
 === Create Application
 
 In this section, you associate an application to your previously defined users. This generates a user key to the application. The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
 
 . Navigate to the `Developers` tab.
-. Select the `vertx_account` and create a new application.
-.. `Application Plan` : `vertx_app_plan`
-.. `Service Plan` : `Default`
-.. `Name`: `vertx_app`
-.. `Description` : `Vertx business service application.`
-
-. After the Application is created, make a note of the User Key.
-
-=== Stage Vertx Service Integration
-
-. Navigate to the API tab.
-. In the `vertx_service`, select *Application Plans*.
-. *Publish* the `vertx_app_plan`.
-. In your `vertx_service`, select *Integration*.
-. Enter the vertx API and Business Service routes to the configuration:
-.. `Private Base URL` : _Route to the Vertx Business Service Endpoint_
+. Select the `RHBank` account and click on `1 Application` breadcrumb.
 +
-image::images/ocp_bservices_vertx_route.png[]
+image::images/3scale_amp_products_create_app.png[]
 +
-.. `Staging Public Base URL` : _Route to the Vertx APICast Staging Endpoint_
+NOTE: Notice that the default service `Echo API` is automatically associated with the *RHBank* account.
 +
-image::images/ocp_amp_list_routes_highlight_vertx_stage.png[]
-+
-.. `Production Public Base URL` : _Route to the Vertx APICast Production Endpoint_
-+
-image::images/ocp_amp_list_routes_highlight_vertx_prod.png[]
-+
-.. Keep the rest of the configuration same and `Update & test in Staging Environment`.
-.. `API test GET Request` : `/hello`
-
-. Now make a request based on the curl request generated in the Client to ensure the staging API URL is accessed correctly.
-. Once it is successful, `Promote to Production` and test the curl request for Production. 
-
-== API Management Using 3scale REST APIs
-
-In this lab, you will expose the WildFly Swarm business services created in an earlier lab using the 3scale APICast Gateway. We will use the REST API calls to create the accounts, applications, application plans, services and API definitions.
-
-
-=== Identify Admin Access Token
-
-You need the Admin Access Token for your new on-premise AMP environment. You use it when programmatically invoking the RESTful APIs of your 3scale by Red Hat on-premise AMP environment.
-
-Follow the below steps to create the user token:
-
-. Login to the 3scale admin portal using credentials `admin/admin`.
-. Click on `Settings -> Personal Settings`
-+
-image::images/3scale_admin_settings_drop_down.png[]
-+
-. Click on `Tokens`.
-+
-image::images/3scale_admin_personal_settings.png[]
-+
-. Click on `Add Access Token`.
-+
-image::images/3scale_admin_personal_settings_add_token.png[]
-+
+. Click on `Create Application` link.
 . Enter the following values:
-.. `Name` : *swarm_admin*
-.. `Scopes` : *Select _Account Management API_ and _Analytics API_*
-.. `Permission` : *Read & Write*
+.. `Application Plan` : `ProductsBasicPlan`
+.. `Service Plan` : `Default`
+.. `Name`: `ProductsApp`
+.. `Description` : `Products Application.`
 +
-image::images/3scale_admin_personal_settings_add_token_form.png[]
+image::images/3scale_amp_products_create_app2.png[]
 +
-. Click on `Create Access Token`.
-. In the next page, copy the access token provided.
+. After the Application is created, make a note of the User Key.
 +
-image::images/3scale_admin_personal_settings_post_add_token.png[]
-+
-. Save the access token as an environment variable `ON_PREM_ACCESS_TOKEN` in your client VM.
-+
-[source,text]
------
-$ echo "export ON_PREM_ACCESS_TOKEN=<your on-prem Account Management access token>" >> ~/.bashrc
-$ source ~/.bashrc
------
+image::images/3scale_amp_products_app_plan_userkey.png[]
 
-=== Review API Docs
 
-In this section, you explore the documentation of the RESTful Admin APIs exposed by 3scale by Red Hat. This documentation is rendered using a technology called _ActiveDocs_, which is an implementation of the Swagger specification created by the 3scale by Red Hat team.
-
-. Point your browser to the URL generated by the following:
-+
-[source,text]
------
-$ echo https://3scale-admin.$OCP_WILDCARD_DOMAIN/p/admin/api_docs
------
-
-. Note that the API documentation is segregated into three sections:
-
-* *Service Management API*
-+
-image::images/service_mgmt_api.png[]
-** Allows for the authorization and reporting of traffic.
-** Uses a _service token_ for authentication.
-
-*** Service tokens are automatically generated when a 3scale by Red Hat service is created, unique per that service, and are shared between the users of a particular account.
-
-* *Account Management API*
-** Uses an _access token_ for authentication.
-
-*** Access tokens are personal tokens that allow for custom scopes.
-
-* *Analytics API*
-** Uses an _access token_ for authentication.
-
-=== Create 3scale by Red Hat Resources Via Admin API
-
-Every invocation of 3scale by Red Hat's APIs returns either an XML or JSON response. Create a directory to temporarily store them:
-+
-[source,text]
------
-$ export API_RESPONSE_DIR=/tmp/amp_api_responses
-$ mkdir -p $API_RESPONSE_DIR
------
-* This enables you to review them when needed.
-
-NOTE: For the REST requests below, you can either use `curl` or directly execute the REST requests from the api_docs documentation interface. 
-
-In case you wish to use `curl` from the client VM, please install `xmlstarlet`  
-[source,text]
------
-$ sudo yum install xmlstarlet
-
-$ xmlstarlet --version
------
-
-==== Create Swarm Service & Service Plan
-
-. List the existing services:
-.. Using `curl`:
-+
-[source,text]
------
-$ curl -v -k -X GET "https://3scale-admin.$OCP_WILDCARD_DOMAIN/admin/api/services.xml" \
-       -d "access_token=$ON_PREM_ACCESS_TOKEN" \
-       | xmlstarlet format --indent-tab > $API_RESPONSE_DIR/existing_services.xml
-
-$ cat $API_RESPONSE_DIR/existing_services.xml
------
-* Note that the response from the endpoint is in XML. Most of the 3scale by Red Hat Admin API endpoints return XML, with a few exceptions that return JSON. You encounter those exceptions toward the latter part of this lab.
-* The use of `xmlstarlet format --indent-tab` is simply to pretty-print the XML response body.
-+
-.. Using  3scale admin API Documentation portal:
-+
-image::images/3scale_api_call_service_list.png[]
-+
-. Create the Swarm service:
-.. `Request Type` : *POST*
-.. `API` : *Service Create*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `name` : *swarm_service*
-.. `system_name` : *swarm_service*
-+
-image::images/3scale_api_call_service_create.png[]
-+
-NOTE: Note the Service ID of the `swarm_service` created.
-+
-. Review the service plan for the `swarm_service`.
-.. `Request Type` : *GET*
-.. `API` : *Service Plan List*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `id` : <<swarm_service id>>
-+
-image::images/3scale_api_call_service_plan_list.png[]
-+
-NOTE: Note the service plan id of the default plan above.
-
-==== Create Application Plan
-
-. Create a `swarm_app_plan` via the Account Management API:
-.. `Request Type` : *POST*
-.. `API` : *Application Plan Create*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `name` : *swarm_app_plan*
-.. `system_name` : *swarm_app_plan*
-.. `service_id` : <<swarm_service id>>
-+
-image::images/3scale_api_call_application_plan_create.png[]
-+
-NOTE: Note the application plan id of the default plan above.
-
-
-==== Create Limit for `hit` Metric
-
-The 3scale by Red Hat Admin API allows you to define a `hit` metric on an application plan. For this lab, you set the `hit` metric to 100 requests per minute.
-
-. Create hit metric via the Account Management API:
-.. `Request Type` : *POST*
-.. `API` : *Limit Create*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `application_plan_id` : <<swarm_app_plan id>>
-.. `metric_id` : <<swarm_service metric hits id>>
-.. `period` : `minute`
-.. `value` : 100
-+
-image::images/3scale_api_call_metric_hits_create.png[]
-+
-NOTE: Note the metric and plan id of the limit above.
-
-==== Create Account Plan
-
-. Create a `swarm_account_plan` via the Account Management API:
-.. `Request Type` : *POST*
-.. `API` : *Account Plan Create*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `name` : *swarm_account_plan*
-.. `system_name` : *swarm_account_plan*
-+
-image::images/3scale_api_call_account_plan_create.png[]
-+
-NOTE: Note the account plan id of the account plan above.
-
-==== Set up Account and Users
-
-. Create a `swarm_account` via the Signup Express endpoint of the Account Management API:
-.. `Request Type` : *POST*
-.. `API` : *Signup Express*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `org_name` : *swarm_account*
-.. `username` : *swarm_dev*
-.. `email` : <<enter a valid email id>>
-.. `password` : <<enter the password you wish to use>>
-.. `account_plan_id` : << swarm_account_plan id>>
-.. `service_plan_id` : <<swarm_service_plan id>>
-.. `application_plan_id` : <<swarm_app_plan id>>
-+
-IMPORTANT: Note the account id of the new user account above. Also note the *user_key* and save it. This is required to make requests to the APIs.
-
-=== Configure Services
-
-==== Update Service Proxy
-
-For every service, there is one service proxy resource.
-
-. Set the private base URL, the staging APIcast URL, and the production APIcast URL on the service proxy:
-.. `Request Type` : *PATCH*
-.. `API` : *Proxy Update*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `service_id` : *swarm_service id*
-.. `endpoint` : <<swarm-prod-apicast route url>>
-.. `api_backend` : <<swarm business service route url>>
-.. `sandbox_endpoint` : <<swarm-stage-apicast route url>>
-.. ‘api_test_path’ : */time/now*
-+
-NOTE: As some of these parameters are not available on the api_docs, you need to run the above command as a curl request. An example request is as below:
-+
-[source,text]
------
-$ curl -v -k -X PATCH "https://3scale-admin.$OCP_WILDCARD_DOMAIN/admin/api/services/$vertx_serviceId/proxy.xml" \
-       -d "access_token=$ON_PREM_ACCESS_TOKEN" \
-       -d "api_backend=https://wfswarmdatestampservice-bservices.cloudapps.ea62.3scale.opentlc.com:443" \
-       -d "endpoint=https://swarm-prod-apicast-3scale-amp.cloudapps.ea62.3scale.opentlc.com:443" \
-       -d "sandbox_endpoint=https://swarm_service-3scale-apicast-staging.cloudapps.ea62.3scale.opentlc.com:443" \
-       | xmlstarlet format --indent-tab > $API_RESPONSE_DIR/swarm_service_proxy_update_response.xml
-
-$ cat $API_RESPONSE_DIR/swarm_service_proxy_update_response.xml
------
-+
-TIP: Check the `sandbox_endpoint` value. If it is not updated to your provided staging route endpoint, please use the Admin Console to update the same.
-
-==== Promote
-
-For every service proxy, there are two proxy configuration resource types:
-
-* *sandbox*
-* *production*
-
-There can be multiple proxy configuration versions for each `proxy_config` type.
-
-. Determine the ID of the sandbox environment `proxy_config`:
-.. `Request Type` : *GET*
-.. `API` : *Proxy Configs List*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `service_id` : *swarm_service id*
-.. `environment` : *sandbox*
-+
-image::images/3scale_api_call_proxy_config_list.png[]
-+
-NOTE: Note the proxy config id of the environment above.
-
-. Test the Staging Environment:
-.. Make a curl request to the sandbox endpoint URL of APICast and test that the business service is being called correctly.
-.. Use the user_key for the swarm_service as provided in the user creation of swarm_dev earlier.
-.. Make a curl request to the swarm staging URL:
-+
-[source,text]
------
-$ curl -v -k GET "https://<<swarm-stage-apicast route url>>/time/now?user_key=<<user_key>>“ 
------ 
-
-==== Promote to Production
-
-. Determine the Version ID of the latest sandbox environment `proxy_config`:
-.. `Request Type` : *GET*
-.. `API` : *Proxy Config Show Latest*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `service_id` : *swarm_service id*
-.. `environment` : *sandbox*
-+
-image::images/3scale_api_call_proxy_config_show_latest.png[]
-+
-NOTE: Note the version id of the environment above.
-+
-. Promote the sandbox environment to production:
-.. `Request Type` : *POST*
-.. `API` : *Proxy Config Promote*
-.. `access_token` : $ON_PREM_ACCESS_TOKEN
-.. `service_id` : *swarm_service id*
-.. `environment` : *sandbox*
-.. `version` : <<config version from previous command>>
-.. `to` : *production*
-+
-image::images/3scale_api_call_proxy_config_promote.png[]
-+
-NOTE: Ensure the promotion has been successful.
-.. Make a curl request to the swarm production URL:
-+
-[source,text]
------
-$ curl -v -k GET "https://<<swarm-prod-apicast route url>>/time/now?user_key=<<user_key>>“ 
-
------
-
-== API Management Using 3scale Command Line Interface (CLI)
-
-In this lab, you will expose an external business service using the 3scale APICast Gateway. We will use the 3scale Command Line Interface (CLI) to create the accounts, applications, application plans, services and API definitions.
-
-For this lab, we will use the REST API services provided by Finto (https://api.finto.fi). Check out the list of available APIs documented here: https://api.finto.fi/doc/
-
-The APICast Gateway will be routing to the backend business service and provide a staging and production URLs for customers. The deployment topology will look like this:
-
-image::images/on_prem_amp_finto_routing.png[]
-
-=== Create Staging and Production Routes
-
-As discussed in Section 2, create the following 2 routes in the OpenShift Containper Platform for the Finto API services.
-
-. `finto-stage-apicast` - A *secure* route connecting to the *apicast-staging* service.
-. `finto-prod-apicast` - A *secure* route connecting to the *apicast-production* service.
-+
-image::images/ocp_amp_list_routes_highlight_finto.png[]
-
-=== Install 3scale CLI
-
-3scale CLI is the command line tool available for configuring and managing 3scale API Management Platform. It depends on Node.js and NPM.
-
-To install, follow the below steps:
-
-. Login to the client VM and switch user to `jboss`.
-. Install node.js:
-+
-[source,text]
------
-
-$ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
-$ sudo yum -y install nodejs
------
-+
-. You can optionally also install build tools:
-+
-[source,text]
------
-
-$ sudo yum install gcc-c++ make
------
-+
-. Install 3scale CLI:
-+
-[source,text]
------
-
-$ sudo npm install -g node-3scale-cli
------
-+
-. execute the following command to check if the 3scale-cli has been installed successfully.
-+
-[source,text]
------
-
-$ 3scale-cli --help
------
-
-=== Configure 3scale CLI
-
-To configure CLI with the your 3scale AMP, it first needs to be configured with the access details. 
-
-. Configure using the 3scale config command:
-+
-[source,text]
------
-$ export NODE_TLS_REJECT_UNAUTHORIZED=0
-$ 3scale-cli config
-[ 3scale-cli ] Please answer the following questions to configure 3scale cli.
-? 3scale access token <<your on-prem admin access token>>
-? 3scale id 3scale
-? 3scale wildcard domain <<your $OCP_WILDCARD_DOMAIN>>
-[3scale-cli] 3scale cli tool configured
------
-
-. Test whether the connection to AMP is working by executing a list command:
-+
-[source,text]
------
-
-$ 3scale-cli services list
-[ 3scale-cli ] There are 2 services on your account.
- id  name  state       system_name  end_user_registration_required  created_at            updated_at
---  ----  ----------  -----------  ------------------------------  --------------------  --------------------
-2   API   incomplete  api          true                            2017-08-21T07:28:04Z  2017-08-21T07:28:04Z
-3   Test  incomplete  Test         true                            2017-08-21T09:35:25Z  2017-08-21T09:35:26Z
------
-
-=== Define accounts and users
-
-`3scale-cli` does not currently allow for defining users and accounts using the Command Line Interface. Hence, use either the Admin Console or the REST API and create the following user and account:
-
-. Create a new account finto_dev with following credentials:
-
-Username: finto_dev
-
-Email : PROVIDE A UNIQUE EMAIL ADDRESS
-
-PASSWORD: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
-
-Organization/Group Name : finto_account
-
-=== Define Finto Service
-
-In this section, you define a service that manages access to the Finto business service.
-
-. Login to the client VM console as user `jboss`. 
-. Use `3scale-cli` for creating the new service.
-+
-[source,text]
------
-
-$ 3scale-cli services create --serviceName finto_service
-[ 3scale-cli ] Service with name finto_service created.
-
------
-+
-. List the services and not the service_id of the `finto_service`.
-+
-[source,text]
------
-
-$ 3scale-cli services list | grep finto_service
-4   finto_service34  incomplete  finto_service34  true                            2017-08-21T12:27:48Z  2017-08-21T12:27:48Z
-
------
-+
-NOTE: In the above, the service id is `4`.
-
-=== Define Application Plan
-
-In the newly created `finto_service`, create a new Application Plan.
-
-
-. Login to the client VM console as user `jboss`. 
-. Use `3scale-cli` for creating the new service.
-+
-[source,text]
------
-
-$ 3scale-cli app-plan --plan finto_app_plan create -s <service_id>
-
-[ 3scale-cli ] Application plan named finto_app_plan with id 10 created on 3scale
-
------
-+
-NOTE: Note the Application Plan id of the `finto_app_plan`.
-
-=== Create Application
-
-
-In this section, you associate an application to your previously defined users. This generates a user key to the application. The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
-
-NOTE: The `3scale-cli` does not have a command for creating an application. Hence, use the Admin Console or the REST Administration APIs to create the application.
-
-. Select the `finto_account` and create a new application.
-.. `Application Plan` : *finto_app_plan*
-.. `Service Plan` : *Default*
-.. `Name` : *finto_application*
-.. `Description` : *Finto Application*
-+
-NOTE: Note the `user_key` generated. This will be used as a parameter for the API requests.
-
-=== Stage Finto Service Integration
-
-In this step, you need to specify the Integrations for the `finto_service`, and provide the configuration for staging, production APIs, and the backend API. There is no 3scale-cli command to stage service intregrations, hence use the Admin Console for creating the integrations.
+=== Create Mappings and Methods for Products Integration
 
 . Navigate to the API tab.
-. In the `finto_service`, select *Application Plans*.
-. *Publish* the `finto_app_plan`.
-. In your `finto_service`, select *Integration*.
-. Enter the Finto API service URL:
-.. `Private Base URL` : *https://api.finto.fi:443*
-.. `Staging Public Base URL` : _Route to the Finto APICast Staging Endpoint_
-.. `Production Public Base URL` : _Route to the Finto APICast Production Endpoint_
-.. Keep the rest of the configuration same and `Update & test in Staging Environment`.
-.. `API test GET Request` : `/rest/v1/vocabularies?lang=en`
+. In the `Products` service, select *Integration*.
+. Click on `add the base URL of your API and save the configuration.` button.
++
+image::images/3scale_amp_products_api_integration1.png[]
++
+. Expand the `Mapping Rules` section.
+. Click on `Define Metric/method` link.
+. Click on `New method` link in the `Methods` section.
+. Enter the following values:
+.. *Friendly Name*: Get Product
+.. *System Name*: product/get
+.. *Description*: Get a product by ID.
+. Click on the `Create Method` button.
++
+image::images/3scale_amp_products_create_method.png[]
++
+. Repeat the process for the following methods:
++
+.Methods Table
+[options="header,footer"]
+|=======================
+|Friendly Name|System Name|Description
+|Create Product|product/create|Create a new Product
+|Delete Product|product/delete|Delete a product by ID
+|Get All Products|product/getall|Get all products
+|=======================
++
+image::images/3scale_amp_products_create_all_methods.png[]
++
+. Now click on `Add a mapping rule` for *Get Product* method.
+. Click on the edit icon.
+. Enter the following values:
+.. *Verb*: GET
+.. *Pattern*: /rest/services/product/
+.. *Method*: product/get 
+. Now repeat the process for the other mapping rules:
++
+.Mapping Rules Table
+[options="header,footer"]
+|=======================
+|Verb|Pattern|Method
+|POST|/rest/services/product|product/create
+|DELETE|/rest/services/product/|product/delete
+|GET|/rest/services/products|product/getall
+|=======================
++
+image::images/3scale_amp_products_create_all_mappings.png[]
 
+=== Create Public & Private APIs for Products Integration
+
+
+. Enter the Products API and Business Service routes to the configuration:
+.. `Private Base URL` : _Route to the Products API Business Service Endpoint_
++
+IMPORTANT: This is the route you set in the Business Services lab, and should be `http://projects-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:80`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80`
++
+.. `Staging Public Base URL` : _Route to the Products APICast Staging Endpoint_
++
+IMPORTANT: This is the staging route URL you set in the Hybrid APICast lab. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
++
+.. `Production Public Base URL` : _Route to the Products APICast Production Endpoint_
++
++
+IMPORTANT: This is the production route URL you set in the Hybrid APICast lab. It should be `https://products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `products-production-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
++
+.. `API test GET Request` : `/rest/services/product/1`
+. Keep the rest of the values unchanged and click on `Update the Staging Environment`.
 . Now make a request based on the curl request generated in the Client to ensure the staging API URL is accessed correctly.
++
+image::images/3scale_amp_products_curl_test_url.png[]
++
 . Once it is successful, `Promote to Production` and test the curl request for Production. 
-
 
 
 ifdef::showscript[]
