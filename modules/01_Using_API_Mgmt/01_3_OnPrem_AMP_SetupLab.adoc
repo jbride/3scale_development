@@ -15,14 +15,10 @@
 * Completion of the _Business Services_ lab where RESTful endpoints of two microservices were exposed
 * A running student lab environment for this course
 * The `OCP_WILDCARD_DOMAIN` environment variable set in your shell
+* The `OCP_PROJECT_PREFIX` environment variable set in your shell
 +
 TIP: To check if your shell still has this environment variable set, execute the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
 
-* Four PVs, each with a minimum of 2 GB and `ReadWriteOnce` and `ReadWriteMany` access
-+
-NOTE: The APIcast pod does not use persistent volumes (PVs), which is why you have not needed them up to now. The AMP component, however, _does_ use PVs.
-+
-TIP: To confirm that your OpenShift Container Platform lab environment has the required PVs,  execute the `$ oc get pv --as=system:admin` command.
 
 :numbered:
 
@@ -42,72 +38,137 @@ An on-premise 3scale by Red Hat AMP environment must run in an OpenShift Contain
 
 In this exercise, you install the 3scale by Red Hat AMP resources in your lab environment.
 
-=== Create a New Project for AMP
+. Create a new OpenShift Container Platform project for your AMP resources:
++
+[source,text]
+-----
+$ oc new-project $OCP_PROJECT_PREFIX-3scale-amp \
+         --display-name="3scale-amp" \
+         --description="3scale AMP component"
+-----
 
-. Open a browser window and navigate to the OpenShift Management Console URL
+. Confirm that you now have two OpenShift Container Platform projects in your lab environment:
+* `$OCP_PROJECT_PREFIX-bservices`
+* `$OCP_PROJECT_PREFIX-3scale-amp`
 +
-NOTE: The URL for Management Console is https://${EXTERNAL_HOST}:8443/
-+
-image::images/ocp_login.png[]
-+
-. Login as user `developer` with password `developer`. 
-
-. Create a new project for your API Management Platform applications:
-.. Click on `New Project` button.
-+
-image::images/ocp_home_page.png[]
-+
-.. Enter Name `3scale-amp`, Display Name `3scale-amp` and Description `3scale AMP component`.
-+
-image::images/ocp_create_new_amp_project.png[]
-
-.. Click on the `Create` button.
+NOTE: When you execute commands using the `oc` utility, pay attention to which project you are working in.
 
 
-. You are now in the `3scale-amp` project home page and can deploy the AMP in this project.
+. Deploy the on-premise AMP component:
++
+[source,text]
+-----
+$  oc new-app \
+       -f ~/lab/3scale_onpremise_implementation_labs/resources/3scale_template_with_requests_and_limits.yml \
+      --param ADMIN_PASSWORD=admin \
+      --param TENANT_NAME=$OCP_PROJECT_PREFIX-3scale \
+      --param WILDCARD_DOMAIN=$OCP_WILDCARD_DOMAIN > /tmp/3scale_amp_provision_details.txt
+-----
+
+. Review the output from creating your new 3scale by Red Hat AMP application:
++
+[source,text]
+-----
+$ cat /tmp/3scale_amp_provision_details.txt
+-----
++
+.Sample Output
+[source,text]
+-----
+
+Login on https://3scale-admin.apps.176.126.90.137.xip.io as admin/c2rl6m1u     <1>
+
+* With parameters:
+    * AMP_RELEASE=2.0.0-ER4-redhat-2
+    * ADMIN_PASSWORD=admin
+    * ADMIN_USERNAME=admin
+    * APICAST_ACCESS_TOKEN=vf1erllf # generated
+    * ADMIN_ACCESS_TOKEN=b8t5hvpo0dgoaevw # generated
+    * WILDCARD_DOMAIN=apps.176.126.90.137.xip.io
+    * SUBDOMAIN=3scale
+    * MySQL User=mysql
+    * MySQL Password=yctiv77e # generated
+    * MySQL Database Name=system
+    * MySQL Root password.=dyl5bftg # generated
+    * SYSTEM_BACKEND_USERNAME=3scale_api_user
+    * SYSTEM_BACKEND_PASSWORD=dpkgdrdc # generated
+    * REDIS_IMAGE=rhscl/redis-32-rhel7:3.2-5.4
+    * SYSTEM_BACKEND_SHARED_SECRET=xfxtqjvk # generated
+    * SYSTEM_APP_SECRET_KEY_BASE=cead8c4c8061108be756537cd87d47ca7ad625107ccd3ddb4a7e1e7a2e4c8363c07e832da7081b511e30eabedd77062686a4d66582082747add5db02176ee4ae # generated
+    * APICAST_MANAGEMENT_API=status
+-----
+
+<1> Admin Portal URL
+
+. Make note of the Admin Portal URL and corresponding authentication credentials.
+
+=== Confirm Successful End State
+
+. Confirm that all of your 3scale by Red Hat AMP pods are in a `Running` state:
++
+[source,text]
+-----
+$ oc get pods
+-----
++
+.Sample Output
+[source,text]
+-----
+
+NAME                         READY     STATUS    RESTARTS   AGE
+apicast-production-1-gbc76   1/1       Running   2          4m
+apicast-staging-1-z7p27      1/1       Running   0          4m
+backend-cron-1-z29n9         1/1       Running   1          4m
+backend-listener-1-mdzq0     1/1       Running   0          4m
+backend-redis-1-p060v        1/1       Running   0          4m
+backend-worker-1-q5rh1       1/1       Running   1          4m
+system-app-1-4j7mr           2/2       Running   0          3m
+system-memcache-1-7wwrj      1/1       Running   0          4m
+system-mysql-1-gp6qf         1/1       Running   0          4m
+system-redis-1-qrjrh         1/1       Running   0          4m
+system-resque-1-wk6vj        2/2       Running   1          4m
+system-sidekiq-1-87g1n       1/1       Running   1          4m
+system-sphinx-1-fp2d0        1/1       Running   1          4m
+-----
+
+. Once the provisioning is complete, point your browser to the URL contained in the output of the AMP provisioning command:
++
+[source,text]
+-----
+$ cat /tmp/amp_provision_details.txt | more
+-----
++
+.Sample Output
+[source,text]
+-----
+...
+
+system
+     ---------
+     Login on https://3scale-admin.apps.13.58.43.125.xip.io as admin/5esykutl
+
+...
+-----
+
+. Once you have logged in, expect to see a welcome screen similar to the following:
++
+image::images/amp_welcome.png[]
+
+. From here, you can see a demo by clicking *OK, how does 3scale work?*, or click "x" in the top right corner to continue.
+
+=== Enable `debug` Log Level in New APIcast Gateways
 
 
-=== Deploy AMP Using Application Template
+. Set the log level of your `apicast-production` pods:
++
+[source,text]
+-----
+$ oc patch dc/apicast-production --patch '{"spec":{"template":{"spec":{"containers":[{"name":"apicast-production", "env": [{"name":"APICAST_LOG_LEVEL","value":"debug" }]}]}}}}'
 
-. In a browser window, navigate to the AMP Template URL: `https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/2.0.0.GA-redhat-2/amp/amp.yml`
-+
-NOTE: This template needs to be uploaded to the OCP environment in order to create a new application.
+-----
 
-. In the OCP Management Web Console, navigate to the 3scale_amp project page.
-+
-image::images/ocp_amp_project_home.png[]
-+
-. Click on `Add to Project`.
-. Click on `Import YAML/JSON`.
-. In the text field, copy and paste the complete text from the URL: `https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/2.0.0.GA-redhat-2/amp/amp.yml`
-+
-image::images/ocp_amp_import_yaml.png[]
-+
-. Click on `Create`.
-. A pop-up window appears. Select `Process the Template` option.
-+
-image::images/ocp_amp_import_yaml_popup.png[]
-+
-. In the next screen, edit the following parameters:
-.. `ADMIN_PASSWORD`: `admin`
-.. `WILDCARD_DOMAIN`: $OCP_WILDCARD_DOMAIN
-+
-TIP: $OCP_WILDCARD_DOMAIN is the parameter set in the user’s `~/.bashrc`. You can find this value by using the command `echo $OCP_WILDCARD_DOMAIN.
-+
-image::images/ocp_amp_template_parameters.png[]
-+
-. Scroll down and click on `Create`.
-. Note the information for logging in to the 3scale portal:
-+
-image::images/ocp_amp_application_create.png[]
-+
-NOTE: Keep a note of the URL and user credentials, so that you can access the 3scale AMP Portal when it is provisioned.
-+
-. Click on `Go to Overview`, and wait until all the pods are started.
-. You can find the list of pods required for AMP here:
-+
-image::images/ocp_amp_pods_list.png[]
-+
+* This executes an automatic roll out of your `apicast-production` pod.
+. Make a similar change to your `apicast-staging` pod.
 . Once the provisioning is complete, point your browser to the URL of the 3scale admin and login.
 +
 image::images/ocp_amp_admin_login.png[]

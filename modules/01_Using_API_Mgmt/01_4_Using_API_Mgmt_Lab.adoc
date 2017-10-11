@@ -31,20 +31,20 @@ In the previous labs, you installed and configured an OpenShift Container Platfo
 
 == API Management Using 3scale AMP Admin Portal
 
-Now, you will expose the Products API business services created in an earlier lab using the 3scale APICast Gateway. We will use the 3scale SaaS Portal to create the accounts, applications, application plans, services and API definitions.
+Now, you will expose the Products API business services created in an earlier lab using the 3scale APICast Gateway. We will use the 3scale Admin Portal to create the accounts, applications, application plans, services and API definitions.
 
 
 === Login
 
-. In a browser window, access the 3scale SaaS Admin Portal URL.
+. In a browser window, access the 3scale AMP Admin Portal URL.
 +
-NOTE: The 3scale admin portal is as noted in the previous lab. It should be of the form https://<<your_domain>>-admin.3scale.net, where <<your_domain>> is the THREESCALE_DOMAIN_NAME of your account on 3scale.net.
+NOTE: The 3scale admin portal is as noted in the previous lab. It should be of the form *https://$OCP_PROJECT_PREFIX-3scale-admin.$OCP_WILDCARD_DOMAIN*, where $OCP_PROJECT_PREFIX and $OCP_WILDCARD_DOMAIN are the values set in your ~/.bashrc.
 +
 . Login to the 3scale portal using your login credentials.
 +
 image::images/3scale_amp_admin_portal_login.png[]
 +
-. Navigate to `Developers` and delete the default user `John Doe`.
+. Navigate to `Developers` and delete the default user `Developer`.
 +
 image::images/3scale_amp_admin_delete_developers.png[]
 
@@ -204,6 +204,7 @@ IMPORTANT: This is the production route URL you set in the Hybrid APICast lab. I
 +
 .. `API test GET Request` : `/rest/services/product/1`
 . Keep the rest of the values unchanged and click on `Update the Staging Environment`.
+NOTE: 3scale tests the connection and the route turns green when the API routing is successful. Notice the following message: `Connection between client, gateway & API is working correctly as reflected in the analytics section.`
 . Now make a request based on the curl request generated in the Client to ensure the staging API URL is accessed correctly.
 +
 image::images/3scale_amp_products_curl_test_url.png[]
