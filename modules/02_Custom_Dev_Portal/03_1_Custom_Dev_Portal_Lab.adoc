@@ -6,20 +6,120 @@
 
 = Custom Development Portal
 
+In this lab, you will create APIdocs for the APIs managed by 3scale, learn about the developer portal and customization, and create a client application to consume the APIs exposed by 3scale.
+ 
 .Goals
-. Developer portal is created using 3scale CMS, migration from existing built portal 
+. Create API docs for the Products API application.
+. Integrate the API docs with 3scale.
+. Create a custom development portal
+. Create a client application to call the Products API.
 
-== Overview
+== API Documentation
 
-. Custom Developer Portal
-.. LiquidTags
-.. CMS ???
-.. Catalog and API Discovery ( https://github.com/picsoung/3scale-discover-APIs/blob/master/apilist.html )
-.. Integration with Red Hat SSO (Available on enterprise plans only)
-... Developer users
+In this lab, you will generate and test an ActiveDocs documentation for the API created in the previous module.
 
-. Localization
-.. From Kevin on 7 April, 2017:  I have actually built one portal with localization myself using some custom JS, HTML & the liquid that is built into the 3scale portal. I still have the tutorial pending to compliment this work. I will share both with you as soon as I have it done. I'm not sure if there is a plan to have this built into the CMS itself though.
+ActiveDocs is  not a Swagger replacement but an instantiation of it. With ActiveDocs, you don’t have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information visit this link: https://support.3scale.net/docs/api-documentation/create-activedocs-spec
+
+=== Create Swagger API Documentation
+
+. In a new browser window, navigate to `http://editor.swagger.io/`
+. Select *File -> Import URL*.
+. Enter the URL of your business API swagger spec: *http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml* 
++
+IMPORTANT: Please note that the values will not be resolved on the browser, so you need to provide the full path, e.g http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80/rest/swagger.yaml
++
+. Click OK.
+. In the YAML editor,make the following changes:
+.. Line 6:  Change host to your products-apicast-staging route endpoint e.g *products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443*
+.. Line 11: Change scheme to *https*
+.. Line 24: Add the following lines:
++
+[source,YAML]
+-----
+        - name: "user_key"
+          in: "query"
+          type: string
+          x-data-threescale-name: "user_keys"
+          required: true      
+-----
++
+image::images/3scale_amp_products_swagger1.png[]
++
+.. Line 50: repeat above step.
++
+image::images/3scale_amp_products_swagger2.png[]
++
+.. Line 74: repeat the above step.
+.. Line 98: delete the curly brackets.
+.. Line 99: repeat the step for adding user_key
++
+[source,YAML]
+-----
+        - name: "user_key"
+          in: "query"
+          type: string
+          x-data-threescale-name: "user_keys"
+          required: true      
+-----
++
+image::images/3scale_amp_products_swagger3.png[]
++
+. Click on `File -> Download JSON`.
++
+image::images/3scale_amp_products_swagger4.png[]
++
+. Save the JSON file to your disk.
+. Close the browser tab.
+
+=== Create ActiveDocs
+
+. Login to your 3scale AMP management portal from the browser.
+. Click on the `APIs` tab.
+. Click on `ActiveDocs` link. 
++
+image::images/3scale_amp_products_activedocs1.png[]
++
+. Click on the `Create a new spec`.
++
+image::images/3scale_amp_products_activedocs2.png[]
++
+. Enter the following values:
+.. *Name*: Products
+.. *System Name*: products_spec
+.. *Publish?*: checked
+.. *Description*: Products API Documentation
++
+image::images/3scale_amp_products_activedocs3.png[]
++
+. Open the *swagger.json* created in the previous step in a text editor.
+. Paste the contents of *swagger.json* to the `API JSON Spec` window:
++
+image::images/3scale_amp_products_activedocs4.png[]
++
+. Click on `Create Service`.
++
+image::images/3scale_amp_products_activedocs5.png[]
++
+. If the `Publish` link is showing in the top, click on the link.
+
+=== Test the API ActiveDocs
+
+. Click on the `Get all Products` link to expand the method.
+. Go to the *Parameters* section.
+. Click on the *user_key* value field.
+. Select the *ProductsApp* user_key.
+. Click on the `Try it out` button.
++
+image::images/3scale_amp_products_activedocs6.png[]
++
+. If you get a *No response from server* error from server, you need to accept the SSL certificate of the server.
+.. Open the request  URL in a browser window and click on `proceed to URL` as shown below:
++
+image::images/3scale_amp_products_activedocs7.png[]
++
+. Now go back to the ActiveDocs and try the request again. It should return a HTTP 200 response and the response body as below.
++
+image::images/3scale_amp_products_activedocs8.png[]
 
 
 [blue]#Congratulations!#.
