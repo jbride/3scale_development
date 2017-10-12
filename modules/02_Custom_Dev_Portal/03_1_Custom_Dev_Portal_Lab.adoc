@@ -122,6 +122,152 @@ image::images/3scale_amp_products_activedocs7.png[]
 image::images/3scale_amp_products_activedocs8.png[]
 
 
+== Developer Portal Customization
+
+In this lab you will work on the Developer Portal for the API’s customers/partners/users. 
+The Developer can be fully customized to meet your needs and branding, you can find more information here: https://support.3scale.net/docs/developer-portal/overview 
+
+=== Import Logo Files:
+
+. Open a web browser and navigate to URL: https://github.com/gpe-mw-training/3scale_development_labs/tree/master/DevPortal
+. Download the below 2 files locally:
+.. RHMartBackground.jpg
+.. RHMartLogo.png
+. Now login to the 3scale AMP Portal with your userid/password.
+. Click on the `Developer Portal` tab.
+. Click on the arrow next to the `New Page` button.
+. Click on `New File`.
++
+image::images/3scale_amp_products_dev_portal1.png[]
++
+. Enter the following:
+.. *Section*: images
+.. *Path*:  /images/RHMartLogo.png
+.. *Attachment*: _Attach the file RHMartLogo.png from your localhost._
++
+image::images/3scale_amp_products_dev_portal2.png[]
++
+. Click on `Create File` button.
+. Click on `New File`.
+. Enter the following:
+.. *Section*: images
+.. *Path*:  /images/RHMartBackground.png
+.. *Attachment*: _Attach the file RHMartBackground.png from your localhost._
++
+image::images/3scale_amp_products_dev_portal3.png[]
++
+. Click on `Create File` button.
+
+=== Make Changes to the HTML/CSS
+
+. Click on the *All* button.
+. Click on the *Layouts* icon.
+. Click on *Main Layout*.
++
+image::images/3scale_amp_products_dev_portal4.png[]
++
+. Go to line #46. delete this line:
++
+[source,text]
+-----
+            <a class="navbar-brand" href="/">{{  provider.name }}</a>
+-----
++
+. Replace it with the following:
++
+[source,text]
+-----
+            <div class="logo">
+               <a href="#">
+                  <img src="/images/RHMartLogo.png" alt="" style="height:100px; width:150px;">
+               </a>
+            </div>
+-----
++
+. Scroll down to the bottom of the page, and click on the *Save* button.
++
+image::images/3scale_amp_products_dev_portal5.png[]
++
+. Click on the Pages icon.
+. Click on Documentation.
++
+image::images/3scale_amp_products_dev_portal6.png[]
++
+. Go to line #3 and replace “Echo” with “RHMart”.
+Go to line #5. Replace the line with following:
++
+[source,text]
+-----
+            {% active_docs version: "2.0" services: "products_spec" %}
+-----
++
+. Click on *Save* button.
++
+image::images/3scale_amp_products_dev_portal7.png[]
++
+. Click on *Homepage*
++
+image::images/3scale_amp_products_dev_portal8.png[]
++
+. Go to the HTML editor, and perform a search and replace of “Echo” (with capital “E”) to “RHMart” in lines #19, #98 and #112.
+. Go to line #5.
+. Replace it with the following:
++
+[source,text]
+-----
+            <h1 style="text-shadow: 4px 4px #000000;">RH Mart API</h1>
+-----
++
+. Click on *Save* button.
+. Click on *default.css*, under the css folder.
++
+image::images/3scale_amp_products_dev_portal9.png[]
++
+. Go to line #22.
+. Replace it with the following:
++
+[source,text]
+-----
+            background-image: url('/images/RHMartBackground.jpg');
+-----
++
+. Scroll down to the bottom of the page.
+. Click on the *Save* button.
+. Click on the *0 Drafts* tab.
+. Click on *Publish All*.
++
+image::images/3scale_amp_products_dev_portal10.png[]
++
+. In the pop-up window confirming the changes, click *OK* button.
+
+
+=== Test the changes
+
+. Click on the *Visit Developer Portal* button.
++
+image::images/3scale_amp_products_dev_portal11.png[]
++
+. The developer portal opens in a new tab on your browser.
++
+image::images/3scale_amp_products_dev_portal12.png[]
++
+. Click on *SIGN IN* on the top right.
+. Login as `rhbankdev` and the password provided in the previous lab.
+. Once logged in, you will be directed to the homepage.
++
+image::images/3scale_amp_products_dev_portal13.png[]
++
+. Explore the sections such as *Applications*, *Statistics* and *Credentials*.
+. Click on *Documentation*. Notice that the ActiveDocs created earlier are shown here.
+. You can choose to test the API requests from this page.
++
+image::images/3scale_amp_products_dev_portal14.png[]
+
+
+== Advanced Developer Portal Customisations
+
+TBD
+ 
 [blue]#Congratulations!#.
 
 ifdef::showscript[]
