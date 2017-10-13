@@ -266,7 +266,52 @@ image::images/3scale_amp_products_dev_portal14.png[]
 
 == Advanced Developer Portal Customisations
 
+=== Different Groups for Developers & Admin	
+
+==== Create Admin account application using `ProductsPremiumPlan` 
+
+Recall that in Module 1, you set up the `rhbankdev` user as part of the `RHBank` group. While creating the rate limits, we have disabled the methods `Create Account` and `Delete Account`, so a request for either of these methods should result in a *HTTP 403: Not Authorized* error.
+
+Now, follow the same steps and create a new user `rhbankadmin`, as part of the `RHAdmin` group, create an Application using `ProductsPremiumPlan` Application Plan, and then try the `Create Account` and `Delete Account` requests using the *user_key* generated for this account.
+
+Example request for `Create Account`:
+
+[source,text]
+-----
+$ curl -k -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{                     
+  \"productid\": null,
+  \"productname\": \"Samsung LED TV\",
+  \"productprice\": 499.95}" "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/product?user_key=6e1bec836da1b3705da23635823f4f2d"
+
+-----
+
+The response should be as below:
+
+[source,text]
+-----
+{"message":"Product created"}
+-----
+
+Example request for `Delete Account`
+
+[source,text]
+-----
+$ curl -k -X DELETE --header "Accept: application/json" "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/product/13?user_key=6e1bec836da1b3705da23635823f4f2d"
+
+-----
+
+The response should be as below:
+
+[source,text]
+-----
+{"message":"Product 13 deleted"}
+-----
+
+
+==== Create Groups
+
 TBD
+
  
 [blue]#Congratulations!#.
 
