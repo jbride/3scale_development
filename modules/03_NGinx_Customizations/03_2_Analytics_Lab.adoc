@@ -112,7 +112,7 @@ image::images/3scale_amp_products_analytics_8.png[]
 . Click on the `analytics` breadcrumb to view the statistics pertaining to this particular application.
 +
 image::images/3scale_amp_products_analytics_9.png[]
-+
+
 
 ==== In the Development Portal for specific user
 

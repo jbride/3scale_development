@@ -1,0 +1,371 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:numbered:
+
+
+= NonREST Service Management Lab - Introduction
+
+.Goals
+
+. Use the 3scale API Management Gateway to connect to SOAP Web Services.
+. Explore 2 solutions for SOAP:
+.. Create custom headers using lua on NGINX to automatically map REST request to SOAP backend.
+.. Create a Camel Route installed in Fuse Integration Services (FIS) to route the REST request from the 3scale Gateway to the SOAP Web Service endpoint.
+. Use the 3scale API Management Gateway to connect to ODATA Services.
+
+
+.Prerequisites
+* Completion of the previous labs of this course
+* * The `EXTERNAL_HOST` and `OCP_WILDCARD_DOMAIN` environment variables set in your shell
++
+TIP: To check if your shell still has this environment variable set, execute the `echo $EXTERNAL_HOST` and `echo $OCP_WILDCARD_DOMAIN` commands. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
++
+* 3scale Admin Portal URL and user credentials to login.
++
+IMPORTANT: The 3scale URL for your lab environment will be `https://$OCP_PROJECT_PREFIX-3scale-admin.$OCP_WILDCARD_DOMAIN`. The userid/password is `admin/admin`.
++
+* OCP Administration URL and userid/password.
++
+IMPORTANT: The OCP URL for your lab environment will be `https://$EXTERNAL_HOST:8443/`. The userid/password for development is `developer/developer, and administration is `admin/admin`.
+
+== SOAP Service Management Lab
+
+=== Overview
+
+In this lab you will expose an existing SOAP based JEE application running on a JBoss EAP container in the same OCP cluster. To do this, you will follow 2 different methods:
+
+. Create custom modifications to lua and NGINX configuration files to automatically map REST request to SOAP backend.
+. Deploy a Fuse Integration Services (FIS) application to OCP, which was configured to expose it as a REST service.
+
+
+=== SOAP Request Using Lua & NGINX Customization
+
+Reference: http://middlewareblog.redhat.com/2017/08/30/integrating-soap-based-web-services-into-red-hat-3scale-api-management/
+
+
+=== SOAP Request Using Fuse Integration Services
+
+In this lab you will expose an existing SOAP based JEE application running on a JBoss EAP container in the same OCP cluster. To do this, you will deploy a Fuse Integration Services (FIS) application to OCP, which was configured to expose it as a REST service. This REST endpoint is provided as the backend API for the APICast Gateway.
+
+==== Deploy the Store WebService to OCP
+
+===== Inspect SOAP Service Code
+
+. Study the web Service interface and implementation for StoresWS.
+.. Open the file `/home/sjayanti/git_share/PartnerTraining/3scale/3scale_development_labs/Stores/src/main/resources/wsdl`
+.. Inspect the Stores Web Service definition:
++
+[source,xml]
+-----
+  <wsdl:portType name="Stores">
+    <wsdl:operation name="getAllStores">
+      <wsdl:input message="tns:getAllStoresRequest"/>
+      <wsdl:output message="tns:getAllStoresResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getStore">
+    	<wsdl:input message="tns:getStoreRequest"></wsdl:input>
+    	<wsdl:output message="tns:getStoreResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createStore">
+    	<wsdl:input message="tns:createStoreRequest"></wsdl:input>
+    	<wsdl:output message="tns:createStoreResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteStore">
+    	<wsdl:input message="tns:deleteStoreRequest"></wsdl:input>
+    	<wsdl:output message="tns:deleteStoreResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+-----
++
+.. Open the file `/home/jboss/lab/3scale_development_labs/Stores/src/main/java/com/redhat/service/StoresWS.java`
+.. Inspect the SOAP Web Service Implementation:
++
+[source,java]
+-----
+@WebService(endpointInterface="com.redhat.service.Stores")
+public class StoresWS implements Stores {
+
+        @Inject
+        StoreDao storeDAO;
+
+        @Override
+        public String createStore(Store store) {
+                store = new Store(store.getStoreName(),store.getStoreLat(),store.getStoreLong());
+                storeDAO.createStore(store);
+                return "Store ID:" + store.getStoreID() + " CREATED";
+        }
+
+        @Override
+        public String deleteStore(int storeID) {
+                storeDAO.deleteStore(storeID);
+                return "Store ID: " + storeID + " DELETED";
+        }
+
+        @Override
+        public Store getStore(int storeID) {
+                return storeDAO.getStoreById(storeID);
+        }
+
+        @Override
+        public StoresType getAllStores() {
+                StoresType st = new StoresType();
+                st.store = storeDAO.getAll();
+                return st;
+        }
+
+}
+-----
+
+This service can be deployed on JBoss EAP, hosted on your shared OCP environment.
+
+===== Deploy StoresWS to OCP
+
+. Login to your OCP admin console with your OPENTLC userid and password from a web browser.
+. Select `New Project` button.
++
+image::images/3scale_amp_stores_api_1.png[]
++
+. Create a new project with following values:
+.. *Name*: $OCP_PROJECT_PREFIX-stores-api
++
+IMPORTANT: Please provide the value of the $OCP_PROJECT_PREFIX in the form, e.g if the OCP_PROJECT_PREFIX is *sjayanti-redhat-com*, then the project name should be *sjayanti-redhat-com-stores-api*.
++
+.. *Display Name*: Stores API
+.. *Description*: Stores API Project
+. Click on `Create`.
++
+image::images/3scale_amp_stores_api_2.png[]
++
+. Click on `Import YAML/JSON.
+. Open the file `/home/jboss/lab/3scale_development_labs/templates/stores-api.json` in a text editor.
++
+TIP: If you do not have access to the copy function in the VM, you can open the file on the browser : https://raw.githubusercontent.com/gpe-mw-training/3scale_development_labs/master/templates/stores-api.json . 
++
+. Copy the contents of the file to the text field in the *Import YAML/JSON* page.
++
+image::images/3scale_amp_stores_api_3.png[]
++
+. Click on `Create`.
+. In the pop-up form, uncheck `Process Template`, and check `Save Template.
+. Click on `Create`.
++
+image::images/3scale_amp_stores_api_4.png[]
++
+. You should get a message that the template was saved successfully.
++
+image::images/3scale_amp_stores_api_5.png[]
++
+. Click on `Add to Project`.
+. Search for the template `stores-soap`.
++
+image::images/3scale_amp_stores_api_6.png[]
++
+. Click on `Select`.
+. In the form, provide the *Hostname* as `stores-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN.
++
+IMPORTANT: Please provide the value of $OCP_PROJECT_PREFIX and $OCP_WILDCARD_DOMAIN in the form, e.g if the OCP_PROJECT_PREFIX is *sjayanti-redhat-com* and $OCP_WILDCARD_DOMAIN is *apps.na1.openshift.opentlc.com*, then the Hostname should be *stores-sjayanti-redhat-com.apps.na1.openshift.opentlc.com*.
++
+. Scroll down and click on `Create` button.
+. Wait a few minutes for the SOAP service to be deployed and pods started.
++
+image::images/3scale_amp_stores_api_7.png[]
++
+
+
+===== Test the Stores API SOAP service
+
+. On a web browser, navigate to the stores wsdl: http://<<your stores api route>>/StoresWS?wsdl
++
+IMPORTANT: The <<your stores api route>> should be the *Hostname* you have defined during the deployment.
++
+. You should see the WSDL in response:
++
+image::images/3scale_amp_stores_api_8.png[]
++
+. On a new browser tab/window, open the URL: http://wsdlbrowser.com
+. Provide the WSDL URL of the Stores WSDL and click the `Browse` button.
+. Check that the WSDL is imported successfully and the list of functions are displayed on the page.
++
+image::images/3scale_amp_stores_api_9.png[]
++
+. Click on `getAllStores` to generate a sample request for the operation. Click on `Call function`.
+
+. The response should be as below:
++
+image::images/3scale_amp_stores_api_11.png[]
+
+==== Deploy `Stores FIS` Project to OCP
+
+. Login to the OpenShift console using your OPENTLC userid and password.
+. Choose the `Stores API` project.
+. Click on `Import YAML/JSON and import the file /home/jboss/labs/3scale_development_labs/templates/stores-fis.json.
++
+TIP: If you cannot copy the contents of the file, you can use the github URL https://raw.githubusercontent.com/gpe-mw-training/3scale_development_labs/master/templates/stores-fis.json.
++
+. Import the template and choose to `Process Template`.
+. Provide the host name as `stores-fis-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN`.
++
+IMPORTANT: Please provide the value of $OCP_PROJECT_PREFIX and $OCP_WILDCARD_DOMAIN in the form, e.g if the OCP_PROJECT_PREFIX is *sjayanti-redhat-com* and $OCP_WILDCARD_DOMAIN is *apps.na1.openshift.opentlc.com*, then the Hostname should be *stores-sjayanti-redhat-com.apps.na1.openshift.opentlc.com*.
++
+. Scroll down and click on *Create*.
+. Wait for a few minutes until the stores-fis pod is started.
+. Now you should notice 3 pods running in your `Stores API` project.
++
+image::images/3scale_amp_stores_api_12.png[]
++
+
+
+===== Examine the Camel Route
+
+. Click on the `Stores-FIS` pod and select `Open Java Console.`.
++
+image::images/3scale_amp_stores_api_13.png[]
++
+. Click on `Route Diagram` and you should see all the Camel routes defined:
++
+image::images/3scale_amp_stores_api_14.png[]
++
+. You can also click on the `Source` and look into the camel route.
+.. A REST route is exposed to provide HTTP methods and URLs for the different SOAP operations provided by the Stores API.
++
+[source,xml]
+-----
+    <route id="route1" rest="true">
+        <from uri="rest:post::store?routeId=route1&amp;componentName=servlet&amp;inType=com.redhat.service.CreateStore&amp;outType=com.redhat.service.CreateStoreResponse&amp;consumes=application%2Fjson"/>
+        <restBinding component="servlet" consumes="application/json" id="restBinding1" outType="com.redhat.service.CreateStoreResponse" type="com.redhat.service.CreateStore"/>
+        <to customId="true" id="route1" uri="direct:createStore"/>
+    </route>
+    <route id="route2" rest="true">
+        <from uri="rest:delete::store/{storeID}?routeId=route2&amp;componentName=servlet&amp;outType=com.redhat.service.DeleteStoreResponse"/>
+        <restBinding component="servlet" id="restBinding2" outType="com.redhat.service.DeleteStoreResponse"/>
+        <to customId="true" id="route2" uri="direct:deleteStore"/>
+    </route>
+    <route id="route3" rest="true">
+        <from uri="rest:get::store/{storeID}?routeId=route3&amp;produces=application%2Fjson&amp;componentName=servlet&amp;outType=com.redhat.service.GetStoreResponse"/>
+        <restBinding bindingMode="json" component="servlet" id="restBinding3" outType="com.redhat.service.GetStoreResponse" produces="application/json"/>
+        <to customId="true" id="route3" uri="direct:getStore"/>
+    </route>
+    <route id="route4" rest="true">
+        <from uri="rest:get::allstores?routeId=route4&amp;produces=application%2Fjson&amp;componentName=servlet&amp;outType=com.redhat.service.StoresType"/>
+        <restBinding bindingMode="json" component="servlet" id="restBinding4" outType="com.redhat.service.StoresType" produces="application/json"/>
+        <to customId="true" id="route4" uri="direct:getAllStores"/>
+    </route>
+
+-----
++
+NOTE: Note the 2 GET methods for `getStore`, and `getAllStores`; the POST method for `postStore`, and the DELETE method for `deleteStore` operation respectively.
++
+.. Each of the `direct` routes corresponds to the 4 operations defined in the REST service.
++
+[source,xml]
+-----
+   <route customId="true" id="createStore">
+        <from customId="true" id="_from1" uri="direct:createStore"/>
+        <setBody customId="true" id="_setBody1">
+            <simple>${body.getStore()}</simple>
+        </setBody>
+        <setHeader customId="true" headerName="soapMethod" id="_setHeader1">
+            <constant>createStore</constant>
+        </setHeader>
+        <to customId="true" id="_to1" uri="direct:soap"/>
+    </route>
+    <route customId="true" id="deleteStore">
+        <from customId="true" id="_from2" uri="direct:deleteStore"/>
+        <setBody customId="true" id="_setBody2">
+            <simple resultType="int">${header.storeID}</simple>
+        </setBody>
+        <setHeader customId="true" headerName="soapMethod" id="_setHeader2">
+            <constant>deleteStore</constant>
+        </setHeader>
+        <to customId="true" id="_to2" uri="direct:soap"/>
+    </route>
+    <route customId="true" id="getStore">
+        <from customId="true" id="_from3" uri="direct:getStore"/>
+        <setBody customId="true" id="_setBody3">
+            <simple resultType="int">${header.storeID}</simple>
+        </setBody>
+        <setHeader customId="true" headerName="soapMethod" id="_setHeader3">
+            <constant>getStore</constant>
+        </setHeader>
+        <to customId="true" id="_to3" uri="direct:soap"/>
+    </route>
+    <route customId="true" id="getAllStores">
+        <from customId="true" id="_from4" uri="direct:getAllStores"/>
+        <setBody customId="true" id="_setBody4">
+            <mvel>new Object[0]</mvel>
+        </setBody>
+        <setHeader customId="true" headerName="soapMethod" id="_setHeader4">
+            <constant>getAllStores</constant>
+        </setHeader>
+        <to customId="true" id="_to4" uri="direct:soap"/>
+    </route>
+-----
++
+NOTE: Each of the above routes gets the request, constructs the CXF request message object and updates the header to the right soapMethod for calling the SOAP Web Service.
++
+.. A route to call the soap endpoint:
++
+[source,xml]
+-----
+    <route customId="true" id="soapRoute">
+        <from customId="true" id="_from5" uri="direct:soap"/>
+        <toD customId="true" id="tod" uri="cxf:bean:wsStores?defaultOperationName=${header.soapMethod}&amp;exchangePattern=InOut"/>
+        <setBody customId="true" id="_setBodySoap">
+            <simple>${body[0]}</simple>
+        </setBody>
+        <setHeader customId="true" headerName="Content-Type" id="_setHeaderContextType">
+            <constant>application/json</constant>
+        </setHeader>
+    </route>
+-----
+
+===== Test the Camel REST route
+
+. Send a curl request to the `stores-fis` route to make a call to the REST Web Service and check that the SOAP Web Service is called and that response converted to `application/json`.
++
+[source,text]
+-----
+$ curl -k <<camel-rest-http route>>/allstores
+
+-----
++
+. Check the response:
++
+[source,text]
+-----
+{"store":[{"storeID":1,"storeName":"Downtown\n  Store","storeLat":-34.6052704,"storeLong":-58.3791766},{"storeID":2,"storeName":"EastSide\n  Store","storeLat":-34.5975668,"storeLong":-58.3710199}]}[sjayanti@localhost camel-webservice-fis]
+-----
+. You can also send sample requests to the other endpoints and ensure that there are no errors.
+
+Thus, the REST - SOAP Camel Proxy is now correctly deployed, and hence we can now begin to configure the APICast Gateway to use this REST endpoint to communicate with the SOAP Web Service.
+
+=== Configure 3scale API Management
+
+Define a new route in OCP on 3scale-amp project for APICast staging called `camel-stage-apicast` and a new route in production APICast called `camel-prod-apicast`. 
+
+In your 3scale API Management Admin Console, create a new service `camel_service`, define an application plan `camel_app_plan`, create new user/account for `camel_dev` and `camel_account`, and configure a new Application `camel_application` for the account `camel_account` to use the `camel_app_plan`. Note the User Key generated as this should be used for the API requests. Finally configure the Integration to use the `camel-rest-http` URL as the backend-url. Use the `camel-stage-apicast` and `camel-prod-apicast` routes for the staging and production endpoints respectively.
+
+
+Test the API by making a curl request to the staging URL and check the response.
+
+[source,text]
+-----
+$ curl -k “<<camel-stage-apicast route>>/allcustomers?user_key=<<your user_key>>“
+[{"name":"redhat","address":["FuseSource Office"],"numOrders":47,"revenue":4821.0,"test":100.0,"birthDate":null,"type":"BUSINESS"}]
+-----
+
+Promote the API to production and test the production URL and check the response.
+
+[source,text]
+-----
+$ curl -k “<<camel-prod-apicast route>>/allcustomers?user_key=<<your user_key>>“
+[{"name":"redhat","address":["FuseSource Office"],"numOrders":47,"revenue":4821.0,"test":100.0,"birthDate":null,"type":"BUSINESS"}]
+-----
+
+Thus, a camel route can be used to provide routing for the 3scale API Management Gateway to SOAP Web Service.
+
+[blue]#Congratulations!#.
+
+ifdef::showscript[]
+endif::showscript[]
