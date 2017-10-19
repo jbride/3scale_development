@@ -68,14 +68,14 @@ $ oc project $OCP_PROJECT_PREFIX-products-api
 -----
 $ oc create -f /home/jboss/lab/3scale_development_labs/templates/products-api.json
 -----
-
++
 . Create the new application using the above products-api template:
 +
 [source,text]
 -----
 $ oc new-app --template=products-api --param HOSTNAME_HTTP=products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
 -----
-
++
 . Test the Products API service deployed in your OpenShift Container Platform environment:
 
 .. Wait until your products-api and productsdb pods have fully started, and then get the route details:
