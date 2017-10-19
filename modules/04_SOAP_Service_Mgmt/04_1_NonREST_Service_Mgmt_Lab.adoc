@@ -4,7 +4,7 @@
 :numbered:
 
 
-= NonREST Service Management Lab - Introduction
+= SOAP & OData Service Management Lab - Introduction
 
 .Goals
 
@@ -340,12 +340,38 @@ $ curl -k <<camel-rest-http route>>/allstores
 
 Thus, the REST - SOAP Camel Proxy is now correctly deployed, and hence we can now begin to configure the APICast Gateway to use this REST endpoint to communicate with the SOAP Web Service.
 
+
+=== Use `Swagger Tool` to Import Docs (Optional)
+
+Follow the steps in the previous lab to import the API Docs into 3scale.
+
+
 === Configure 3scale API Management
+ 
 
-Define a new route in OCP on 3scale-amp project for APICast staging called `camel-stage-apicast` and a new route in production APICast called `camel-prod-apicast`. 
-
-In your 3scale API Management Admin Console, create a new service `camel_service`, define an application plan `camel_app_plan`, create new user/account for `camel_dev` and `camel_account`, and configure a new Application `camel_application` for the account `camel_account` to use the `camel_app_plan`. Note the User Key generated as this should be used for the API requests. Finally configure the Integration to use the `camel-rest-http` URL as the backend-url. Use the `camel-stage-apicast` and `camel-prod-apicast` routes for the staging and production endpoints respectively.
-
+. Login to your 3scale admin console with your userid/password credentials.
+. Create a new service:
+.. *Name*: Stores API
+.. *System Name*: stores-api
+.. *Description*: Stores API
+. Create Application Plan:
+.. *Name*: StoresPremiumPlan
+.. *System Name*: storesPremiumPlan
+. *Publish* the application plan.
+. In *Developers* tab, select the *RHBank* account.
+. Select the *Applications* breadcrumb, and *Create Application*:
+.. *Application Plan*: StoresPremiumPlan
+.. *Name*: StoresApp
+.. *Description*: Stores Application
+. In API tab, select *Stores API*, and click on *Integration*.
+.. *Private Base URL*: URL to your Fuse camel REST route
+.. *Staging Public Base URL*: create a new edge secure route in 3scale_AMP project to stores-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-staging service.
+.. *Production Public Base URL*: create a new route in 3scale_AMP project to stores-prod-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-production service.
+. Create API Test GET request:
+.. *API Test GET Request*: /allstores
+.  Click on *Update and test in the Staging Environment
+. Make a test request to the staging URL. 
+. *Promote to production* and make a test request to the production URL.
 
 Test the API by making a curl request to the staging URL and check the response.
 
@@ -364,6 +390,126 @@ $ curl -k “<<camel-prod-apicast route>>/allcustomers?user_key=<<your user_key>
 -----
 
 Thus, a camel route can be used to provide routing for the 3scale API Management Gateway to SOAP Web Service.
+
+== ODATA Service Management Lab
+
+=== Introduction
+
+
+In this lab you will deploy an OData service based on a *JBoss Data Virtualization* for Openshift (JDV) virtual database (VDB).  This VDB has a virtual view that retrieves data from two databases’ tables (*MySQL* and *PostgreSQL*) and presents them as a single SQL ANSI table. Then, out of the box, this view is exposed in JDV as an OData REST service. You can find more info about JDV here: 
+https://www.redhat.com/en/technologies/jboss-middleware/data-virtualization 
+and here: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.3/html/red_hat_jboss_data_virtualization_for_openshift/ 
+
+
+OData (Open Data protocol) is a standard that defines a set of best practices for building and consuming RESTful APIs (http://www.odata.org/) 
+
+=== Deploy  `Stock API` Project to OCP
+
+In this section, we deploy the Stock API, onto a JBoss EAP container running on OpenShift. The stock data exists in 2 databases - MySQL and PostgreSQL, and a JDV is used to provide Data Virtualization and present the combined data view as a ODATA REST service. 
+
+IMPORTANT: When executing commands using the `oc` utility, you must be logged in to the master API of your OpenShift Container Platform environment with your OCP_USER_ID credentials.
+
+. At the shell prompt of your VM, make sure you are using the `jboss` user.
+. Create a new project for your stock API business service applications:
++
+[source,text]
+-----
+$ oc new-project $OCP_PROJECT_PREFIX-stock-api \
+     --display-name="Stock API" \
+     --description="Stock API ODATA Services"
+-----
+
+. If not already there, switch to this new project:
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-stock-api
+-----
+. Import the products-api template to your Openshift environment
++
+[source,text]
+-----
+$ oc create -f /home/jboss/lab/3scale_development_labs/templates/stock-api.json
+-----
++
+. Add the datasources environment variable secret to the project:
++
+[source,text]
+-----
+$ oc secret new datavirt-app-config /home/jboss/lab/3scale_development_labs/Stock/datasources.env
+-----
++
+. Now create a new service account for *datavirt* user and provide view access.
++
+[source,text]
+-----
+$ oc create serviceaccount datavirt-service-account
+$ oc policy add-role-to-user view system:serviceaccount:stock-api:datavirt-service-account
+-----
++
+. Create the new application using the above stock-api template:
++
+[source,text]
+-----
+$ oc new-app --template=stock-api --param HOSTNAME_HTTP=stock-api-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+-----
+. Test the Stock API service deployed in your OpenShift Container Platform environment:
++
+[source,text]
+-----
+$ oc get pods
+NAME                  READY     STATUS      RESTARTS   AGE
+stock-api-2-34b7h     1/1       Running     0          16h
+stockmysql-3-3g5v9    1/1       Running     0          18h
+stockpg-5-j8181       1/1       Running     0          18h
+-----
++
+. Once the API and the database pods are running, you can test the ODATA service by making a request to the ODATA endpoint:
++
+[source,text]
+-----
+$ curl -k http://stock-api-$OCP_PROJDCT_PREFIX.$OCP_WILDCARD_DOMAIN/odata4/Stock-API/FederatedStock/stock?$format=JSON
+-----
++
+. You should see a response as below:
++
+[source,JSON]
+-----
+{"@odata.context":"$metadata#stock","value":[{"productid":1,"amount":20.0,"storeid":1},{"productid":1,"amount":30.0,"storeid":2},{"productid":2,"amount":30.0,"storeid":1},{"productid":2,"amount":14.0,"storeid":2},{"productid":3,"amount":1.0,"storeid":1},{"productid":3,"amount":40.0,"storeid":2},{"productid":4,"amount":14.0,"storeid":1},{"productid":4,"amount":100.0,"storeid":2},{"productid":5,"amount":22.0,"storeid":1},{"productid":5,"amount":2.0,"storeid":2},{"productid":6,"amount":880.0,"storeid":1},{"productid":6,"amount":10.0,"storeid":2},{"productid":7,"amount":1200.0,"storeid":1},{"productid":7,"amount":32.0,"storeid":2},{"productid":8,"amount":532.0,"storeid":1},{"productid":8,"amount":1.0,"storeid":2},{"productid":9,"amount":10.0,"storeid":1},{"productid":9,"amount":123.0,"storeid":2},{"productid":10,"amount":1.0,"storeid":1},{"productid":10,"amount":730.0,"storeid":2}]}[sjayanti@localhost camel-webservice-fis]
+-----
+
+Thus, the REST ODATA JDV service is now correctly deployed, and hence we can now begin to configure the APICast Gateway to use this REST endpoint to communicate with the ODATA Service.
+
+=== Configure 3scale API Management
+
+. Login to your 3scale admin console with your userid/password credentials.
+. Create a new service:
+.. *Name*: Stock API
+.. *System Name*: stock-api
+.. *Description*: Stock API
+. Create Application Plan:
+.. *Name*: StockPremiumPlan
+.. *System Name*: stockPremiumPlan
+. *Publish* the application plan.
+. In *Developers* tab, select the *RHBank* account.
+. Select the *Applications* breadcrumb, and *Create Application*:
+.. *Application Plan*: StockPremiumPlan
+.. *Name*: StockApp
+.. *Description*: Stock Application
+. In API tab, select *Stock API*, and click on *Integration*.
+.. *Private Base URL*: URL to your JDV route
+.. *Staging Public Base URL*: create a new edge secure route in 3scale_AMP project to stock-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-staging service.
+.. *Production Public Base URL*: create a new route in 3scale_AMP project to stock-prod-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-production service.
+. Create a Mapping Rule:
+.. *Operation*: GET
+.. *Pattern*: /odata4/Stock-API/FederatedStock/stock
+. Create API Test GET request:
+.. *API Test GET Request*: /odata4/Stock-API/FederatedStock/stock?$format=JSON
+.  Click on *Update and test in the Staging Environment
+. Make a test request to the staging URL. 
+. *Promote to production* and make a test request to the production URL.
+
+
 
 [blue]#Congratulations!#.
 
