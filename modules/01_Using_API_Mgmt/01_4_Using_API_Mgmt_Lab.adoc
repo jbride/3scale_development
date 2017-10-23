@@ -156,7 +156,7 @@ image::images/3scale_amp_products_create_method.png[]
 . Repeat the process for the following methods:
 +
 .Methods Table
-[options="header,footer"]
+[options="header"]
 |=======================
 |Friendly Name|System Name|Description
 |Create Product|product/create|Create a new Product
@@ -175,7 +175,7 @@ image::images/3scale_amp_products_create_all_methods.png[]
 . Now repeat the process for the other mapping rules:
 +
 .Mapping Rules Table
-[options="header,footer"]
+[options="header"]
 |=======================
 |Verb|Pattern|Method
 |POST|/rest/services/product|product/create
@@ -185,21 +185,80 @@ image::images/3scale_amp_products_create_all_methods.png[]
 +
 image::images/3scale_amp_products_create_all_mappings.png[]
 
+=== Create Routes for staging and Production APIcast
+
+. From the command line, ensure you are logged in to openshift.
+. Ensure you are in the `3scale AMP` project.
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-3scale-amp
+-----
++
+. Get the list of routes defined in the project:
++
+[source,text]
+-----
+$ oc get routes
+NAME                           HOST/PORT                                                              PATH      SERVICES             PORT      TERMINATION   WILDCARD
+api-apicast-production-route   api-user76-3scale-apicast-production.apps.6a94.openshift.opentlc.com             apicast-production   gateway   edge/Allow    None
+api-apicast-staging-route      api-user76-3scale-apicast-staging.apps.6a94.openshift.opentlc.com                apicast-staging      gateway   edge/Allow    None
+backend-route                  backend-user76-3scale.apps.6a94.openshift.opentlc.com                            backend-listener     http      edge/Allow    None
+system-developer-route         user76-3scale.apps.6a94.openshift.opentlc.com                                    system-developer     http      edge/Allow    None
+system-provider-admin-route    user76-3scale-admin.apps.6a94.openshift.opentlc.com                              system-provider      http      edge/Allow    None
+-----
++
+. Delete the default routes `api-apicast-production-route` and `api-apicast-staging-route`.
++
+[source,text]
+-----
+$ oc delete route api-apicast-production-route
+$ oc delete route api-apicast-staging-route
+-----
++
+. Create new route to the Staging and Production APICast gateways.
++
+[source,text]
+-----
+$ oc create route edge products-staging-route \
+> --service=apicast-staging \
+> --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+
+$ oc create route edge products-production-route \
+> --service=apicast-production \
+> --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+-----
++
+. check that the routes are created successfully.
++
+[source,text]
+-----
+$ oc get routes
+
+NAME                          HOST/PORT                                                            PATH      SERVICES             PORT      TERMINATION   WILDCARD
+backend-route                 backend-user76-3scale.apps.6a94.openshift.opentlc.com                          backend-listener     http      edge/Allow    None
+products-production-route     products-production-apicast-user76.apps.6a94.openshift.opentlc.com             apicast-production   gateway   edge          None
+products-staging-route        products-staging-apicast-user76.apps.6a94.openshift.opentlc.com                apicast-staging      gateway   edge          None
+system-developer-route        user76-3scale.apps.6a94.openshift.opentlc.com                                  system-developer     http      edge/Allow    None
+system-provider-admin-route   user76-3scale-admin.apps.6a94.openshift.opentlc.com                            system-provider      http      edge/Allow    None
+
+-----
+
 === Create Public & Private APIs for Products Integration
 
 
 . Enter the Products API and Business Service routes to the configuration:
 .. `Private Base URL` : _Route to the Products API Business Service Endpoint_
 +
-IMPORTANT: This is the route you set in the Business Services lab, and should be `http://projects-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:80`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80`
+IMPORTANT: This is the route you set in the Business Services lab, and should be `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:80`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80`
 +
 .. `Staging Public Base URL` : _Route to the Products APICast Staging Endpoint_
 +
-IMPORTANT: This is the staging route URL you set in the Hybrid APICast lab. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
+IMPORTANT: This is the staging route URL you created in the previous section. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
 +
 .. `Production Public Base URL` : _Route to the Products APICast Production Endpoint_
 +
-IMPORTANT: This is the production route URL you set in the Hybrid APICast lab. It should be `https://products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `https://products-production-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
+IMPORTANT: This is the production route URL you created in the previous section. It should be `https://products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `https://products-production-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
 +
 .. `API test GET Request` : `/rest/services/product/1`
 . Keep the rest of the values unchanged and click on `Update the Staging Environment`.

@@ -345,6 +345,30 @@ Thus, the REST - SOAP Camel Proxy is now correctly deployed, and hence we can no
 
 Follow the steps in the previous lab to import the API Docs into 3scale.
 
+=== Create APICast Staging and Production Routes
+
+Follow the steps in the API Management lab to create secure routes to the `apicast-staging` and `apicast-production` services for the stores API.
+
+. Ensure you are in the `3scale AMP` project.
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-3scale-amp
+-----
++
+. Create new routes for `Stores API` staging and production APICast.
++
+[source,text]
+-----
+$ oc create route edge stores-staging-route \
+> --service=apicast-staging \
+> --hostname=stores-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+
+$ oc create route edge stores-production-route \
+> --service=apicast-production \
+> --hostname=stores-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+-----
+
 
 === Configure 3scale API Management
  
@@ -366,7 +390,7 @@ Follow the steps in the previous lab to import the API Docs into 3scale.
 . In API tab, select *Stores API*, and click on *Integration*.
 .. *Private Base URL*: URL to your Fuse camel REST route
 .. *Staging Public Base URL*: create a new edge secure route in 3scale_AMP project to stores-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-staging service.
-.. *Production Public Base URL*: create a new route in 3scale_AMP project to stores-prod-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-production service.
+.. *Production Public Base URL*: create a new route in 3scale_AMP project to stores-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN, mapped to the apicast-production service.
 . Create API Test GET request:
 .. *API Test GET Request*: /allstores
 .  Click on *Update and test in the Staging Environment
@@ -480,6 +504,30 @@ $ curl -k http://stock-api-$OCP_PROJDCT_PREFIX.$OCP_WILDCARD_DOMAIN/odata4/Stock
 
 Thus, the REST ODATA JDV service is now correctly deployed, and hence we can now begin to configure the APICast Gateway to use this REST endpoint to communicate with the ODATA Service.
 
+=== Create APICast Staging and Production Routes
+
+Follow the steps in the API Management lab to create secure routes to the `apicast-staging` and `apicast-production` services for the Stock API.
+
+. Ensure you are in the `3scale AMP` project.
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-3scale-amp
+-----
++
+. Create new routes for `Stock API` staging and production APICast.
++
+[source,text]
+-----
+$ oc create route edge stock-staging-route \
+> --service=apicast-staging \
+> --hostname=stock-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+
+$ oc create route edge stock-production-route \
+> --service=apicast-production \
+> --hostname=stock-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+-----
+
 === Configure 3scale API Management
 
 . Login to your 3scale admin console with your userid/password credentials.
@@ -508,7 +556,6 @@ Thus, the REST ODATA JDV service is now correctly deployed, and hence we can now
 .  Click on *Update and test in the Staging Environment
 . Make a test request to the staging URL. 
 . *Promote to production* and make a test request to the production URL.
-
 
 
 [blue]#Congratulations!#.
