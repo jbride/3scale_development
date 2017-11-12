@@ -221,12 +221,12 @@ $ oc delete route api-apicast-staging-route
 [source,text]
 -----
 $ oc create route edge products-staging-route \
-> --service=apicast-staging \
-> --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+ --service=apicast-staging \
+ --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
 
 $ oc create route edge products-production-route \
-> --service=apicast-production \
-> --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+ --service=apicast-production \
+ --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
 -----
 +
 . check that the routes are created successfully.
