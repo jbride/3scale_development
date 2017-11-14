@@ -125,7 +125,8 @@ image::images/3scale_amp_products_activedocs8.png[]
 == Developer Portal Customization
 
 In this lab you will work on the Developer Portal for the API’s customers/partners/users. 
-The Developer can be fully customized to meet your needs and branding, you can find more information here: https://support.3scale.net/docs/developer-portal/overview 
+The Developer portal can be fully customized to meet your needs.
+You can find more information here: https://support.3scale.net/docs/developer-portal/overview 
 
 === Import Logo Files:
 
