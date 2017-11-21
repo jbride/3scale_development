@@ -6,22 +6,289 @@
 
 = NGinx Customizations Lab
 
+
+In this lab, you will learn about the APICast gateway customisations. We will look at a couple of popular Lua custom scripts that are required for 3scale APICast gateway to manage APIs, and how to deploy and test the custom scripts. 
+
 .Goals
-. Customization of XC Gateway
-. Custom header injection at gateway by Nginx plugin
+. Custom Module in NGinx Gateway for logging
+. Custom config in NGinx Gateway for echoing request headers
+. Customization of NGinx gateway for CORS (Cross-Origin Resource Sharing)
 
-== Overview
+== Custom Module for Logging
 
-The APIcast XC gateway caches authorization responses for a configurable time (TTL) and reports the usages periodically. 
-The metrics are less accurate but much higher throughputs are possible. 
-See https://github.com/3scale/apicast-xc
+An nginx module plugs in to the lifecycle phase of the gateway. There are various phases in apicast, e.g init, init_worker, rewrite, access, content, log, post_action, balancer, header_filter, body_filter etc. It handles processing of each request. There can be only ONE module that is being executed.
 
-. lua code customizations for docker based APIcast v2
-. NGinx customizations in OCP
-.. OpenResty
-.. Lua
-... Very fast, used in gaming
+The name of the module that is executed is defined by the environment variable APICAST_MODULE and defaults to apicast.
 
+To write custom modules, you need to use inheritence to override the default APICAST_MODULE code with your custom code. A recommended skeleton for writing custom modules is here:
+
+https://github.com/3scale/apicast/tree/master/examples/custom-module
+
+=== Verbose Logging Custom Module
+
+We will now create a custom module to provide more verbose logging information in APICast. The custom Lua file is available here:
+
+https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-module/verbose.lua
+
+Please examine the code for the `log` function:
+
+[source,text]
+-----
+function _M.log()
+  ngx.log(ngx.WARN,
+    'upstream response time: ', ngx.var.upstream_response_time, ' ',
+    'upstream connect time: ', ngx.var.upstream_connect_time)
+  return apicast:log()
+end
+-----
+
+Note that 2 new fields are now added to the log, an `upstream_response_time` and `upstream_connect_time`. On successful API call, the new log information will be printed in the logs.
+
+==== Deploy Custom Module on OCP
+
+. Copy the `verbose.lua` file locally:
++
+[source,text]
+-----
+$ curl -o verbose.lua https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-module/verbose.lua
+-----
++
+. Ensure you are logged in to OCP with your login credentials from the terminal.
+. Ensure you are using the `3scale AMP` project.
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-3scale-amp
+-----
++
+. Create a config map in the OCP project.
++
+[source,text]
+-----
+$ oc create configmap apicast-verbose --from-file=./verbose.lua
+-----
++
+NOTE: Ensure you provide the correct path to the `verbose.lua` file in the above command.
++
+. Create volume for the container, and mount them to the appropriate path.
++
+[source,text]
+-----
+$ oc set volume dc/apicast-staging --add --name=apicast-verbose --mount-path /opt/app-root/src/src/verbose.lua --source='{"configMap":{"name":"apicast-verbose","items":[{"key":"verbose.lua","path":"verbose.lua"}]}}'
+-----
++
+. The oc volume command doesn't support adding subpaths, so a patch needs to be applied.
++
+[source,text]
+-----
+$ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/0/subPath", "value":"verbose.lua"}]'
+-----
++
+. Finally, set the environment variable `APICAST_MODULE`.
++
+[source,text]
+-----
+$ oc env dc/apicast-staging APICAST_MODULE=verbose
+-----
++
+. Now the apicast-staging pod will be redeployed automatically. Wait for the pod to be in running state.
+
+==== Test the Logs
+
+. Send a test request to the staging route to any of the business services deployed, using the curl command.
+. Check the logs. You should see a log similar to following:
++
+[source,text]
+-----
+2017/11/21 11:28:09 [warn] 30#30: *114 [lua] verbose.lua:11: log(): upstream response time: 0.085 upstream connect time: 0.000 while logging request, client: 10.1.0.1, server: _, request: "GET /?user_key=c29ee601788b80ea9b2239b2f736ee27 HTTP/1.1", upstream: "https://34.196.209.22:443/?user_key=c29ee601788b80ea9b2239b2f736ee27", host: "echo-api.3scale.net"
+-----
+
+Thus, a custom module can be added to the standard Lua modules.
+
+== Custom Configuration
+
+Sometimes you might require to inject custom nginx configuration into the gateway for customization. For example to add another server block to handle some routing. This does not override existing configuration. Similaar to the custom module, a custom configuration can be used to inherit the standard configuration and extend it.
+
+=== Echo Custom Configuration
+
+We will now create a custom configuration to provide more verbose response to client by echoing all the request headers in the response, along with the API response.
+
+The configuration is here:
+
+https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-config/echo.conf
+
+Please examine the code for the `log` function:
+
+[source,text]
+-----
+server {
+  listen 8080;
+  server_name echo;
+
+  location / {
+    echo $echo_client_request_headers;
+  }
+
+}
+-----
+
+==== Deploy Custom Configuration on OCP
+
+. Copy the `echo.conf` file locally:
++
+[source,text]
+-----
+$ curl -o echo.conf https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-config/echo.conf
+-----
++
+. Ensure you are logged in to OCP with your login credentials from the terminal.
+. Ensure you are using the `3scale AMP` project.
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-3scale-amp
+-----
++
+. Create a config map in the OCP project.
++
+[source,text]
+-----
+$ oc create configmap echo-conf --from-file=./echo.conf
+-----
++
+NOTE: Ensure you are provide the correct path to the `echo.conf` file in the above command.
++
+. Create volume for the container, and mount them to the appropriate path.
++
+[source,text]
+-----
+$ oc set volume dc/apicast-staging --add --name=echo-conf --mount-path /opt/app/sites.d/echo.conf --source='{"configMap":{"name":"echo-conf","items":[{"key":"echo.conf","path":"echo.conf"}]}}'
+-----
++
+. The oc volume command doesn't support adding subpaths, so a patch needs to be applied.
++
+[source,text]
+-----
+$ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/1/subPath", "value":"echo.conf"}]'
+-----
++
+. Now the apicast-staging pod will be redeployed automatically. Wait for the pod to be in running state.
+
+=== Test Custom Config 
+
+. Open a terminal and `rsh` to the apicast-staging pod.
++
+[source,text]
+-----
+$ oc rsh <your apicast pod>
+-----
++
+NOTE: Substitute the name of your apicast-staging pod in the above command.
++
+. Send a request to PORT 8080 of localhost:
++
+[source,text]
+-----
+sh-4.2$ curl localhost:8080 -H 'Host: echo' -X 'POST'
+-----
++
+. You should see a response as below:
++
+[source,text]
+-----
+POST / HTTP/1.1
+Host: echo
+User-Agent: curl/7.49.1
+Accept: */*
+-----
+
+== CORS Headers
+
+Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to let a user agent gain permission to access selected resources from a server on a different origin (domain) than the site currently in use. A user agent makes a cross-origin HTTP request when it requests a resource from a different domain, protocol, or port than the one from which the current document originated.
+
+This lab shows how CORS (Cross Origin Resource Sharing) handling can be added to APIcast.
+
+There are 2 files, a cors.lua, and a cors.conf to configure CORS for NGINX.
+
+Examine the `cors.lua` file here:
+
+https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.lua
+
+Also examine the `cors.conf` file:
+
+https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.conf
+
+
+=== Deploy CORS Custom Module & Configuration to OCP
+
+. Copy the `cors.lua` and `cors.conf` files locally:
++
+[source,text]
+-----
+$ curl -o cors.lua https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.lua
+$ curl -o cors.conf https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.conf
+-----
++
+. Ensure you are logged in to OCP with your login credentials from the terminal.
+. Ensure you are using the `3scale AMP` project.
++
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-3scale-amp
+-----
++
+. Create a config map in the OCP project.
++
+[source,text]
+-----
+$ oc create configmap apicast-cors --from-file=./cors.lua
+$ oc create configmap cors-conf --from-file=./cors.conf
+-----
++
+NOTE: Ensure you are provide the correct path to the `cors.lua` and `cors.conf` files in the above command.
++
+. Create volume for the container, and mount them to the appropriate path.
++
+[source,text]
+-----
+$ oc set volume dc/apicast-staging --add --name=apicast-cors --mount-path /opt/app-root/src/src/cors.lua --source='{"configMap":{"name":"apicast-cors","items":[{"key":"cors.lua","path":"cors.lua"}]}}'
+$ oc set volume dc/apicast-staging --add --name=cors-conf --mount-path /opt/app-root/src/apicast.d/cors.conf --source='{"configMap":{"name":"cors-conf","items":[{"key":"cors.conf","path":"cors.conf"}]}}'
+-----
++
+. The oc volume command doesn't support adding subpaths, so a patch needs to be applied.
++
+[source,text]
+-----
+$ oc patch dc/apicast --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/2/subPath", "value":"cors.lua"},{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/3/subPath", "value":"cors.conf"}]'
+-----
++
+. Finally, set the environment variable `APICAST_MODULE`.
++
+[source,text]
+-----
+$ oc env dc/apicast-staging APICAST_MODULE=cors
+-----
++
+. Now the apicast-staging pod will be redeployed automatically. Wait for the pod to be in running state.
+
+=== Test a CORS Request
+
+. Send a curl request to the staging API endpoint using a CORS header:
++
+[source,text]
+-----
+$ curl -v -k https://api-sj-3scale-apicast-staging.apps.dev.openshift.opentlc.com:443/?user_key=c29ee601788b80ea9b2239b2f736ee27  -H "Origin: http://example.com"   -H "Access-Control-Request-Method: GET"   -H "Access-Control-Request-Headers: X-Requested-With"
+-----
++
+. Check that the reponse contains the headers for handling CORS requests:
++
+[source,text]
+-----
+< Access-Control-Allow-Credentials: true
+< Access-Control-Allow-Methods: GET
+< Access-Control-Allow-Origin: http://example.com
+< Access-Control-Max-Age: 1728000
+-----
 
 
 [blue]#Congratulations!#.
