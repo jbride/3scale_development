@@ -41,6 +41,8 @@ In this lab you will expose an existing SOAP based JEE application running on a 
 
 === SOAP Request Using Lua & NGINX Customization
 
+As we saw in the previous module, a custom module for Lua can be written to include SOAP headers and add basic routing of a request to a SOAP API endpoint using 3scale. Please refer to the below example on how this can be achieved.
+
 Reference: http://middlewareblog.redhat.com/2017/08/30/integrating-soap-based-web-services-into-red-hat-3scale-api-management/
 
 
@@ -121,56 +123,48 @@ This service can be deployed on JBoss EAP, hosted on your shared OCP environment
 
 ===== Deploy StoresWS to OCP
 
-. Login to your OCP admin console with your OPENTLC userid and password from a web browser.
-. Select `New Project` button.
+NOTE: When executing commands using the oc utility, you must be logged in to the master API of your OpenShift Container Platform environment with your OCP_USER_ID credentials.
+
+. At the shell prompt of your VM, make sure you are using the `jboss` user.	
+. Create a new project for your Stores API business service applications:
 +
-image::images/3scale_amp_stores_api_1.png[]
+[source,text]
+-----
+$ oc new-project $OCP_PROJECT_PREFIX-stores-api \
+     --display-name="Stores API" \
+     --description="Stores API SOAP Services"
+-----
 +
-. Create a new project with following values:
-.. *Name*: $OCP_PROJECT_PREFIX-stores-api
+. If not already there, switch to this new project:
 +
-IMPORTANT: Please provide the value of the $OCP_PROJECT_PREFIX in the form, e.g if the OCP_PROJECT_PREFIX is *sjayanti-redhat-com*, then the project name should be *sjayanti-redhat-com-stores-api*.
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-stores-api
+-----
 +
-.. *Display Name*: Stores API
-.. *Description*: Stores API Project
-. Click on `Create`.
+. Import the stores-api template to your Openshift environment.
 +
-image::images/3scale_amp_stores_api_2.png[]
+[source,text]
+-----
+$ oc create -f /home/jboss/lab/3scale_development_labs/templates/stores-api.json
+-----
 +
-. Click on `Import YAML/JSON.
-. Open the file `/home/jboss/lab/3scale_development_labs/templates/stores-api.json` in a text editor.
+. Create the new application using the above stores-api template:
 +
-TIP: If you do not have access to the copy function in the VM, you can open the file on the browser : https://raw.githubusercontent.com/gpe-mw-training/3scale_development_labs/master/templates/stores-api.json . 
+[source,text]
+-----
+$ oc new-app --template=stores-soap --param HOSTNAME_HTTP=stores-api-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+-----
 +
-. Copy the contents of the file to the text field in the *Import YAML/JSON* page.
-+
-image::images/3scale_amp_stores_api_3.png[]
-+
-. Click on `Create`.
-. In the pop-up form, uncheck `Process Template`, and check `Save Template.
-. Click on `Create`.
-+
-image::images/3scale_amp_stores_api_4.png[]
-+
-. You should get a message that the template was saved successfully.
-+
-image::images/3scale_amp_stores_api_5.png[]
-+
-. Click on `Add to Project`.
-. Search for the template `stores-soap`.
-+
-image::images/3scale_amp_stores_api_6.png[]
-+
-. Click on `Select`.
-. In the form, provide the *Hostname* as `stores-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN.
-+
-IMPORTANT: Please provide the value of $OCP_PROJECT_PREFIX and $OCP_WILDCARD_DOMAIN in the form, e.g if the OCP_PROJECT_PREFIX is *sjayanti-redhat-com* and $OCP_WILDCARD_DOMAIN is *apps.na1.openshift.opentlc.com*, then the Hostname should be *stores-sjayanti-redhat-com.apps.na1.openshift.opentlc.com*.
-+
-. Scroll down and click on `Create` button.
 . Wait a few minutes for the SOAP service to be deployed and pods started.
 +
-image::images/3scale_amp_stores_api_7.png[]
-+
+[source,text]
+-----
+$ oc get pods
+NAME                  READY     STATUS      RESTARTS   AGE
+stores-soap-1-jnjrb   1/1       Running     0          2m
+storesdb-1-6z5lx      1/1       Running     0          12m
+-----
 
 
 ===== Test the Stores API SOAP service
@@ -197,27 +191,46 @@ image::images/3scale_amp_stores_api_11.png[]
 
 ==== Deploy `Stores FIS` Project to OCP
 
-. Login to the OpenShift console using your OPENTLC userid and password.
-. Choose the `Stores API` project.
-. Click on `Import YAML/JSON and import the file /home/jboss/labs/3scale_development_labs/templates/stores-fis.json.
+NOTE: When executing commands using the oc utility, you must be logged in to the master API of your OpenShift Container Platform environment with your OCP_USER_ID credentials.
+
+. At the shell prompt of your VM, make sure you are using the `jboss` user.	
+. If not already there, switch to this new project:
 +
-TIP: If you cannot copy the contents of the file, you can use the github URL https://raw.githubusercontent.com/gpe-mw-training/3scale_development_labs/master/templates/stores-fis.json.
+[source,text]
+-----
+$ oc project $OCP_PROJECT_PREFIX-stores-api
+-----
 +
-. Import the template and choose to `Process Template`.
-. Provide the host name as `stores-fis-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN`.
+. Import the stores-fis template to your Openshift environment.
 +
-IMPORTANT: Please provide the value of $OCP_PROJECT_PREFIX and $OCP_WILDCARD_DOMAIN in the form, e.g if the OCP_PROJECT_PREFIX is *sjayanti-redhat-com* and $OCP_WILDCARD_DOMAIN is *apps.na1.openshift.opentlc.com*, then the Hostname should be *stores-sjayanti-redhat-com.apps.na1.openshift.opentlc.com*.
+[source,text]
+-----
+$ oc create -f /home/jboss/lab/3scale_development_labs/templates/stores-fis.json
+-----
 +
-. Scroll down and click on *Create*.
-. Wait for a few minutes until the stores-fis pod is started.
-. Now you should notice 3 pods running in your `Stores API` project.
+. Create the new application using the above stores-fis template:
 +
-image::images/3scale_amp_stores_api_12.png[]
+[source,text]
+-----
+$ oc new-app --template=stores-fis --param ROUTE_HOST=stores-fis-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+-----
 +
+. Wait a few minutes for the FIS service to be deployed and pods started.
++
+[source,text]
+-----
+$ oc get pods
+NAME                  READY     STATUS      RESTARTS   AGE
+stores-fis-1-ff256    1/1       Running     0          35m
+stores-soap-1-jnjrb   1/1       Running     0          1h
+storesdb-1-6z5lx      1/1       Running     0          1h
+-----
 
 
 ===== Examine the Camel Route
 
+. Login to the Openshift admin console from a web browser using your login credentials.
+. Navigate to the `Stores API` project.
 . Click on the `Stores-FIS` pod and select `Open Java Console.`.
 +
 image::images/3scale_amp_stores_api_13.png[]
@@ -449,7 +462,7 @@ $ oc new-project $OCP_PROJECT_PREFIX-stock-api \
 -----
 $ oc project $OCP_PROJECT_PREFIX-stock-api
 -----
-. Import the products-api template to your Openshift environment
+. Import the stores-api template to your Openshift environment
 +
 [source,text]
 -----
