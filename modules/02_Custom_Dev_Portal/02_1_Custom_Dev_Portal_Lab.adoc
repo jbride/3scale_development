@@ -194,13 +194,7 @@ image::images/3scale_amp_products_dev_portal5.png[]
 +
 image::images/3scale_amp_products_dev_portal6.png[]
 +
-. Go to line #3 and replace “Echo” with “RHMart”.
-Go to line #5. Replace the line with following:
-+
-[source,text]
------
-            {% active_docs version: "2.0" services: "products_spec" %}
------
+. Replace the contents of the page with the content from the gist: https://gist.githubusercontent.com/satyaj/dbafcfafd2d9271f68ad05c0b6026559/raw/1cdf95678ada83bf524230c168920c6461345585/docs.html
 +
 . Click on *Save* button.
 +
