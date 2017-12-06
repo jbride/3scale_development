@@ -193,17 +193,14 @@ image::images/3scale_amp_products_create_all_mappings.png[]
 $ oc project $OCP_PROJECT_PREFIX-3scale-amp
 -----
 +
-. Get the list of routes defined in the project:
+. Get the list of apicast routes defined in the project:
 +
 [source,text]
 -----
-$ oc get routes
+$ oc get routes | grep apicast
 NAME                           HOST/PORT                                                              PATH      SERVICES             PORT      TERMINATION   WILDCARD
 api-apicast-production-route   api-user76-3scale-apicast-production.apps.6a94.openshift.opentlc.com             apicast-production   gateway   edge/Allow    None
 api-apicast-staging-route      api-user76-3scale-apicast-staging.apps.6a94.openshift.opentlc.com                apicast-staging      gateway   edge/Allow    None
-backend-route                  backend-user76-3scale.apps.6a94.openshift.opentlc.com                            backend-listener     http      edge/Allow    None
-system-developer-route         user76-3scale.apps.6a94.openshift.opentlc.com                                    system-developer     http      edge/Allow    None
-system-provider-admin-route    user76-3scale-admin.apps.6a94.openshift.opentlc.com                              system-provider      http      edge/Allow    None
 -----
 +
 . Delete the default routes `api-apicast-production-route` and `api-apicast-staging-route`.
@@ -231,14 +228,12 @@ $ oc create route edge products-production-route \
 +
 [source,text]
 -----
-$ oc get routes
+$ oc get routes | greo products
+
 
 NAME                          HOST/PORT                                                            PATH      SERVICES             PORT      TERMINATION   WILDCARD
-backend-route                 backend-user76-3scale.apps.6a94.openshift.opentlc.com                          backend-listener     http      edge/Allow    None
 products-production-route     products-production-apicast-user76.apps.6a94.openshift.opentlc.com             apicast-production   gateway   edge          None
 products-staging-route        products-staging-apicast-user76.apps.6a94.openshift.opentlc.com                apicast-staging      gateway   edge          None
-system-developer-route        user76-3scale.apps.6a94.openshift.opentlc.com                                  system-developer     http      edge/Allow    None
-system-provider-admin-route   user76-3scale-admin.apps.6a94.openshift.opentlc.com                            system-provider      http      edge/Allow    None
 
 -----
 
