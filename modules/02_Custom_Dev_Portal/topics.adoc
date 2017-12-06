@@ -1,0 +1,26 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Summary
+
+
+* 3scale Admin Portal
+* API Documentation
+* Developer Portal
+* Accounts
+* API BizOps
+* 3scale CLI
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+This module introduces the 3scale Administration Portal and the 3scale Developer Portal. It covers aspects of creating and sharing API Documentation with your API consumers using 3scale ActiveDocs. We also discuss how to manage admin and member rights and invite teammates to use the admin portal. API management related ongoing business operations like  adding/approving developers, choosing plans for an application, enabling signups, webhooks, and contacting developers are covered. Finally, Finally, a command Line tool available for importing and managing APIs in 3scale is also discussed.
+ 
+
+
+
+endif::showscript[]

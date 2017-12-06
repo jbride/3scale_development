@@ -1,0 +1,28 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Summary
+
+
+* 3scale by Red Hat Overview
+* Product features
+* Use cases
+* Admin Data Model
+* Business Relationships
+* Account Data Model
+* Manage API Access 
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+This module described the overview and getting started with Red Hat 3scale API Management. It covered at a high-level features and components of 3scale, their significance, and a look at the product ecosystem. A detailed look at API management, including, architecture, traffic management, policy management, use cases, and life cycle was presented. The data model of the Administration and Account Management were discussed. Finally, we looked at steps necessary to manage APIs using 3scale, including setting up of API services, application plans, methods and metrics, and rate limits.
+ 
+
+
+
+endif::showscript[]
