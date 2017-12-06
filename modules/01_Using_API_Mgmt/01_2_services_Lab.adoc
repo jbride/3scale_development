@@ -66,7 +66,7 @@ $ oc project $OCP_PROJECT_PREFIX-products-api
 +
 [source,text]
 -----
-$ oc create -f /home/jboss/lab/3scale_development_labs/templates/products-api.json
+$ oc create -f $HOME/lab/3scale_development_labs/templates/products-api.json
 -----
 +
 . Create the new application using the above products-api template:

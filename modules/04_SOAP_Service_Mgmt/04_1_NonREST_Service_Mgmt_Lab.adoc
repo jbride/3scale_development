@@ -55,7 +55,7 @@ In this lab you will expose an existing SOAP based JEE application running on a 
 ===== Inspect SOAP Service Code
 
 . Study the web Service interface and implementation for StoresWS.
-.. Open the file `/home/sjayanti/git_share/PartnerTraining/3scale/3scale_development_labs/Stores/src/main/resources/wsdl`
+.. Open the file `$HOME/lab/3scale_development_labs/Stores/src/main/resources/wsdl`
 .. Inspect the Stores Web Service definition:
 +
 [source,xml]
@@ -80,7 +80,7 @@ In this lab you will expose an existing SOAP based JEE application running on a 
   </wsdl:portType>
 -----
 +
-.. Open the file `/home/jboss/lab/3scale_development_labs/Stores/src/main/java/com/redhat/service/StoresWS.java`
+.. Open the file `$HOME/lab/3scale_development_labs/Stores/src/main/java/com/redhat/service/StoresWS.java`
 .. Inspect the SOAP Web Service Implementation:
 +
 [source,java]
@@ -146,7 +146,7 @@ $ oc project $OCP_PROJECT_PREFIX-stores-api
 +
 [source,text]
 -----
-$ oc create -f /home/jboss/lab/3scale_development_labs/templates/stores-api.json
+$ oc create -f $HOME/lab/3scale_development_labs/templates/stores-api.json
 -----
 +
 . Create the new application using the above stores-api template:
@@ -205,7 +205,7 @@ $ oc project $OCP_PROJECT_PREFIX-stores-api
 +
 [source,text]
 -----
-$ oc create -f /home/jboss/lab/3scale_development_labs/templates/stores-fis.json
+$ oc create -f $HOME/lab/3scale_development_labs/templates/stores-fis.json
 -----
 +
 . Create the new application using the above stores-fis template:
@@ -466,14 +466,14 @@ $ oc project $OCP_PROJECT_PREFIX-stock-api
 +
 [source,text]
 -----
-$ oc create -f /home/jboss/lab/3scale_development_labs/templates/stock-api.json
+$ oc create -f $HOME/lab/3scale_development_labs/templates/stock-api.json
 -----
 +
 . Add the datasources environment variable secret to the project:
 +
 [source,text]
 -----
-$ oc secret new datavirt-app-config /home/jboss/lab/3scale_development_labs/Stock/datasources.env
+$ oc secret new datavirt-app-config $HOME/lab/3scale_development_labs/Stock/datasources.env
 -----
 +
 . Now create a new service account for *datavirt* user and provide view access.
