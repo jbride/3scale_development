@@ -162,7 +162,7 @@ NOTE: Ensure you are provide the correct path to the `echo.conf` file in the abo
 +
 [source,text]
 -----
-$ oc set volume dc/apicast-staging --add --name=echo-conf --mount-path /opt/app/sites.d/echo.conf --source='{"configMap":{"name":"echo-conf","items":[{"key":"echo.conf","path":"echo.conf"}]}}'
+$ oc set volume dc/apicast-staging --add --name=echo-conf --mount-path /opt/app-root/app/sites.d/echo.conf --source='{"configMap":{"name":"echo-conf","items":[{"key":"echo.conf","path":"echo.conf"}]}}'
 -----
 +
 . The oc volume command doesn't support adding subpaths, so a patch needs to be applied.
