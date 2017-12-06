@@ -4,15 +4,13 @@
 :numbered:
 
 
-= Using Red Hat 3Scale API Management Lab
-
-In this lab, you will create your first API Management Service in 3Scale AMP, exposing the Products API REST JEE application deployed in the previous lab. 
-
+= Metrics, Methods and Rate Limits
 
 .Goals:
 
 . Expose Products API REST Service with 3scale.
 . Create Application Plans for Basic and Premium users.
+. Define methods and metrics
 . Apply rate limits for basic users to control access to the API.
 
 .Prerequisites
@@ -26,15 +24,17 @@ TIP: To check if your shell still has this environment variable set, execute the
 
 == Overview
 
-In the previous labs, you installed and configured an OpenShift Container Platform environment, installed the APICast On-premise, and REST API business services. In this lab, you use the 3scale SaaS AMP to manage the business service APIs. 
+In this lab, you will secure and manage the Products API REST JEE application deployed in the previous lab. 
+
+In particular, _methods_, _metrics_ and _rate limits_ will be defined and utilized.
 
 
-== API Management Using 3scale AMP Admin Portal
+== Initial API resources
 
 Now, you will expose the Products API business services created in an earlier lab using the 3scale APICast Gateway. We will use the 3scale Admin Portal to create the accounts, applications, application plans, services and API definitions.
 
 
-=== Login
+=== Log into Admin Console
 
 . In a browser window, access the 3scale AMP Admin Portal URL.
 +
@@ -47,8 +47,6 @@ image::images/3scale_amp_admin_portal_login.png[]
 . Navigate to `Developers` and delete the default user `Developer`.
 +
 image::images/3scale_amp_admin_delete_developers.png[]
-
-
 
 
 === Define ProductsAPI Service
@@ -134,7 +132,7 @@ image::images/3scale_amp_products_create_app2.png[]
 image::images/3scale_amp_products_app_plan_userkey.png[]
 
 
-=== Create Mappings and Methods for Products Integration
+== Create Mappings and Methods for Products Integration
 
 . Navigate to the API tab.
 . In the `Products` service, select *Integration*.
@@ -185,7 +183,7 @@ image::images/3scale_amp_products_create_all_methods.png[]
 +
 image::images/3scale_amp_products_create_all_mappings.png[]
 
-=== Create Routes for staging and Production APIcast
+== Create Routes for staging and Production APIcast
 
 . From the command line, ensure you are logged in to openshift.
 . Ensure you are in the `3scale AMP` project.
@@ -246,7 +244,7 @@ system-provider-admin-route   user76-3scale-admin.apps.6a94.openshift.opentlc.co
 
 === Create Public & Private APIs for Products Integration
 
-
+. Return to the admin console of your API Managment Platform.
 . Enter the Products API and Business Service routes to the configuration:
 .. `Private Base URL` : _Route to the Products API Business Service Endpoint_
 +
