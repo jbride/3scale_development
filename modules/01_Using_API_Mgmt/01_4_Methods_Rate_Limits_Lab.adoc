@@ -189,7 +189,7 @@ image::images/3scale_amp_products_create_all_methods.png[]
 +
 image::images/3scale_amp_products_create_all_mappings.png[]
 
-== Create Routes for staging and Production APIcast
+== Create Stage and Prod routes
 
 . From the command line, ensure you are logged in to openshift.
 . Ensure you are in the `3scale AMP` project.
@@ -243,7 +243,7 @@ products-staging-route        products-staging-apicast-user76.apps.6a94.openshif
 
 -----
 
-=== Public & Private APIs
+== Assign API Endpoinds
 
 . Return to the admin console of your API Managment Platform.
 . Enter the Products API and Business Service routes to the configuration:
