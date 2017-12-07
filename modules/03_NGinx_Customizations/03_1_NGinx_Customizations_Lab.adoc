@@ -107,7 +107,10 @@ Thus, a custom module can be added to the standard Lua modules.
 
 == Custom Configuration
 
-Sometimes you might require to inject custom nginx configuration into the gateway for customization. For example to add another server block to handle some routing. This does not override existing configuration. Similaar to the custom module, a custom configuration can be used to inherit the standard configuration and extend it.
+Sometimes you might require to inject custom nginx configuration into the gateway for customization. 
+For example to add another server block to handle some routing. 
+This does not override existing configuration. 
+Similar to the custom module, a custom configuration can be used to inherit the standard configuration and extend it.
 
 === Echo Custom Configuration
 

@@ -253,7 +253,7 @@ IMPORTANT: This is the route you set in the Business Services lab, and should be
 +
 .. `Staging Public Base URL` : _Route to the Products APICast Staging Endpoint_
 +
-IMPORTANT: This is the staging route URL you created in the previous section. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
+IMPORTANT: This is the staging route URL you created in the previous section. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Please note that the values will not be resolved on 3scale AMP, so you need to provide the full path, e.g `https://products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
 +
 .. `Production Public Base URL` : _Route to the Products APICast Production Endpoint_
 +
