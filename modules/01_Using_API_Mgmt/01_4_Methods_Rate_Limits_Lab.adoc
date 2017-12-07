@@ -89,6 +89,9 @@ image::images/3scale_amp_products_app_plan.png[]
 image::images/3scale_amp_products_app_plan2.png[]
 +
 . Create another Application Plan with Name `ProductsPremiumPlan` and System Name `products/premium`.
++
+This `ProductPremiumPlan` will be utilized in later labs of this course.
+
 . Select the *ProductsBasicPlan* as Default Plan.
 . Click on the *Publish* link for both `ProductsBasicPlan` and `ProductsPremiumPlan`.
 +
@@ -99,7 +102,7 @@ image::images/3scale_amp_products_app_plan_publish.png[]
 
 . Click on the `Developers` link.
 . Click on `Create`.
-. Create a new account `RHMart` with following credentials:
+. Create a new account with following credentials:
 .. `Username`: `rhbankdev`
 .. `Email` : PROVIDE A UNIQUE EMAIL ADDRESS
 .. `PASSWORD`: PROVIDE A UNIQUE EASY TO REMEMBER PASSWORD
@@ -132,8 +135,9 @@ image::images/3scale_amp_products_create_app2.png[]
 image::images/3scale_amp_products_app_plan_userkey.png[]
 
 
-== Create Mappings and Methods for Products Integration
+== Methods and Mappings
 
+=== Methods
 . Navigate to the API tab.
 . In the `Products` service, select *Integration*.
 . Click on `add the base URL of your API and save the configuration.` button.
@@ -163,7 +167,9 @@ image::images/3scale_amp_products_create_method.png[]
 |=======================
 +
 image::images/3scale_amp_products_create_all_methods.png[]
-+
+
+
+=== Mappings
 . Now click on `Add a mapping rule` for *Get Product* method.
 . Click on the edit icon.
 . Enter the following values:
@@ -237,7 +243,7 @@ products-staging-route        products-staging-apicast-user76.apps.6a94.openshif
 
 -----
 
-=== Create Public & Private APIs for Products Integration
+=== Public & Private APIs
 
 . Return to the admin console of your API Managment Platform.
 . Enter the Products API and Business Service routes to the configuration:
