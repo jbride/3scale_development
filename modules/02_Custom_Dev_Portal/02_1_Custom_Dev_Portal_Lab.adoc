@@ -259,15 +259,17 @@ image::images/3scale_amp_products_dev_portal13.png[]
 image::images/3scale_amp_products_dev_portal14.png[]
 
 
-== Advanced Developer Portal Customisations
-
-=== Different Groups for Developers & Admin	
+== Private Portal for Admins
 
 ==== Create Admin account application using `ProductsPremiumPlan` 
 
-Recall that in Module 1, you set up the `rhbankdev` user as part of the `RHBank` group. While creating the rate limits, we have disabled the methods `Create Account` and `Delete Account`, so a request for either of these methods should result in a *HTTP 403: Not Authorized* error.
+Recall that in Module 1, you set up the `rhbankdev` user as part of the `RHBank` group. 
+While creating the rate limits, we have disabled the methods `Create Account` and `Delete Account`, so a request for either of these methods should result in a *HTTP 403: Not Authorized* error.
 
-Now, follow the same steps and create a new user `rhadmin`, as part of the `RHAdmin` group, create an Application using `ProductsPremiumPlan` Application Plan, and then try the `Create Account` and `Delete Account` requests using the *user_key* generated for this account.
+In this section, follow the same steps and create a new user called `rhadmin` and assign that user as part of a `RHAdmin` group
+Afterwards, create an Application using the `ProductsPremiumPlan` Application Plan
+
+Once the new application plan is created, try the `Create Account` and `Delete Account` requests using the *user_key* generated for this account.
 
 Example request for `Create Account`:
 
@@ -303,7 +305,7 @@ The response should be as below:
 -----
 
 
-==== Create Admin Section & Groups
+=== Create Admin Section & Groups in Dev Portal
 
 In this section of the lab, we will create a private section of the portal for access by Admin users, create a group and associate it with the *ProductsPremiumApp*.
 
@@ -399,7 +401,7 @@ image::images/3scale_amp_products_dev_portal_groups_13.png[]
 +
 . Now the configuration for Admin section and groups is complete and can be tested.
 
-==== Test the Admin Group Section
+=== Test the Admin Group Section
 
 . Open the Developer Portal and click on *Sign In*.
 . Login as user *rhadmin* with the password you provided earlier.
