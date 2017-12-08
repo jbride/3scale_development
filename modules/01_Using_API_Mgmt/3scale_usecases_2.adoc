@@ -1,0 +1,46 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Usecases (contd.)
+
+
+* API Requirements
+** Purpose
+** Audience
+** Functionality
+** Access control and security
+** Visibility
+** API UX
+* Define the APIs in 3scale
+* Integrate the APIs with 3scale
+* Manage API Access
+** Application Plans
+** Limits and pricing rules
+* Engage Developers
+* Exposing the API
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+In order to enable development of API usecases, the following steps need to be considered:
+Purpose: Consider the typical reason to open up your APIs, or the implications of allowing customers or third parties to access your APIs. Is a single standard API compatible with multiple customers or do you need to provide bespoke integration?
+Audience: You’ll probably want to expose your API to individual developers as well as to potential partners, so it’s important to have a clear vision of how you’re going to differentiate between these two groups up front.
+Functionality: Once you’ve thought about your use cases and audience, you’ll probably want to think about how to enable these through your API. If you’re aiming to become a platform, you might want to think about exposing multiple APIs. This gives you more fine-grained control over the services that you expose as well as the ability to track access to each API separately.
+Access Control and Security: Think about which resources you want to expose as well as the operations you’ll allow on them. You’ll also want to think about usage limits, if any, you want to impose on the methods available through your API. These will probably be based on customer segment, with private partners receiving a higher allowance than public developers. Also, choosing the correct authentication method is important. 
+Visibility: An important next step is to think about the signup flow you want potential partners or customers to follow in order to get access to your API. You’ll probably want to provide a public Developer Portal to allow people to learn more about your API and potentially provision some sort of trial access with restricted functionality, so they can do a proof of concept integration against your API.
+API UX: Once you’re clear on all of the above, it’s important to think about what the experience is going to be like for partners discovering and integrating with your API.
+
+Defining the APIs in 3scale: You’ll now create all of the endpoints that you want to expose and track as methods under an application plan. Methods are the means by which 3scale tracks usage of your APIs. You can set up a method for each of the HTTP methods available on the API endpoints for your API. 
+
+Integrating the API with 3scale: Now that you’ve created all of the endpoints you want to expose and track in 3scale and have defined how your customers will access your API, you need to set up the API gateway to easily integrate with 3scale. You need to choose whether to use APIcast gateway or code plugins.
+
+Manage API access: Now that you have the gateway set up, you can start creating application plans to allow different types of access to your API. You’ll want to look at any limits you want to enforce on the different application plans, as well as any additional pricing rules for when developers go above their plan limits.
+
+Engage Developers: Now that you’ve set up some limits, the next step is to set up your Developer Portal, so customers can find out more about the API, get their API credentials, and monitor their usage.
+
+Exposing the API: Now you are ready to expose the APIs using 3scale. Promote the API to  production, and expose the developer portal to have public access so that customers and partners can find and signup for the API services.  	 
+
+endif::showscript[]

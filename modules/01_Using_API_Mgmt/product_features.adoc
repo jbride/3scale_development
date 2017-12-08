@@ -1,0 +1,38 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Product Features 
+
+
+* *Access Control* - Centrally set up and manage policies and application plans for all APIs.
+* *Security* - Authentication and authorisation using API Keys, User Keys or OAuth tokens.
+* *Rate Limits* - Manage and control flow of access to API resources.
+* *Developer Portal* - Provide a portal to allow sign up, access and documentation of the APIs for consumers.
+* *ActiveDocs Live Documentation* - Based on swagger framework, provides a way to document APIs and include in the developer portal.
+* *Analytics* - Monitor and set alerts on traffic flow, and produce reports. 
+* *Dashboard* - Quick, central visibility of all traffic, plans and customer signup flows for the platform.
+* *Monetization* - Set up pricing rules, invoices and collect payments. 
++
+NOTE: Monetization available on the SaaS platform only.
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+The 3scale API management platform provides a rich set of powerful features to enable API providers to create API Management strategies. These include the following:
+* Access Control
+* Security
+* Rate Limits
+* Developer Portal 
+* ActiveDocs Live Documentation
+* Analytics
+* Dashboard
+* Billing and Monetization
+
+We will learn how to use these features in more details in this course.
+
+
+endif::showscript[]

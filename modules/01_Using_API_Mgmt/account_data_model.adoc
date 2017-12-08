@@ -1,0 +1,22 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Account Data Model  
+
+
+image::images/account_data_model.png[width=90%]
+
+ifdef::showscript[]
+
+=== Transcript
+
+This diagram shows the relationship between the various account related data objects in 3scale. The relationships discussed here are the user and application entities, and show the data model from the perspective of the potential users (developers). At the root of the relationship is again the API Provider. 
+
+Account Subscription: 
+Developer Account: Developer accounts are the accounts subscribed to a particular API. Developer Accounts are the parents of the applications. When new developers subscribe to an API, an application is automatically created for them which will allow them to make calls to the API it is subscribed to.
+User: These are the end users of the application. They belong to a developer account, and come be admin users or normal users.
+Service subscription: A contract (plan) between an account and a service.
+Applications and application plans are used to enforce the contracts for the service, as we have seen in the last slide.	
+
+endif::showscript[]

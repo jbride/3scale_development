@@ -1,0 +1,35 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== API Management Steps 
+
+To manage a new API (service):
+
+* API Admin
+** Create API Deployment option (APICast or Plugin)
+** Select authentication option (API Key, App ID and App Key, Or OAuth 2.0)
+** Select user signup flows
+** Specify Integration: Backend (Private Base URL), Staging and Production URLs
+** Create mapping rules and methods
+** Create Application Plans
+* Accounts
+** Create Developer Accounts
+** Create users and admin
+** Create Applications (with associated Application Plans)
+* Create Developer Portal
+* Create ActiveDocs API Documentation
+* Test the service on staging URL
+* Promote to production
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+This module describes the overview and getting started with Red Hat 3scale API Management. It begins with a high-level look at the features and components of 3scale, explains their significance, and then continues with a look at the product ecosystem. Next is a detailed look at API management, including, architecture, traffic management, policy management, use cases, and life cycle. The data model of the Administration and Account Management are discussed, in order to understand the business relationships between the various data objects. Finally, a look at steps necessary to manage APIs using 3scale, including setting up of API services, application plans, methods and metrics, and rate limits.
+ 
+
+
+endif::showscript[]
