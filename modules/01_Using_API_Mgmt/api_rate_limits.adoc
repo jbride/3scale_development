@@ -1,0 +1,29 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Rate Limits
+
+
+* Threshold on usage of API by consumers
+* Based on method, endpoint or metric
+* Associated with a Plan
+* Configure different limits for different developer segments
+* Can send alerts based on limits
+* API authorization fails if usage exceeds limit
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+Rate limits allow you to throttle access to your API resources. You can configure different limits for separate developer segments through the use of application plans.
+
+Once you have rate limits in place, these limits will control the responses a developer receives when they make authorization request calls to 3scale’s backend.
+
+If you have alerts configured, the new limits will be used to decide when notifications are sent.
+When you make authorization calls to the 3scale backend, the limits will be taken into account. If usage is above the limit, then the response is for an authorization failure. However this is a “soft” rejection, and your app ultimately decides how to handle the rejection
+Once your rate limits are operation, you’ll see the users that are reaching the limits on your dashboard, making it quick and easy to check for potential plan upgrade candidates
+
+endif::showscript[]

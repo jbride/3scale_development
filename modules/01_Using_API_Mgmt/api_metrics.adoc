@@ -1,0 +1,32 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Metrics
+
+
+* Tracks calls to the API
+* Cumulative
+* Built in top level metric is Hits
+* Other metrics can be added. E.G:
+** Megabytes
+** CPU time
+** No of elements
+** Other meaningful units
+* Finer granularity by combining with Methods
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+ Metrics let you track the usage of your API in 3scale. Hits is the built-in metric, it exists in each API service and is used to track the hits made to your API. You can achieve finer granularity for the API usage tracking by defining Methods under the Hits metric. 
+For measuring other, not hit-based usage of your API, you can define new Metrics and report the usage in different units. A unit can be anything meaningful: megabytes, CPU time, number of elements returned by the API etc.
+You will be able to see the the usage reported to metrics and methods in the Analytics section.
+
+
+
+
+
+endif::showscript[]
