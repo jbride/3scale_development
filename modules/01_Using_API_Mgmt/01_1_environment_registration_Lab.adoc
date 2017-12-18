@@ -6,22 +6,21 @@
 == Environment Setup Lab
 
 .Goals
-* Register for a lab environment
-* Download and start course virtual machine
-* Access OpenShift Container Platform environment
+* Register for lab environment
+* Download and start course virtual machine (VM)
+* Access Red Hat OpenShift Container Platform environment
 
-.Prerequisites
-* *Resources*
-** An open broadband Internet connection
+.Required Resources
+* Open broadband Internet connection
 +
 [IMPORTANT]
 Make sure that the Internet connection is free of corporate proxies or other network rules that prevent access to remote servers on the Internet.
 
-** An up-to-date browser, such as Google Chrome or Firefox
-** Red Hat OPENTLC credentials
-** An existing <<enterprise>>
+* Up-to-date browser such as Google Chrome or Firefox
+* Red Hat OPENTLC credentials
+* <<enterprise>>
 +
-NOTE: You need the URL and admin access to your 3scale by Red Hat Admin Portal. The URL is similar to this: `https://<your domain>-admin.3scale.net/`.
+NOTE: You need the URL and admin access to your 3scale Admin Portal. The URL is similar to this: `https://<your domain>-admin.3scale.net/`.
 
 ifdef::showscript[]
 ** An Enterprise account provides the following:
@@ -31,17 +30,17 @@ ifdef::showscript[]
 *** Webhooks that you need for the Red Hat Single Sign-On labs
 endif::showscript[]
 
-** Installation of the 64-bit link:https://www.virtualbox.org/wiki/Downloads[VirtualBox application^] or Libvirt (if using Linux) on your local workstation
+* Installation of 64-bit link:https://www.virtualbox.org/wiki/Downloads[VirtualBox application^] or libvirt (if you are using Linux) on your local workstation
 +
 NOTE: The 64-bit virtualization technology is mandatory. The 32-bit virtualization does not work for this course.
 
-** A minimum of two 64-bit CPUs and 2 GB RAM dedicated to the course VM
+* Minimum of two 64-bit CPUs and 2 GB RAM dedicated to course VM
 
-* *Skills*
+.Skills
 
-** Experience deploying to an OpenShift Container Platform
-** Foundational experience managing APIs using the Red Hat 3scale API Management platform
-** Familiarity with Red Hat Ansible Engine
+* Experience deploying to OpenShift Container Platform
+* Foundational experience managing APIs using Red Hat 3scale API Management
+** Familiarity with Red Hat Ansible Automation
 
 :numbered:
 
@@ -53,15 +52,15 @@ This course provides an OpenShift environment in the cloud. Red Hat strongly rec
 . Identify your Red Hat OPENTLC username.
 +
 [TIP]
-If you are unsure of your Red Hat OPENTLC credentials, reset them from the link:https://www.opentlc.com/pwm/private/Login[OPENTLC Account Management^] page. If you continue to have problems, email `open-program@redhat.com`.
+If you are unsure of your Red Hat OPENTLC credentials, reset them from the link:https://www.opentlc.com/pwm/private/Login[OPENTLC Account Management^] page. If you have problems, email `open-program@redhat.com`.
 
 . Using your OPENTLC credentials, log in to the link:https://labs.opentlc.com/[OPENTLC lab portal^]:
 +
 image::images/cf_login.png[]
 
 . Navigate to *Services -> My Services*.
-. Delete all previous services that you may still have active.
-* Doing so allows you to order a service for this course.
+. Delete all active services.
+* Doing this allows you to order a service for this course.
 
 . Navigate to *Services -> Catalogs -> OPENTLC Middleware Solutions Labs*.
 . Select *3scale (OCP environment)*:
@@ -75,7 +74,6 @@ image::images/cf_course_selection_elab.png[]
 
 . Check your email for a message from Red Hat similar to the following:
 +
-.Sample Email
 [source,text]
 -----
 You have been enrolled in the Red Hat OPENTLC THREESCALE OpenShift environment.
@@ -84,84 +82,82 @@ You can access your environment by going to https://master.na1.openshift.opentlc
 NOTICE: Your environment will expire and be deleted in 14 day(s) at 2017-08-24 00:00:00 -0400. In order to conserve resources we cannot archive or restore any data in this environment. All data will be lost upon expiration.
 -----
 
-. Identify your OpenShift lab environment GUID.
-* In the example shown above, the GUID is `na1`. Your email contains a unique GUID. Make a note of your GUID to use throughout this course.
+. Identify your OpenShift lab environment GUID from the email you received, and make a note of it to use throughout this course.
+* In the example above, the GUID is `na1`.
 
 . Open a browser on your host machine and navigate to the URL identified in the confirmation email.
 . Click through the warnings from your browser indicating that it has no knowledge of the Certificate Authority associated to your OpenShift Container Platform web console.
-* The _OpenShift Container Platform web console_ in your lab environment is secured by default using a self-signed certificate.
+* The OpenShift Container Platform web console in your lab environment is secured by default with a self-signed certificate.
 
-. From the OpenShift Container Platform web console login page, log in using your `OPENTLC` credentials:
+. From the OpenShift Container Platform web console's login page, log in using your OPENTLC credentials:
 +
 image::images/ocp_login.png[]
 
 
-You now have a working OpenShift Container Platform lab environment from which to conduct an on-premise installation of the 3scale by Red Hat _APIcast_ and _API Management Platform (AMP)_ components.
+You now have a working OpenShift Container Platform lab environment from which to conduct an on-premise installation of 3scale by Red Hat's _APIcast_ and _API Management Platform (AMP)_ components.
 
 == Lab Virtual Machine
 
-This course also provides a virtual machine (VM) with all of the client-side tooling you need for this course. Red Hat strongly recommends that you use this VM. The instructions for the labs in this course assume that you are using this VM, which is provided in VDI format and can be run on your local workstation using VirtualBox or libvirt (if using Linux).
+This course also provides a VM with all of the client-side tooling you need for the course. Red Hat strongly recommends that you use this VM. The instructions for the labs assume that you are using this VM, which is provided in VDI format and can be run on your local workstation using VirtualBox or libvirt (if using Linux).
 
-=== Acquire
+=== Acquire VirtualBox Image
 
 . Download the `gpte_apimgmt_11.vdi` VirtualBox image directly from this link:https://drive.google.com/open?id=0B8mmXW6hJKdienFUZ1dWMExEVWM[link^].
 +
 [NOTE]
-If you are participating in an on-site Instructor Led Training (ILT), the instructor will pass around a thumb drive with the course VM.
+If you are participating in an on-site instructor led training (ILT), the instructor will pass around a USB drive with the course VM.
 
 === VM Operating System Credentials
 
-* The default username/password for the VM is `jboss/jboss`.
+* The default username/password for VM is `jboss/jboss`.
 * The `jboss` operating system user has `sudo` access.
 
 === Install
 
-The course virtual machine can be run in either Virtual Box or libvirt (for those using Linux).
+The course VM can be run in either VirtualBox or libvirt. Choose the first or the second procedure below depending on the virtualization technology you are using.
 
-Please choose one of the following virtualization technologies:
+==== VirtualBox
 
-==== Virtual Box
-
-NOTE: The course virtual machine does not include a window manager. Therefore, you probably want to use SSH to access the virtual machine from your host, so that you can copy and paste commands to the VM from your host. If you are using Virtual Box, you should configure a _bridged adapter_ network configuration.
+NOTE: The course VM does not include a window manager. Therefore, you may want to use SSH to access the VM from your host so that you can copy and paste commands from your host to the VM. With VirtualBox, use a _bridged adapter_ network configuration.
 
 . Start VirtualBox on your local workstation and navigate to *Machine -> New*.
-. In the *Create Virtual Machine* panel, populate its fields with these entries:
+. In the *Create Virtual Machine* panel, populate the fields with these entries:
 * *Name:* `gpte-apimgmt`
 * *Type*: `Linux`
 * *Version*: `Red Hat (64-bit)`
 . Click *Next*.
-. In the *Memory* panel, specify `1024 MB` of RAM and click *Next*.
+. In the *Memory* panel, specify `1024 MB` of RAM, and click *Next*.
 . In the *Hard Disk* panel:
 .. Select *Use an existing virtual hard disk file*.
-.. Browse your hard drive and select the previously downloaded VDI image.
+.. Browse your hard drive and select the downloaded VDI image.
 .. Click *Create*.
 . Add networking:
-* You probably want to use SSH to access your virtual machine from your host, which involves the following:
-** Assigning the VM an IP address that is accessible by the host machine.
-** Setting up a _bridged adapter_ network configuration for your VM.
-* Virtual Box networking is outside the scope of this lab, but it is discussed in the link:https://www.virtualbox.org/manual/ch06.html[Virtual Box documentation^].
+.. To use SSH to access your virtual machine from your host:
+... Assign the VM an IP address that is accessible by the host machine.
+... Set up a bridged adapter network configuration for your VM.
+.. To set up VirtualBox networking, refer to the  link:https://www.virtualbox.org/manual/ch06.html[VirtualBox documentation^].
+* Virtual Box networking is outside the scope of this lab.
 
 . Click *Start*.
-* The VM is provided without a window manager.  
-. At the command prompt, enter a userId of `jboss` and a password of `jboss`.
+* The VM is provided without a window manager.
+. At the command prompt, enter `jboss` and `jboss` for the username and password.
 
 
 
-==== Libvirt 
+==== Libvirt
 
-If your host machine is Red Hat Enterprise Linux, CentOS, or Fedora, the VDI can be run directly in libvirt.
-You do not need to install Virtul Box.
+If your host machine is Red Hat Enterprise Linux, CentOS, or Fedora, the VDI can be run directly in libvirt. You do not need to install VirtualBox.
 
-Libvirtd and corresponding tooling is outside the scope of this lab, but one tip is that the following RPM package needs to be installed:  `libvirt-daemon-driver-vbox.x86_64`
+`libvirtd` and the corresponding tooling are outside the scope of this lab. But one tip is that this RPM package needs to be installed: `libvirt-daemon-driver-vbox.x86_64`.
 
 
 === SSH
 
-If your virtual machine has been assigned an IP address that is accessible by the host, then you should be able to access it via SSH.
+If your VM has an IP address that is accessible by the host, then you should be able to access it via SSH.
 
-. Obtain a console window of the virtual machine.
+. On the VM, open a console window.
 
-. Determine the IP address assigned to your VM:
+. Determine the IP address assigned to the VM:
 +
 [source,text]
 -----
@@ -173,13 +169,13 @@ $ ip addr show
 -----
 $ ssh jboss@<ip address of your virtual machine>
 -----
-. Ensure that the VM can access the Internet:
+. Verify that the VM can access the Internet:
 +
 -----
 $ ping -c 5 8.8.8.8
 -----
 +
-IMPORTANT: For the remainder of this course, complete all of the tasks in this VM as the `jboss` user.
+IMPORTANT: For the remaining labs in this course, complete all of the tasks in this VM as the `jboss` user.
 
 ifdef::showscript[]
 
@@ -189,7 +185,7 @@ endif::showscript[]
 
 === Define Environment Variables
 
-You need to set a few environment-specific variables in your shell that can be leveraged throughout various commands in this course.
+You need to set a few environment-specific variables in your shell that can be leveraged by various commands in this course.
 
 . As the `jboss` user, execute each of the following commands, one at a time:
 +
@@ -206,7 +202,7 @@ $ echo 'export OCP_USER_ID=<your OCP USER ID>' >> ~/.bashrc
 -----
 $ echo "export OCP_PROJECT_PREFIX=<your OCP USER ID with dashes>" >> ~/.bashrc
 -----
-* OpenShift project names need to be unique within an OpenShift cluster, so this ensures that your project names begin with a unique prefix. This environment variable is used throughout the labs. As an example, if your OCP_USER_ID is `sjayanti-redhat.com`, the OCP_PROJECT_PREFIX should be set as `sjayanti-redhat-com`.
+* OpenShift project names need to be unique within an OpenShift cluster. This ensures that your project names begin with a unique prefix. This environment variable is used throughout the labs. As an example, if your `OCP_USER_ID` is `sjayanti-redhat.com`, the `OCP_PROJECT_PREFIX` would be set to `sjayanti-redhat-com`.
 
 . Enable the new environment variables in your existing shell:
 +
@@ -215,34 +211,34 @@ $ echo "export OCP_PROJECT_PREFIX=<your OCP USER ID with dashes>" >> ~/.bashrc
 $ source ~/.bashrc
 -----
 
-=== VM components
+=== VM Components
 
 The lab VM includes the following:
 
 * CentOS 7
 * `root` access
-* OpenShift Container Platform `oc` utility
+* OpenShift Container Platform's `oc` utility
 * `java-1.8.0.-openjdk` and `java-1.8.0-openjdk-devel`
 * Maven
 * `Git` utility
 * cURL
 * `wget`
-* docker
+* Docker
 * link:https://stedolan.github.io/jq/https://stedolan.github.io/jq/[jq^]
 * link:http://xmlstar.sourceforge.net/overview.php[xmlstarlet^]
 * link:https://www.openssl.org/[openssl^]
 * `jboss` operating system user (with `sudo` privileges)
-* Clone of the course link:https://github.com/gpe-mw-training/3scale_development_labs.git[lab assets^]
+* Clone of course's link:https://github.com/gpe-mw-training/3scale_development_labs.git[lab assets^]
 
-=== Authenticate into OpenShift Using `oc` Utility
+=== Authenticate to OpenShift Using `oc` Utility
 
 Your lab VM includes the `oc` utility to allow you to interact from the command line with your OpenShift Container Platform environment.
 
 You can authenticate to your OpenShift Container Platform environment as follows:
 
-. Ensure that you are logged in as the `jboss` operating system user.
-. Execute:
-+ 
+. Verify that you are logged in as the `jboss` operating system user.
+. Run the following command:
++
 [source,text]
 -----
 $ oc login https://master.$GUID.openshift.opentlc.com -u $OCP_USER_ID
@@ -250,11 +246,11 @@ $ oc login https://master.$GUID.openshift.opentlc.com -u $OCP_USER_ID
 
 == Appendix
 
-=== Reference
+=== References
 
-The following resources are provided as suggested reading for 3scale by Red Hat.
+The following resources are suggested reading for 3scale by Red Hat.
 
-NOTE: Some of these resources are hosted on internal Red Hat websites. Partners should coordinate closely with their Red Hat Account Representative regarding updated information that may be posted to these internal Red Hat websites.
+NOTE: Some of these resources are hosted on internal Red Hat web sites. Partners should coordinate closely with their Red Hat Account Representative regarding updated information that may be posted to these internal Red Hat web sites.
 
 * link:https://github.com/3scale["3scale GitHub Organization^"]
 * link:https://www.3scale.net/blog/["3scale Blog^"]
@@ -265,27 +261,25 @@ NOTE: Some of these resources are hosted on internal Red Hat websites. Partners 
 [[enterprise]]
 === Red Hat 3scale API Management Enterprise Account
 
-This course focuses on the deployment and administration of Red Hat 3scale API Management. One deployment topology available is known as a _hybrid_ approach. A hybrid deployment topology is one in which the APIcast gateway is self-managed in your environment. This self-managed APIcast gateway is in two-way communication with the hosted 3scale by Red Hat SaaS API Management Platform (AMP).
+This course focuses on the deployment and administration of Red Hat 3scale API Management. One deployment topology available is known as a _hybrid_ approach. A hybrid deployment topology is one in which the APIcast gateway is self-managed in your environment. This self-managed APIcast gateway is in two-way communication with the hosted 3scale by Red Hat API Management Platform (AMP) component.
 
-The second module of this course focuses on this hybrid deployment topology. Subsequently, the labs in that module make heavy use of your 3scale by Red Hat SaaS API Management account. If you do not have an account, please register for one on the 3scale by Red Hat link:https://www.3scale.net/signup/[sign up page^].
+The second module of this course focuses on this hybrid deployment topology. The labs in that module make heavy use of your 3scale by Red Hat API Management (AMP) account. If you do not have an account, register for one on 3scale by Red Hat's link:https://www.3scale.net/signup/["sign-up page^"].
 
-For this course, your hosted 3scale by Red Hat SaaS account needs to be enabled as an _Enterprise_ account. Your account is an Enterprise account if you are able to create a new service in 3scale by Red Hat. If it is not an Enterprise account, send an email to `support@3scale.net` requesting that your free account be upgraded to Enterprise. Include the following information in the email:
+For this course, your hosted 3scale by Red Hat account needs to be enabled as an _Enterprise_ account. Your account is an Enterprise account if you can create a new service in 3scale by Red Hat. If it is not an Enterprise account, send an email to `support@3scale.net` requesting that your free account be upgraded to Enterprise. Include the following information in the email:
 
-* The URL of your new Admin Portal--that is, `https://<your domain name>-admin.3scale.net`.
-* The email address you used to register for the free trial account.
-* Mention that you are a student in the _Red Hat 3scale API Management Implementation_ course.
+* URL of your new 3scale Admin Portal--that is, `https://<your domain name>-admin.3scale.net`
+* Email address you used to register for the free trial account
+* Mention that you are a student in the _Red Hat 3scale API Management Development_ course
 
 === YAML Tips and Tricks
 
-There are a few instances in this course where you are asked to edit an OpenShift Container Platform object, such as a deployment configuration object. OpenShift Container Platform objects are typically represented in YAML format. Subsequently, you may be asked to edit a YAML configuration.
+There are a few instances in this course where you are asked to edit an OpenShift Container Platform object, such as a deployment configuration object. OpenShift Container Platform objects are typically represented in YAML format, so you may be asked to edit a YAML configuration.
 
-In general, editing YAML configurations can be a bit tricky if you do not have any previous experience with YAML. For example, spacing and indentation matters.
+Editing YAML configurations can be a bit tricky if you do not have previous experience. For example, spacing and indentation matter.
 
-Editing OpenShift Container Platform resources in a YAML representation is particularly tricky. If you make a YAML syntax error, OpenShift Container Platform provides no information about the root problem. Instead, it simply silently rejects the change.
+Editing OpenShift Container Platform resources in a YAML representation is particularly tricky. If you make a YAML syntax error, OpenShift Container Platform provides no information about the root problem. Instead, it simply rejects the change without any explanation.
 
-It is recommended that you spend some time using YAML.
-
-Here are a couple of tutorials:
+Red Hat recommends that you spend some time using YAML. Here are two useful tutorials:
 
 * link:https://github.com/Animosity/CraftIRC/wiki/Complete-idiot's-introduction-to-yaml["Complete idiot's introduction to yaml^"]
 * link:http://keleshev.com/yaml-quick-introduction["YAML: Quick Introduction^"]
@@ -295,7 +289,7 @@ ifdef::showscript[]
 [[vbga]]
 === VirtualBox Guest Additions
 
-The default display resolution of the VM is rather low at 1042 x 768. This can lead to a frustrating experience as you try to work through the labs of this course. VirtualBox's Guest Additions allow VMs to use the full resolution of a host's display. If you are using a host computer with high resolution, Red Hat recommends enabling your VirtualBox environment to use Guest Additions.
+The default display resolution of the VM is rather low at 1042 x 768. This can lead to frustration as you work through the labs of this course. VirtualBox's Guest Additions allow VMs to use the full resolution of a host's display. If you are using a host computer with high resolution, Red Hat recommends enabling Guest Additions in your VirtualBox environment.
 
 This section explains how to install and enable VirtualBox Guest Additions.
 
@@ -306,7 +300,7 @@ The VirtualBox install comes with Guest Additions already installed. No further 
 
 ==== Enable Guest Additions in VM
 
-. Make sure that the VM is started.
+. Verify that that the VM is started.
 . In the top panel of the VirtualBox window, select *Devices -> Insert Guest Additions CD Image*:
 +
 image::images/select_ga.png[]
@@ -318,8 +312,8 @@ image::images/ga_prompt.png[]
 +
 image::images/ga_run.png[]
 . When prompted for the password of the `root` operating system user, enter `jboss` and click *Authenticate*.
-* A terminal window in the VM opens and begins to build the Guest Additions `kernel modules` in the VM.
-. After a minute or two, when prompted to close the window, press *Return*:
+* A terminal window in the VM opens and begins to build the Guest Additions kernel modules in the VM.
+. After a minute or two, when you are prompted to close the window, press *Return*:
 +
 image::images/ga_building.png[]
 

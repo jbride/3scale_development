@@ -3,40 +3,38 @@
 :toc2:
 :linkattrs:
 
-== On-Premise API Management Platform Installation Lab
+== On-Premise 3scale API Management Installation Lab
 
-
-
-.Goals
-* Provision a _self-managed_ 3scale by Red Hat AMP and its built-in APIcast components
+.Goal
+* Provision the _self-managed_ Red Hat API management platform (AMP) component and its built-in APIcast components
 
 
 .Prerequisites
-* Completion of the _Business Services_ lab where RESTful endpoints of two microservices were exposed
+* Completion of the Business Services Lab where RESTful endpoints of two microservices are exposed
 * A running student lab environment for this course
-* The `OCP_WILDCARD_DOMAIN` environment variable set in your shell
-* The `OCP_PROJECT_PREFIX` environment variable set in your shell
+* `OCP_WILDCARD_DOMAIN` environment variable set in your shell
+* `OCP_PROJECT_PREFIX` environment variable set in your shell
 +
-TIP: To check if your shell still has this environment variable set, execute the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
+TIP: To check if your shell still has this environment variable set, run the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
 
 
 :numbered:
 
 == Overview
 
-As of the 2.0 release of Red Hat 3scale API Management, the API management platform (AMP) is available for on-premise installation. In an on-premise environment, the AMP component is only available in the OpenShift Container Platform on Red Hat Enterprise Linux.
+As of the 2.0 release of Red Hat 3scale API Management, the AMP component is available for on-premise installation. In an on-premise environment, the AMP component is available only in OpenShift Container Platform on Red Hat Enterprise Linux.
 
-In this lab, you deploy an AMP environment in your existing OpenShift Container Platform lab environment. It is important that you use the provided student lab environment, as it includes the following items that are critical for this lab:
+In this lab you deploy an AMP environment in your existing OpenShift Container Platform lab environment. It is important that you use the provided student lab environment, because it includes the following items that are critical for this lab:
 
-* OpenShift Container Platform 3.5
+* Red Hat OpenShift Container Platform 3.5
 * Adequate hardware resources: 16 GB RAM and 4 CPUs
 
 
 == Install AMP Environment
 
-An on-premise 3scale by Red Hat AMP environment must run in an OpenShift Container Platform (v3.3, v3.4 or v3.5) environment running on Red Hat Enterprise Linux 7. Your lab environment meets these requirements.
+An on-premise 3scale by Red Hat AMP environment must run in an OpenShift Container Platform v3.3, v3.4, or v3.5 environment running on Red Hat Enterprise Linux 7. Your lab environment meets these requirements.
 
-In this exercise, you install the 3scale by Red Hat AMP resources in your lab environment.
+In this exercise, you install 3scale by Red Hat's AMP resources in your lab environment.
 
 . Create a new OpenShift Container Platform project for your AMP resources:
 +
@@ -51,7 +49,7 @@ $ oc new-project $OCP_PROJECT_PREFIX-3scale-amp \
 * `$OCP_PROJECT_PREFIX-bservices`
 * `$OCP_PROJECT_PREFIX-3scale-amp`
 +
-NOTE: When you execute commands using the `oc` utility, pay attention to which project you are working in.
+IMPORTANT: When you run commands using the `oc` utility, pay attention to which project you are working in.
 
 
 . Deploy the on-premise AMP component:
@@ -65,7 +63,7 @@ $  oc new-app \
       --param WILDCARD_DOMAIN=$OCP_WILDCARD_DOMAIN > /tmp/3scale_amp_provision_details.txt
 -----
 
-. Review the output from creating your new 3scale by Red Hat AMP application:
+. Review the output from creating your new AMP application:
 +
 [source,text]
 -----
@@ -97,14 +95,14 @@ Login on https://3scale-admin.apps.176.126.90.137.xip.io as admin/c2rl6m1u     <
     * SYSTEM_APP_SECRET_KEY_BASE=cead8c4c8061108be756537cd87d47ca7ad625107ccd3ddb4a7e1e7a2e4c8363c07e832da7081b511e30eabedd77062686a4d66582082747add5db02176ee4ae # generated
     * APICAST_MANAGEMENT_API=status
 -----
-
++
 <1> Admin Portal URL
 
 . Make note of the Admin Portal URL and corresponding authentication credentials.
 
 === Confirm Successful End State
 
-. Confirm that all of your 3scale by Red Hat AMP pods are in a `Running` state:
+. Confirm that all of your AMP pods are in a `Running` state:
 +
 [source,text]
 -----
@@ -131,7 +129,7 @@ system-sidekiq-1-87g1n       1/1       Running   1          4m
 system-sphinx-1-fp2d0        1/1       Running   1          4m
 -----
 
-. Once the provisioning is complete, point your browser to the URL contained in the output of the AMP provisioning command:
+. After provisioning is complete, point your browser to the URL contained in the output of the AMP provisioning command:
 +
 [source,text]
 -----
@@ -150,11 +148,11 @@ system
 ...
 -----
 
-. Once you have logged in, expect to see a welcome screen similar to the following:
+. After you log in, expect to see a welcome screen similar to the following:
 +
 image::images/amp_welcome.png[]
 
-. From here, you can see a demo by clicking *OK, how does 3scale work?*, or click "x" in the top right corner to continue.
+. From here, you can watch a demo by clicking *OK, how does 3scale work?*, or click *x* in the top right corner to continue.
 
 === Enable `debug` Log Level in New APIcast Gateways
 
@@ -167,16 +165,16 @@ $ oc patch dc/apicast-production --patch '{"spec":{"template":{"spec":{"containe
 
 -----
 
-* This executes an automatic roll out of your `apicast-production` pod.
+* This executes an automatic roll-out of your `apicast-production` pod.
 . Make a similar change to your `apicast-staging` pod.
-. Once the provisioning is complete, point your browser to the URL of the 3scale admin and login.
+. After provisioning is complete, point your browser to 3scale by Red Hat's URL and log in as `admin`.
 +
 image::images/ocp_amp_admin_login.png[]
 +
-. Once you have logged in, expect to see a welcome screen similar to the following:
+. After you log in, expect to see a welcome screen similar to the following:
 +
 image::images/amp_welcome.png[]
 
-. From here, you can see a demo by clicking *OK, how does 3scale work?*, or click "x" in the top right corner to continue.
+* From here, you can watch a demo by clicking *OK, how does 3scale work?*, or click *x* in the top right corner to continue.
 
-Congratulations, your 3scale AMP environment is now ready and you can use it for running the labs in this course.
+Your 3scale AMP environment is now ready to run the course labs.
