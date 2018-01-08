@@ -1,0 +1,32 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== 3scale Admin Portal Functionality
+
+* *API Bizops* - add / invite developers, account and application approvals, contacting developers, etc.
+* *Access Control* - Define API, create plans, set up rate limits and pricing rules.
+* *Accounts* - Manage admin and member rights to use admin portal.
+* *Analytics* - Reporting of API performance insights
+* *API DevOps* - REST API for admin, automating deployments
+* *API Documentation* - Document Swagger API using 3scale ActiveDocs
+* *Developer Portal* - Creation and customization of developer portal
+ifdef::showscript[]
+* *Billing* - Integrate payment gateways and invoicing.
+=== Transcript
+
+
+ 
+The 3scale Admin Portal provides the following functionality:
+
+* *API Bizops* - add / invite developers, account and application approvals, contacting developers, etc.
+* *Access Control* - Define API, create plans, set up rate limits and pricing rules.
+* *Accounts* - Manage admin and member rights to use admin portal.
+* *Analytics* - Reporting of API performance insights
+* *API DevOps* - REST API for admin, automating deployments
+* *API Documentation* - Document Swagger API using 3scale ActiveDocs
+* *Developer Portal* - Creation and customization of developer portal
+ifdef::showscript[]
+* *Billing* - Integrate payment gateways and invoicing.
+
+endif::showscript[]

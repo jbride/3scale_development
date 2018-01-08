@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== 3scale Admin & Developer Portal
+
+
+image::images/03-3scale-hybrid-architecture.png[width=90%]
+
+* Two Portals hosted in 3scale:
+** Admin Portal - for Administration, API and Account Management
+** Developer Portal - for exposing Developer signups, API documentation
+ifdef::showscript[]
+
+=== Transcript
+
+
+ As shown in the image, the 3scale API Management Platform provides the ability to expose two web portals. An administration portal for the API provider administrators to manage the APIs, accounts, services, applications, and documentation. A Developer Portal targetted towards API consumers and developers, which is typically customised for each API provider, to provide branded customer experience regarding accessing APIs, signups, reference material for the APIs, Swagger Documentation and developer workflows.
+
+The platform is hosted and deployed separately, and does not interfere with the access to API backend by the API consumers, which happens through the API Gateway.
+
+
+
+endif::showscript[]

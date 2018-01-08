@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== 3scale Admin Portal
+
+* Exposed at URL htps://3scale-domain-*admin*.HOST
+* One admin account provided on signup to SaaS environment
+* Default admin user created in AMP
+* Rich web interface for all management activities.
+* Also provides Admin REST API
+* Policies and configurations synced with API Gateway.
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+ 
+
+
+
+endif::showscript[]

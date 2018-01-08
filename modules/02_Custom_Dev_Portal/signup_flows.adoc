@@ -1,0 +1,17 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== 3scale Admin & Developer Portal
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+ 
+
+
+
+endif::showscript[]
