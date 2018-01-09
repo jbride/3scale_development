@@ -5,11 +5,11 @@
 == 3scale Admin & Developer Portal
 
 
-image::images/03-3scale-hybrid-architecture.png[width=90%]
+image::images/3scale_portals_2.png[width=90%]
 
 * Two Portals hosted in 3scale:
-** Admin Portal - for Administration, API and Account Management
-** Developer Portal - for exposing Developer signups, API documentation
+** *Admin Portal* - for Administration, API and Account Management
+** *Branded Developer Portal* - for exposing Developer signups, API documentation
 ifdef::showscript[]
 
 === Transcript

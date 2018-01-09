@@ -2,7 +2,19 @@
 :data-uri:
 :noaudio:
 
-== 3scale Admin & Developer Portal
+== Developer Portal Customizing Pages
+
+* CMS provides version control
+* Restricted pages:
+** Signup
+** Dashboard
+** Account pages
+* Identify elements of page using Browser development tools
+* Modify of hide elements:
+** CSS
+*** Create custom css
+*** Link to the page layout
+** jQuery
 
 
 ifdef::showscript[]
@@ -10,8 +22,13 @@ ifdef::showscript[]
 === Transcript
 
 
- 
+The 3scale CMS provides ability to modify and/or hide any elements on the system-generated pages. CMS has a built-in version control system, so that you can audit the change history, or roll back to any previous version.
+
+Caution: The 3scale system-generated pages are subject to change (although infrequently). These changes may break any customizations that you implement. Hence, monitor for any disruptive changes and do the necessary maintenance work to keep your portal functioning correctly.
 
 
+The first and most important thing to do is identify the elements of the page. To do that, use Firebug (or any other developer tools such as Chrome Developer tools or Opera Dragonfly). 
+
+Now, having identified the elements, you can change their display settings. Depending on the type of element, you can choose from two possible methods: CSS manipulation or jQuery script.  CSS manipulation is more lightweight and reliable, but doesn’t work well for some kinds of elements that exist on a number of pages. If you have a trickier element to hide such as a sidebar menu element, it’s better to use jQuery. 
 
 endif::showscript[]

@@ -2,15 +2,31 @@
 :data-uri:
 :noaudio:
 
-== 3scale Admin & Developer Portal
+== 3scale ActiveDocs 
+
+* Instantiation of Swagger
+* Interactive documentation served and rendered by 3scale
+* Extension to Swagger:
+** Auto-fill of API keys
+** Swagger proxy to call non-CORS enabled APIs
+* OAuth-enabled API
+** Client Credentials flow
+** Resource Owner flow
 
 
 ifdef::showscript[]
 
 === Transcript
 
+ActiveDocs is not a Swagger replacement but an instantiation of it. With ActiveDocs, you don’t have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal.
 
- 
+The only thing you need to do is to build a Swagger-compliant specification of your API, add it on your Admin Portal, and the interactive documentation will be all set. Your developers will be able to launch requests against your API through your Developer Portal.
+
+
+3scale extended the Swagger specification in several ways to accommodate certain features that were needed for our own interactive API documentation:
+
+* Auto-fill of API keys
+* Swagger proxy to allow calls to non-CORS enabled APIs
 
 
 

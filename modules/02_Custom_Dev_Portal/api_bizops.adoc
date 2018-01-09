@@ -2,7 +2,24 @@
 :data-uri:
 :noaudio:
 
-== 3scale Admin & Developer Portal
+== 3scale BizOps
+
+. Adding Developers
+. Approving Developers
+.. Approve from email notification 
+.. Account Approval
+.. Service Approval
+.. Application Approval
+. Change Plans for an App
+.. Change Account Plans
+.. Change Service Plans
+.. Change Application Plans
+. Contact developers
+. Customize Plans
+. Enable signups
+. Search (Finding) Applications
+. Suspending Applications
+. Webhooks
 
 
 ifdef::showscript[]
@@ -10,8 +27,7 @@ ifdef::showscript[]
 === Transcript
 
 
- 
-
+ The 3scale Admin Portal can be used for managing the business operation workflows. These include adding new developer account, set up applications and notification to developers; approving developer accounts, application or service requests; changing account plans, service plans or application plans for a developer; contacting developers using email; customizing plans; enable signups; inviting developers; suspending applications and creating webhooks.
 
 
 endif::showscript[]
