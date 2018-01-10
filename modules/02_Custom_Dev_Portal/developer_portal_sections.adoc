@@ -2,15 +2,43 @@
 :data-uri:
 :noaudio:
 
-== 3scale Admin & Developer Portal
+== Developer Portal - Restricted content
 
+* Restricted Pages
+** Use private Sections
+** Map to logical group of users
+** Create pages within this section
+** A `Group` with access to the Section
+** Set Group Permission for developers to access
+* Restricted Blocks of content:
+** Use Fields
+*** Custom field for accounts, applications or users
+*** Attach to page as hidden content
+** Use liquid tags with `if` conditionals
++
+[source,text]
+----
+{{ if current_account.extra_fields.partner == 'true' }}
+  // content only accessible to partners
+{{ endif }}
+----
++
+* Require User Login
+** wrap Liquid `if` conditional:
++
+[source,text]
+----
+{{ if current_user }}
+  // only visible if the user is logged in
+{{ endif }}
+----
 
 ifdef::showscript[]
 
 === Transcript
 
 
- 
+You may need to have some pages of your Developer Portal that are only accessible for a specific group of developers, either part of a page or items in a certain menu. Both goals are achievable through the two techniques introduced here.
 
 
 

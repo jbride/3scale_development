@@ -2,15 +2,43 @@
 :data-uri:
 :noaudio:
 
-== 3scale Admin & Developer Portal
+== 3scale Command Line Interface (CLI)
 
+* Command Line utility for API Management
+* Functionalities:
+** Importing and API definition (Open API / Swagger or RAML) to define APIs
+** Creating interactive documentation (ActiveDocs)
+* Management (Create, list, show, update and delete):
+** Services
+** Application plans
+** Mapping rules
+** Methods and metrics
+** Applications
+* List and show accounts
+* Proxy and proxy configs
+
+NOTE: 3scale CLI is open source community project, not part of 3scale product.
 
 ifdef::showscript[]
 
 === Transcript
 
 
- 
+ Its main capabilities include importing an API definition (Open API / Swagger or RAML) into 3scale and:
+
+Importing and API definition (Open API / Swagger or RAML) to define your API
+Creating interactive documentation (ActiveDocs)
+Additionally, you can also:
+
+Create, list, show, update, and delete services
+Create, list, show, and delete application plans
+Create, list, show, update, and delete mapping rules
+Create, list, show, update, and delete methods
+Create, list, show, update, and delete metrics
+List and show accounts
+Create, list, show, update, delete, suspend, and resume applications
+Show, and update proxy
+List, show, and promote proxy-configs
 
 
 
