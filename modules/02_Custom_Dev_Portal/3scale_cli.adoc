@@ -23,11 +23,13 @@ ifdef::showscript[]
 
 === Transcript
 
+3scale CLI is a command line utility for API management solution of 3scale SaaS and On-premise platform. It is an open source project written using NodeJS, available from Node Package Manager. The source is available on github.
 
- Its main capabilities include importing an API definition (Open API / Swagger or RAML) into 3scale and:
+ Its main capabilities include 
 
-Importing and API definition (Open API / Swagger or RAML) to define your API
-Creating interactive documentation (ActiveDocs)
+* Importing and API definition (Open API / Swagger or RAML) to define your API
+* Creating interactive documentation (ActiveDocs)
+
 Additionally, you can also:
 
 Create, list, show, update, and delete services

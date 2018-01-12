@@ -1,0 +1,20 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Openresty Web Platform
+
+* Full-fledged web platform
+* Integrates standard nginx core
+** Lua (JIT)
+** Libraries
+** 3rd party nginx modules
+* Hook to nginx request phases
+
+ifdef::showscript[]
+
+=== Transcript
+
+OpenResty® is a full-fledged web platform that integrates the standard Nginx core, LuaJIT, many carefully written Lua libraries, lots of high quality 3rd-party Nginx modules, and most of their external dependencies. It is designed to help developers easily build scalable web applications, web services, and dynamic web gateways. OpenResty® is not an Nginx fork. It is just a software bundle.
+
+endif::showscript[]
