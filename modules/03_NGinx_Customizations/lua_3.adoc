@@ -1,0 +1,31 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Lua - Quick reckoner
+
+* very similar to JavaScript
+* Closures and functions similar to JavaScript
+* Object-oriented functions are a bit different to JavaScript
+* Metatable is very similar to prototype inheritence
+* Functions are first class objects
+* Lua tables are like JavaScript objects
+* Code example:
++
+[source,text]
+----
+
+function _M.log()
+  ngx.log(ngx.WARN,
+    'upstream response time: ', ngx.var.upstream_response_time, ' ',
+    'upstream connect time: ', ngx.var.upstream_connect_time)
+  return apicast:log()
+
+----
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+endif::showscript[]

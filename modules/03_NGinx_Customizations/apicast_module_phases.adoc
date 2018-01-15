@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== APIcast Module Phases
+
+* 9 phases:
+** _init_ - executed in the master process, loaded code shared between workers.
+** _init_worker_ - executed for eac worker, can background work
+** _rewrite_ - first request phase to change the request
+** _access_ - to allow/deny the request
+** _balancer_ - used for load balancing
+** _header_filter_ - to process response headers
+** _body_filter_ - to process response body
+** _post_action_ - not official nginx phase, to update cache information out of band
+** _log_ - can be used to extend logging ( to external service, for example) 
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+
+endif::showscript[]

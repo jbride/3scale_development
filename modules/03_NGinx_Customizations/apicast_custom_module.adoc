@@ -1,0 +1,22 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== APIcast Custom Module
+
+* To customize APIcast 
+** Override a function
+** Extend configuration
+* related to HTTP request/response (e.g CORS)
+* Custom authentication
+* Time restricted access
+* Limit on opened connections
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+
+endif::showscript[]

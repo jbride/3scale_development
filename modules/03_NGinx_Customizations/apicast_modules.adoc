@@ -1,0 +1,22 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== APIcast Policies (Modules)
+
+* 1 entrypoint module
+** Can call other modules
+* Has a method for each phase (init, init_worker, rewrite, access,...)
+* No UI for working with policies (on the Roadmap)
+* Default module called `APIcast`
+** Replacing it would redefine whole gateway
+** Like inheritence, custom modules should call APIcast module
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+
+endif::showscript[]

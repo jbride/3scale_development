@@ -4,7 +4,8 @@
 
 == 3scale APIcast Gateway Deployment Options
 
-Deployment Options:
+=== Deployment Options:
+
 * APIcast hosted (SaaS)
 * APIcast built-in (AMP only)
 * APIcast self-managed (SaaS or AMP)

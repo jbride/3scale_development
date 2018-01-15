@@ -1,0 +1,23 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== APIcast Libraries
+
+* Caching DNS resolver
+* Load balancer
+* HTTP Client (with cache)
+
+== 3scale internal use
+
+* Microservices (API Mashups)
+* Routers/Proxies
+* Upstream IP whitelist/blacklist
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+
+endif::showscript[]

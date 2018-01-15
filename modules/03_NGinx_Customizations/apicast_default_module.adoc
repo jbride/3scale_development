@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== APIcast Default Module
+
+* 6 phases:
+** _init_ - loading configuration (boot mode)
+** _init_worker_ - starting timer to refresh the configuration (boot mode)
+** _rewrite_ - loading confirguration for given host (lazy mode)
+** _access_
+*** matching the request and authorizing synchronously if needed
+*** resolving upstream DNS records if needed
+*** setting up nginx variab;es for correct proxying upstream
+* _balancer_ - chose peer based on selected algorithm
+* _post_action_ - report to 3scale backend if cached call went through
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+
+endif::showscript[]
