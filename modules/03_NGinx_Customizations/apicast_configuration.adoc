@@ -1,0 +1,34 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== APIcast Configuration
+
+* Configuration for hostname, service configuration, etc
+* JSON configuration for gateway
+* load from file or API
+* https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json
+* Loaded in `init` and `init_worker` phases 
+* `THREESCALE_CONFIG_FILE` locates the configuration file
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+Gateway needs configuration in order to work. It needs it to determine service configuration, hostname, etc.
+
+Gateway can load the configuration from file, API or write it through management API (for debugging purposes).
+
+
+Configuration can be loaded in init and init_worker before server starts serving requests. Gateway needs to cache the configuration locally, possibly even across restarts.
+
+
+3scale hosts thousands of gateways for its customers and needs a reasonable way to share resources between them. Multi-tenant deployment of this proxy is the preferred way.
+
+
+
+You can give APIcast configuration via THREESCALE_CONFIG_FILE environment variable or -c on the command line, if you need to pass a custom configuration to APIcast.
+
+
+endif::showscript[]
