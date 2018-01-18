@@ -4,7 +4,7 @@
 
 == Lua - Quick reckoner
 
-* very similar to JavaScript
+* Very similar to JavaScript
 * Closures and functions similar to JavaScript
 * Object-oriented functions are a bit different to JavaScript
 * Metatable is very similar to prototype inheritence

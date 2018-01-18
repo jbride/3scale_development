@@ -4,7 +4,8 @@
 
 == APIcast Default Module
 
-* 6 phases:
+* Default `apicast` policy.
+* Policies for 6 nginx phases:
 ** _init_ - loading configuration (boot mode)
 ** _init_worker_ - starting timer to refresh the configuration (boot mode)
 ** _rewrite_ - loading confirguration for given host (lazy mode)
@@ -14,10 +15,17 @@
 *** setting up nginx variab;es for correct proxying upstream
 * _balancer_ - chose peer based on selected algorithm
 * _post_action_ - report to 3scale backend if cached call went through
-
+* Policy Chain - combining policies to serve requests
 ifdef::showscript[]
 
 === Transcript
+
+
+By default, APIcast applies the apicast policy to all the services. This policy includes all the functionality offered by APIcast (mapping rules matching, authorization and reporting against 3scale backend, etc.). 
+
+Policies can be combined using a policy chain. A policy chain is simply a sorted list of policies. init and init-worker are boot mode policies and run only during start up. init is executed when APIcast boots, and init_worker when each of each of its workers start. Other policies are 
+
+The way policy chains work is as follows: suppose that we have a policy A that describes what to do in the rewrite and header_filter phases and a policy B that describes what to run in access and header_filter. Assume also that when describing the chain, we indicate that policy A should be run before policy B. When APIcast receives a request, it will check the policy chain described to see what it should run on each phase.
 
 
 

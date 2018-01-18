@@ -15,6 +15,8 @@ ifdef::showscript[]
 
 === Transcript
 
+By taking advantage of various well-designed Nginx modules, OpenResty effectively turns the nginx server into a powerful web app server, in which the web developers can use the Lua programming language to script various existing nginx C modules and Lua modules and construct extremely high-performance web applications that are capable to handle 10K ~ 1000K+ connections in a single box.
 
+OpenResty aims to run your server-side web app completely in the Nginx server, leveraging Nginx's event model to do non-blocking I/O not only with the HTTP clients, but also with remote backends like MySQL, PostgreSQL, Memcached, and Redis.
 
 endif::showscript[]

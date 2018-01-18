@@ -18,7 +18,9 @@ ifdef::showscript[]
 
 
  
+The 3scale Admin Portal is the Web console to for managmeent and administration of your 3scale API Management services. It provides a rich web interface for all management activities. The Admin URL is accessible at a public URL, which is provided on sign up to the SaaS environment, or on deployment of the AMP environment. An admin account with password is created during the installation of AMP. For the SaaS environment, an admin account is provided during signup. Using this admin account, API provider administrators can sign up to manage their APIs. Alternatively, an Admin API is also provided in case administrators prefer to use REST service requests to manage their APIs. 
 
+The configurations created in the API Gateway and synched to the API Gateway periodically so that the API consumer calls which flow through the Gateway are enforced with the right policies and mappings.
 
 
 endif::showscript[]

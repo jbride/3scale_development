@@ -6,11 +6,9 @@
 
 * 3scale API Gateway
 * API Gateway Components
-* Gateway Folder Structure
-* Gateway Lifecycle
+* Gateway Phases
 * Modules/Custom Modules
 * Configuration/Custom configuration
-* API Authentication
 * 3scale code plugins
 
 
@@ -19,7 +17,7 @@ ifdef::showscript[]
 === Transcript
 
 
-This module introduced the API Traffic Management agents for 3scale, chiefly the APICast gateway. APICast Gateway is a thin reverse proxy handling API requests, enforcing policies and security, and routing to the application API endpoint. It is built on NGinx, Lua and OpenResty. It has certain pre-configured components and configurations to help with API traffic management. We also looked into adding custom modules and configurations to enhance the default functionality of the gateway.
+This module introduces the API Traffic Management agents for 3scale, chiefly the APICast gateway. APICast Gateway is a thin reverse proxy handling API requests, enforcing policies and security, and routing to the application API endpoint. It is built on NGinx, Lua and OpenResty. It has certain pre-configured components and configurations to help with API traffic management. We also look into adding custom modules and configurations to enhance the default functionality of the gateway.
 
 
 

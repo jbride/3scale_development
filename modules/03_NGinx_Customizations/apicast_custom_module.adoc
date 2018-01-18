@@ -7,7 +7,7 @@
 * To customize APIcast 
 ** Override a function
 ** Extend configuration
-* related to HTTP request/response (e.g CORS)
+* Related to HTTP request/response (e.g CORS)
 * Custom authentication
 * Time restricted access
 * Limit on opened connections
@@ -17,6 +17,8 @@ ifdef::showscript[]
 
 === Transcript
 
+To customize APIcast, whether to change a behaviour by overriding a function, or extending the configuration, it requires changes to the default apicast module. It can be achieved either by editing the apicast configuration, or by creating a custom module and using inheritance to plug in the new functionality at the appropriate nginx phase. 
 
+Some of the usecases for requiring customization may be to support CORS headers, using custom authentication or custom headers, providing time restricted access to APIs or limiting the number of opened connections for the API.
 
 endif::showscript[]

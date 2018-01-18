@@ -6,7 +6,7 @@
 
 * 9 phases:
 ** _init_ - executed in the master process, loaded code shared between workers.
-** _init_worker_ - executed for eac worker, can background work
+** _init_worker_ - executed for each worker, can background work
 ** _rewrite_ - first request phase to change the request
 ** _access_ - to allow/deny the request
 ** _balancer_ - used for load balancing
@@ -19,6 +19,10 @@ ifdef::showscript[]
 
 === Transcript
 
+The behaviour of APIcast is customizable via policies. A policy basically tells APIcast what it should do in each of the nginx phases.
 
+A policy tells APIcast what it should do in each of the nginx phases: init, init_worker, rewrite, access, balancer, header_filter, body_filter, post_action, and log.
+
+Policies can share data between them. They do that through what we call the context. Policies can read from and modify that context in every phase. The 9 phases on nginx for which apicast modules exist are shown here.
 
 endif::showscript[]

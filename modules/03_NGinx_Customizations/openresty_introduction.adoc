@@ -18,7 +18,7 @@ ifdef::showscript[]
 
 OpenResty® is a full-fledged web platform that integrates the standard Nginx core, LuaJIT, many carefully written Lua libraries, lots of high quality 3rd-party Nginx modules, and most of their external dependencies. It is designed to help developers easily build scalable web applications, web services, and dynamic web gateways. OpenResty® is not an Nginx fork. It is just a software bundle.
 
-LuaJIT is a Just-In-Time Compiler for the Lua programming language. lua-nginx-module is an nginx module which makes it possible to handle http request directly in nginx using Lua. 
+LuaJIT is a Just-In-Time Compiler for the Lua programming language. The Lua interpreter or LuaJIT instance is shared across all the requests in a single nginx worker process but request contexts are segregated using lightweight Lua coroutines. lua-nginx-module is an nginx module which makes it possible to handle http request directly in nginx using Lua. Unlike Apache's mod_lua and Lighttpd's mod_magnet, Lua code executed using the lua-nginx-module can be 100% non-blocking on network traffic as long as the Nginx API for Lua provided by this module is used to handle requests to upstream services such as MySQL, PostgreSQL, Memcached, Redis, or upstream HTTP web services.
 
 
 endif::showscript[]
