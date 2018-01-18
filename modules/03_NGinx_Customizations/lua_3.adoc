@@ -27,5 +27,6 @@ ifdef::showscript[]
 
 === Transcript
 
+Lua programming language structure, functions and closures are very similar to JavaScript. Any developers familiar with Javascript can easily pick up the concepts for programming Lua. 
 
 endif::showscript[]

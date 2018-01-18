@@ -18,6 +18,7 @@ ifdef::showscript[]
 
 === Transcript
 
+The 3scale development team has extended the nginx modules, and created libraries for use with APIcast Gateway. Some of these libaries like Caching DNS resolver, load balancer and HTTP client are available for extension. There are also other libraries that are primarily intended for internal use e.g API mashups, routers/proxies aand IP whitelist and blacklist.
 
 
 endif::showscript[]
