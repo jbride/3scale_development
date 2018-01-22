@@ -2,34 +2,35 @@
 :data-uri:
 :noaudio:
 
-== Usecases (contd.)
+== Use Cases
 
 
-* *Content and Transaction Channel*
-** API as content outreach.
+* *Content and transaction channel*
+** API as content outreach
 ** Leverage network effects
-** Open up new distribution channel.
-** Example: Media distribution
-* *Mobile and IOT Support*
-** Open access for non-human interactions.
-** Standardize access control through apps
-** Example: Facebook
-* *Internal Agility*
-** Standardise access to internal data
-** Improve system design.
-** Quickly adapt to internal and external changes
-** Example: Amazon Web Services
+** Open up new distribution channel
+** Example: media distribution
+* *Mobile and IOT support*
+** Open access for non-human interactions
+** Standardize access control through apps (Facebook)
+* *Internal agility*
+** Standardize access to internal data
+** Improve system design
+** Quickly adapt to internal and external changes (Amazon Web Services)
+
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-This slide discusses the other prominent use cases for Red Hat 3scale API Management Platform. 
+There are other prominent use cases for Red Hat 3scale API Management.
 
-. Content and Transaction channel - Use your APIs to increase your Organization's content outreach to new territories. Use the ability of standardizing on APIs and leveraging network effects, for larger user base. 
-. Mobile and IOT Support - Standardising on APIs using REST/HTTP allows new uses of the business APIs through applications, and IOT end points. 
-. Internal Agility- Provide a way to standardize access to all internal data through APIs. This improves system design, and allows the application to be adaptable to internal and external changes quickly.
+* Content and transaction channel: Use your APIs to increase your organization's content outreach to new territories. Standardize APIs and leverage network effects for a larger user base.
+
+* Mobile and IOT support: Standardize on APIs using REST/HTTP to allow new uses of the business APIs through applications and IOT end points.
+
+* Internal agility: Standardize access to all internal data through APIs. This improves system design and allows the application to adapt to internal and external changes quickly.
 
 
 endif::showscript[]

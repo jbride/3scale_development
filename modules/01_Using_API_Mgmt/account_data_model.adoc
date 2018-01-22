@@ -2,21 +2,25 @@
 :data-uri:
 :noaudio:
 
-== Account Data Model  
+== Data Models
+
+.*Account Data Model*
 
 
-image::images/account_data_model.png[width=90%]
+image:images/account_data_model.png[]
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-This diagram shows the relationship between the various account related data objects in 3scale. The relationships discussed here are the user and application entities, and show the data model from the perspective of the potential users (developers). At the root of the relationship is again the API Provider. 
+This diagram shows the relationship between the various account-related data objects in 3scale. The relationships discussed here are the user and application entities. They show the data model from the perspective of the potential users, the developers. At the root of the relationship is again the API provider.
 
-Account Subscription: 
-Developer Account: Developer accounts are the accounts subscribed to a particular API. Developer Accounts are the parents of the applications. When new developers subscribe to an API, an application is automatically created for them which will allow them to make calls to the API it is subscribed to.
-User: These are the end users of the application. They belong to a developer account, and come be admin users or normal users.
-Service subscription: A contract (plan) between an account and a service.
-Applications and application plans are used to enforce the contracts for the service, as we have seen in the last slide.	
+The account subscription relates to the API provider account. On a Red Hat 3scale API Management platform, usually SaaS, it is the account that the provider uses to log in to 3scale and manage APIs.
+
+Developer accounts are the accounts subscribed to a particular API. Developer accounts are the parents of the applications. When a new developer subscribes to an API, an application is automatically created that allows the developer to make calls to that API.
+
+User objects represent the end users of the application. They belong to a developer account, and can be admin users or normal users.
+
+A service subscription is a contract, or plan, between an account and a service. Applications and application plans are used to enforce the contracts for the service, as shown in the previous slide.
 
 endif::showscript[]

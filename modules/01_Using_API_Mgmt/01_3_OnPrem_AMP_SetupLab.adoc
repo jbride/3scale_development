@@ -96,9 +96,9 @@ Login on https://3scale-admin.apps.176.126.90.137.xip.io as admin/c2rl6m1u     <
     * APICAST_MANAGEMENT_API=status
 -----
 +
-<1> Admin Portal URL
+<1> Admin portal URL
 
-. Make note of the Admin Portal URL and corresponding authentication credentials.
+. Make note of the admin portal URL and corresponding authentication credentials.
 
 === Confirm Successful End State
 

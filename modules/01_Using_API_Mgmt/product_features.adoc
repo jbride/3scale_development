@@ -2,37 +2,41 @@
 :data-uri:
 :noaudio:
 
-== Product Features 
+== Product Features
+
+[.noredheader,cols="30,70"]
+|======
+|*Access control* | Centrally sets up and manages policies and application plans for all APIs
+|*Security* | Authenticates and authorizes using API keys, user keys, or OAuth tokens
+|*Rate limits* | Manage and control flow of access to API resources
+|*Developer portal* | Allows sign-up, API access, and API documentation for consumers
+|*ActiveDocs live documentation* | Based on Swagger framework, provides a way to document APIs and include in the developer portal
+|*Analytics* | Monitor and set alerts on traffic flow and produce reports
+|*Dashboard* | Provides quick, central visibility of all traffic, plans, and customer sign-up flows for the platform
+|*Monetization* | Sets up pricing rules, invoices, and collect payments
+|======
 
 
-* *Access Control* - Centrally set up and manage policies and application plans for all APIs.
-* *Security* - Authentication and authorisation using API Keys, User Keys or OAuth tokens.
-* *Rate Limits* - Manage and control flow of access to API resources.
-* *Developer Portal* - Provide a portal to allow sign up, access and documentation of the APIs for consumers.
-* *ActiveDocs Live Documentation* - Based on swagger framework, provides a way to document APIs and include in the developer portal.
-* *Analytics* - Monitor and set alerts on traffic flow, and produce reports. 
-* *Dashboard* - Quick, central visibility of all traffic, plans and customer signup flows for the platform.
-* *Monetization* - Set up pricing rules, invoices and collect payments. 
-+
-NOTE: Monetization available on the SaaS platform only.
+NOTE: Monetization is available only on the SaaS platform.
 
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-The 3scale API management platform provides a rich set of powerful features to enable API providers to create API Management strategies. These include the following:
-* Access Control
+Red Hat 3scale API Management provides a rich set of powerful features to enable API providers to create API management strategies. They include the following:
+
+* Access control
 * Security
-* Rate Limits
-* Developer Portal 
-* ActiveDocs Live Documentation
+* Rate limits
+* Developer portal
+* ActiveDocs live documentation
 * Analytics
 * Dashboard
-* Billing and Monetization
+* Billing and monetization
 
-We will learn how to use these features in more details in this course.
+You learn how to use these features during this course.
 
 
 endif::showscript[]

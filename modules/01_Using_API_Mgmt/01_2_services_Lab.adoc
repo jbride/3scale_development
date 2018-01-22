@@ -32,7 +32,7 @@ $ git clone https://github.com/gpe-mw-training/3scale_development_labs
 * *Camel-webservice-FIS*: JBoss Fuse Camel application that exposes a CXF SOAP API web service. This application is used in later modules to integrate SOAP web services with Red Hat 3scale API Management.
 * *templates*: OpenShift templates for defining the service build and deployment parameters of your project.
 * *3scale-swagger-Import*: Custom tool for importing API definitions using OpenAPI Specifications (OAS) into Red Hat 3scale API Management.
-* *DevPortal*: Files related to customizing 3scale by Red Hat's Developer Portal.
+* *DevPortal*: Files related to customizing 3scale by Red Hat's developer portal.
 
 [[bservice_deployment]]
 == Deploy Products API Services in OpenShift Container Platform

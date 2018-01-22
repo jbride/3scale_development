@@ -20,7 +20,7 @@ Make sure that the Internet connection is free of corporate proxies or other net
 * Red Hat OPENTLC credentials
 * <<enterprise>>
 +
-NOTE: You need the URL and admin access to your 3scale Admin Portal. The URL is similar to this: `https://<your domain>-admin.3scale.net/`.
+NOTE: You need the URL and admin access to your 3scale admin portal. The URL is similar to this: `https://<your domain>-admin.3scale.net/`.
 
 ifdef::showscript[]
 ** An Enterprise account provides the following:
