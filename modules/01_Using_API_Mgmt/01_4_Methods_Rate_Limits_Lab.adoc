@@ -26,23 +26,23 @@ In particular, _methods_, _metrics_, and _rate limits_ are defined and used.
 +
 TIP: To check if your shell still has this environment variable set, execute the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
 
-* 3scale admin portal URL and user credentials to log in
+* 3scale Admin Portal URL and user credentials to log in
 
 :numbered:
 
 
 == Initial API Resources
 
-In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APICast gateway. You use 3scale by Red Hat's admin portal to create the accounts, applications, application plans, services, and API definitions.
+In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APICast gateway. You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
 
 
 === Log In to Admin Portal
 
-. In a browser window, access 3scale by Red Hat's admin portal.
+. In a browser window, access 3scale by Red Hat's Admin Portal.
 +
-NOTE: The URL for 3scale by Red Hat's admin portal was noted in the previous lab. It should use the following form: `https://$OCP_PROJECT_PREFIX-3scale-admin.$OCP_WILDCARD_DOMAIN`, where `$OCP_PROJECT_PREFIX` and `$OCP_WILDCARD_DOMAIN` are the values set in your `~/.bashrc`.
+NOTE: The URL for 3scale by Red Hat's Admin Portal was noted in the previous lab. It should use the following form: `https://$OCP_PROJECT_PREFIX-3scale-admin.$OCP_WILDCARD_DOMAIN`, where `$OCP_PROJECT_PREFIX` and `$OCP_WILDCARD_DOMAIN` are the values set in your `~/.bashrc`.
 
-. Log in to 3scale by Red Hat's admin portal using your credentials:
+. Log in to 3scale by Red Hat's Admin Portal using your credentials:
 +
 image::images/3scale_amp_admin_portal_login.png[]
 
@@ -260,7 +260,7 @@ system-provider-admin-route   user76-3scale-admin.apps.6a94.openshift.opentlc.co
 
 === Assign API Endpoints
 
-. Return to 3scale by Red Hat's admin portal.
+. Return to 3scale by Red Hat's Admin Portal.
 . Enter the products API and business service routes to the configuration:
 * *Private base URL*: Route into the products API business service endpoint
 +
@@ -293,7 +293,7 @@ In this section you configure and test a rate-limiting policy in an application 
 
 === Set Rate Limits
 
-. In 3scale by Red Hat's admin portal, verify that you are logged in, and then click the *APIs* tab.
+. In 3scale by Red Hat's Admin Portal, verify that you are logged in, and then click the *APIs* tab.
 . Expand the *Products* API.
 . Click *Published Application Plans*.
 . Select *ProductsBasicPlan*:

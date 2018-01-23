@@ -17,7 +17,7 @@
 .. Create developer accounts
 .. Create users and administrators
 .. Create applications (with associated application plans)
-. Create developer portal
+. Create Developer Portal
 . Create ActiveDocs API documentation
 . Test the service on staging URL
 . Promote to production
@@ -36,7 +36,7 @@ The second set of steps involves setting up developer accounts (including users 
 
 At a minimum, once these two sets of steps are completed, you are ready to test the API using the staging URL.
 
-Steps 3 to 6 ensure that the API service is ready for production. The API providers create the developer portal, the API documentation, create sign-up flows and user self-service flows, and finally, test the service and promote the service to production.
+Steps 3 to 6 ensure that the API service is ready for production. The API providers create the Developer Portal, the API documentation, create sign-up flows and user self-service flows, and finally, test the service and promote the service to production.
 
 
 

@@ -32,7 +32,7 @@ Transcript:
 
 * *Access control and security:* Think about which resources you want to expose as well as the operations you will allow on them. Also think about usage limits, if any, that you want to impose on the methods available through your API. These will probably be based on customer segments, with private partners receiving a higher allowance than public developers. It is also important to choose the correct authentication method.
 
-* *Visibility:* An important next step is to think about the signup flow you want potential partners or customers to follow to get access to your API. Consider providing a public developer portal to allow people to learn more about your API, and consider provisioning some sort of trial access with restricted functionality so they can do a proof of concept integration against your API.
+* *Visibility:* An important next step is to think about the signup flow you want potential partners or customers to follow to get access to your API. Consider providing a public Developer Portal to allow people to learn more about your API, and consider provisioning some sort of trial access with restricted functionality so they can do a proof of concept integration against your API.
 
 * *API UX:* Once you have decided on all of the above, it is important to think about what the experience is going to be like for partners discovering and integrating with your API.
 
@@ -42,8 +42,8 @@ Transcript:
 
 *Managing API access:* With the gateway set up, you can start creating application plans to allow different types of access to your API. Look at any limits you want to enforce on the different application plans, as well as any additional pricing rules for when developers go above their plan limits.
 
-*Engaging developers:* Now that you have set up limits, the next step is to set up your developer portal so customers can find out more about the API, get their API credentials, and monitor their usage.
+*Engaging developers:* Now that you have set up limits, the next step is to set up your Developer Portal so customers can find out more about the API, get their API credentials, and monitor their usage.
 
-*Exposing the API:* Now you are ready to expose the API using Red Hat 3scale API Management. Promote the API to production, and expose the developer portal to have public access so that customers and partners can find and sign up for the API services.
+*Exposing the API:* Now you are ready to expose the API using Red Hat 3scale API Management. Promote the API to production, and expose the Developer Portal to have public access so that customers and partners can find and sign up for the API services.
 
 endif::showscript[]
