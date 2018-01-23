@@ -4,23 +4,23 @@
 
 == 3scale Developer Portal
 
-* Hosted by 3scale 
-* Provides 3scale CMS to create custom portal quickly
-* A default developer portal available out of box.
-* Built in pages with HTML, CSS, Javascript elements 
+* Hosted by Red Hat 3scale API Management
+* Provides 3scale content management system (CMS) to quickly create custom portals
+* Default Developer Portal available out of the box
+* Built-in pages with HTML, CSS, JavaScript elements
 * Liquid tags for processing and displaying data on portal
 * Authentication options:
 ** Username and password
-** Authentication via Github
+** GitHub
 ** Auth0
-** Red Hat Single Sign-on integration
+** Red Hat Single Sign-On
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-The developer portal is the site where developers can subscribe to APIs. From the developer portal, developers can manage their subscription, have access to their API key, create applications, access the interactive API documentation (ActiveDocs), see their API consumption, etc. The 3scale CMS, with its out of the box features allows to quickly create a developer portal with all what is required for on-boarding new customers. By default, 3scale generates a default developer portal with functionality for signup, dashboard, account pages, activedocs, etc. These can be customized as desired to meet the requirements of the API provider. 
+The Developer Portal is the site where developers subscribe to APIs. From the Developer Portal, developers can manage their subscription, access their API keys, create applications, access the interactive API documentation (ActiveDocs), and see their API consumption. The out-of-the-box 3scale CMS features allow a developer to quickly create a Developer Portal with all that is required for on-boarding new customers. By default, it generates a default Developer Portal with functionality for sign-up, dashboard, account pages, and ActiveDocs. These can be customized as desired to meet the requirements of the API provider. 
 
 
 
