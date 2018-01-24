@@ -4,44 +4,22 @@
 
 == Application Plans
 
-* Fine grained configuration of access rights to APIs
-** Rate Limits
-** Pricing Rules
-* All applications MUST be associated with an Application Plan.
-* Can be customized for one application.
-
-== Other Plans
-
-* Account Plans
-** Configuration at Account Level
-** Not limited to specific API service
-** Applies to all APIs accessed by the account.
-
-* Service Plans
-** Configuration at Service Level
-** Not limited to specific application
-** Applies to all applications accessing the Service
-
-* End User Plans
-** Configuration at end-user Level
-** Quotas can be applied to single users
-** Prevent application plan rate limits consumed wholly by single user.
+* Fine-grained configuration of access rights to APIs
+** Rate limits
+** Pricing rules
+* All applications _must_ be associated with an application plan
+* Can be customized for each application
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-Plans are used for granting access to specific APIs and endpoints, limiting traffic and monetizing API usage. 3scale has four different types of plans that can be used on their own or in conjunction:
+Plans are used for granting access to specific APIs and endpoints, limiting traffic, and monetizing API usage. Red Hat 3scale API Management has four different types of plans that can be used on their own or together.
 
-Application plans: This is the most common type of plans in 3scale. They let you configure access rights to an API by specifying rate limits and pricing rules. All applications must be associated with a plan. Application plans can be customized for one application. 
+Application plans are the most common type of plans. They let you configure access rights to an API by specifying rate limits and pricing rules. All applications must be associated with a plan. Application plans can be customized for each application. 
 
-Account plans: They establish pricing and features on the account level and are thus not limited to a specific API service. Account plans can be customized for one account.
-
-Service plans: They establish pricing & features on the service level and are thus not limited to a specific application.
-
-End-user plans: They establish usage limits and pricing rules for end users of an API. That allows you to balance the allowed number of hits specified in the application plans, preventing one single user to consume all the quota by themselves.
 
 
 endif::showscript[]
