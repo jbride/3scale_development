@@ -4,35 +4,33 @@
 
 == API Documentations
 
-* API JSON Spec: Based on Swagger 2.0
-* Service Spec in 3scale:
+* API JSON specification, based on Swagger 2.0
+* Service specification in 3scale:
 ** Name
-** System Name
-** Publish (Visible or Hidden)
+** System name
+** Publish (visible or hidden)
 ** Description
-** API JSON Spec
+** API JSON specification
 
 image::images/apidocs_spec.png[]
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-3scale offers a framework to create interactive documentation for your API.
+Red Hat 3scale API Management offers a framework to create interactive documentation for your API.
 
-With Swagger 2.0 (based on the Swagger Spec) you will have functional, attractive documentation for your API, which will help your developers to explore, to test and integrate with your API.
- 
-When you add a new service spec, you will have to provide:
+With Swagger 2.0, based on the Swagger specification, you can have functional, attractive documentation for your API that helps your developers to explore, test, and integrate with your API.
 
-* Name
-* System name (required to reference the Servcie Spec from the Developer Portal)
-* Whether you want the spec to be published or hidden
-* A description that is only meant for your own consumption
-* API JSON spec.
+When you add a new service specification, you must provide the following:
 
-The API JSON spec is the "secret ingredient" of ActiveDocs.
+* The service name
+* The system name, which is required to reference the service specification from the Developer Portal
+* Whether you want the specification to be published or hidden
+* A description meant only for your consumption
+* The API JSON specification, which is the secret ingredient of ActiveDocs
 
-You must generate the specification of your API according to the spec proposed by Swagger. 3scale does not help generate API specs, but assumes you have a valid Swagger 2.0-compliant specification of your API.
+You must generate the specification of your API according to the specification proposed by Swagger. Red Hat 3scale API Management does not help generate API specifications; it assumes you have a valid Swagger 2.0-compliant specification of your API.
 
 
 

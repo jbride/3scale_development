@@ -2,45 +2,41 @@
 :data-uri:
 :noaudio:
 
-== 3scale Command Line Interface (CLI)
+== 3scale Command Line Interface
 
-* Command Line utility for API Management
-* Functionalities:
-** Importing and API definition (Open API / Swagger or RAML) to define APIs
-** Creating interactive documentation (ActiveDocs)
-* Management (Create, list, show, update and delete):
+* Command line utility for API management
+* Functionality:
+** Import and define API (Open API/Swagger, or RAML)
+** Create interactive documentation (ActiveDocs)
+* Manage (create, list, show, update, delete):
 ** Services
 ** Application plans
 ** Mapping rules
 ** Methods and metrics
 ** Applications
 * List and show accounts
-* Proxy and proxy configs
+* Proxy and proxy configurations
 
-NOTE: 3scale CLI is open source community project, not part of 3scale product.
+NOTE: 3scale's command line interface (CLI) is an open source community project, not part of Red Hat 3scale API Management.
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-3scale CLI is a command line utility for API management solution of 3scale SaaS and On-premise platform. It is an open source project written using NodeJS, available from Node Package Manager. The source is available on github.
+3scale's CLI is a command line utility that can be used with Red Hat 3scale API Management SaaS and On-Premise. It is an open source project written in NodeJS, available from Node Package Manager. The source is available on GitHub.
 
- Its main capabilities include 
+Its main capabilities include:
 
-* Importing and API definition (Open API / Swagger or RAML) to define your API
+* Importing and defining APIs (Open API/Swagger, or RAML)
 * Creating interactive documentation (ActiveDocs)
 
 Additionally, you can also:
 
-Create, list, show, update, and delete services
-Create, list, show, and delete application plans
-Create, list, show, update, and delete mapping rules
-Create, list, show, update, and delete methods
-Create, list, show, update, and delete metrics
-List and show accounts
-Create, list, show, update, delete, suspend, and resume applications
-Show, and update proxy
-List, show, and promote proxy-configs
+* Create, list, show, update, and delete services, application plans, mapping rules, methods, metrics, and applications
+* Suspend and resume applications
+* List and show accounts
+* Show and update proxies
+* List, show, and promote proxy configurations
 
 
 

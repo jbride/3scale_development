@@ -2,59 +2,30 @@
 :data-uri:
 :noaudio:
 
-== Liquid Tags
+== Liquid Programming Language
 
-* Liquid Programming Language 
-** Developed by Shopify
-** Expose server side data
+
+* Developed by Shopify
+* Exposes server-side data
 * Liquid uses:
-** Alter DOM and page content based on server-side data
-** Add logic to pages, layouts and partials
+** Alter Document Object Model (DOM) and page content based on server-side data
+** Add logic to pages, layouts, and partials
 ** Manipulate email templates
-* Liquid markup:
-** Logic tags
-+
-[source,text]
-----
-{% if current_user %}           <!-- if the user is logged in -->
-  <a href="/logout">Logout</a>  <!-- show the logout link -->
-{% else %}                      <!-- if the user is not logged in -->
-  <a href="/login">Login</a>    <!-- display the login link -->
-{% endif %}
-----
-+
-** Liquid Drops
-+
-[source,text]
-----
-{{ current_user.username }}     <!-- display the logged-in user's username value -->
-----
-+
-** Filters
-+
-[source,text]
-----
-{{ form.errors.description | error_class }}
-----
-* Use with CSS and JavaScript
+
 
 ifdef::showscript[]
 
 === Transcript
 
-Liquid is a simple programming language used for displaying and processing most of the data from the 3scale system available for API providers. Liquid was originally developed by Shopify and is used in many other CMS engines throughout the web. In the 3scale platform, it is used to expose server-side data to your API developers, greatly extending the usefulness of the CMS while maintaining a high level of security.
+Liquid is a simple programming language used for displaying and processing most of the data from 3scale's system that is available for API providers. Liquid was originally developed by Shopify and is used in many other CMS engines throughout the web. In Red Hat 3scale API Management, it is used to expose server-side data to your API developers, greatly extending the usefulness of the CMS while maintaining a high level of security.
 
-They serve very well for:
+Liquid is good for:
 
 * Altering the DOM and content of a page based on server-side data
 * Adding logic to pages, layouts, and partials
 * Manipulating the email templates sent to developers
 
- 
-Liquid markup is divided into two types: logic tags and output tags. The logic tags are conditional liquid statements that include standard programming language elements such as the "if" clause, loops, etc.
 
-Output tags, also called liquid drops, are used to display the value of the tag between the curly braces.
 
-Filters, as the name suggests, enable the option of filtering results from the drops, converting values, grouping by some key, etc. 
 
 endif::showscript[]

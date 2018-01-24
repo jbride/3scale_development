@@ -4,27 +4,27 @@
 
 == 3scale Developer Portal
 
-* Can test changes in draft mode
+* Test changes in draft mode
 * Publish changes to live site
-* Developer Portal can be access restriced with *access code*
-* can open portal to world
-* Restrict visibility as per chosen features:
-** User Plans
-** Multiple Services
-** Multiple Applications
-** Multiple Users
-** Web Hooks
+* Restrict access with access code
+* Open portal to world
+* Restrict visibility with features:
+** User plans
+** Multiple services
+** Multiple applications
+** Multiple users
+** Webhooks
 ** Finance
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-Any changes to the developer portal can be first accessed in  a draft version to ensure the rendering is correct. Once satisfied, the draft changes can be published so that they are visible on the portal.
+Any changes to the Developer Portal can be accessed in a draft version to ensure that the rendering is correct, and then published so that they are visible on the portal.
 
-The developer portal can be a public site accessible to any developers with the URL, or it can be restricted and be accessible only to users with the shared access code. 
+The Developer Portal can be a public site accessible to all developers with the URL, or it can be restricted so that it is accessible only to users with the shared access code.
 
- Some advanced features of the 3scale platform are by default not visible for your developers. In other words, HTML fragments of its controls are not rendered on your developers portal so that your styling remains intact when upgrading. For example, the developers won't see a 'Create User' button on their portal if the 'Multiple Users' feature is hidden.
+Some advanced features of the platform are by default not visible to developers. HTML fragments of its controls are not rendered on the Developer Portal so that your styling remains intact when upgrading. For example, developers do not see a Create User button on the portal if the Multiple Users feature is hidden.
 
 
 

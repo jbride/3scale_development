@@ -2,22 +2,30 @@
 :data-uri:
 :noaudio:
 
-== 3scale Admin & Developer Portal
+== 3scale Admin and Developer Portals
+
+* Two portals are hosted in Red Hat 3scale API Management:
+** *Admin Portal* for administration and API and account management
+** *Branded Developer Portal* for exposing developer sign-ups and API documentation
+
+image::images/3scale_portals_2.png[]
 
 
-image::images/3scale_portals_2.png[width=90%]
 
-* Two Portals hosted in 3scale:
-** *Admin Portal* - for Administration, API and Account Management
-** *Branded Developer Portal* - for exposing Developer signups, API documentation
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
- As shown in the image, the 3scale API Management Platform provides the ability to expose two web portals. An administration portal for the API provider administrators to manage the APIs, accounts, services, applications, and documentation. A Developer Portal targetted towards API consumers and developers, which is typically customised for each API provider, to provide branded customer experience regarding accessing APIs, signups, reference material for the APIs, Swagger Documentation and developer workflows.
+As shown in the diagram, Red Hat 3scale API Management provides the ability to expose two web portals:
 
-The platform is hosted and deployed separately, and does not interfere with the access to API backend by the API consumers, which happens through the API Gateway.
+* An Admin Portal for the API provider administrators to manage the APIs, accounts, services, applications, and documentation.
+
+* A Developer Portal for API consumers and developers.
+
+The Developer Portal is typically customized for each API provider to provide a branded customer experience for API access, sign-ups, and reference material for the APIs, Swagger documentation, and developer workflows.
+
+The portals are hosted and deployed separately and do not interfere with the access to the API back end by the API consumers, which happens through the API gateway.
 
 
 
