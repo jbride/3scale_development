@@ -2,29 +2,34 @@
 :data-uri:
 :noaudio:
 
-== Code Plugins
+== Code Plug-ins
 
-* Community Extensions
-* Allow API Traffic Management 
-* Wrapper for Service Management API:
+* Community extensions
+* Allow API traffic management
+* Wrapper for service management API:
 ** API access control and security
 ** Traffic reporting
 ** API monetization
 * Languages:
++
+[.noredheader,cols="50,50",width="70%"]
+|======
+a|
 ** Python
 ** Ruby gem
 ** Perl
 ** PHP
-** Java
+a|** Java
 ** .NET
 ** Node.js
+|======
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-3scale plugins allow you to connect to the 3scale architecture in a variety of core programming languages. Plugins can be deployed anywhere to act as control agents for your API traffic. 3scale API plugins are available for a variety of implementation languages including Java, Ruby, PHP, .NET, and others as shown above. The plugins provide a wrapper for the 3scale Service Management API. This wrapper connects back into the 3scale system to set and manage policies, keys, rate limits, and other controls that you can put in place through the interface. 
+Red Hat 3scale API Management plug-ins allow you to connect to the 3scale architecture using a variety of core programming languages. Plug-ins can be deployed anywhere to act as control agents for your API traffic. API plug-ins are available for a variety of implementation languages including Java, Ruby, PHP, .NET, and others as shown. The plug-ins provide a wrapper for the 3scale Service Management API. This wrapper connects back into the Red Hat 3scale API Management system to set and manage policies, keys, rate limits, and other controls that you can put in place through the interface.
 
-The code plugin libraries are available on the 3scale GitHub repository, and are released as Open source community extensions. 
+The code plug-in libraries are available on the 3scale GitHub repository, and are released as open source community extensions.
 
 endif::showscript[]

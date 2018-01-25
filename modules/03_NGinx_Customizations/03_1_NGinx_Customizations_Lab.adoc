@@ -26,7 +26,7 @@ To write custom modules, you need to use inheritance to override the default `AP
 
 === Create Custom Verbose Logging Module
 
-In this section you create a custom module to provide more verbose logging information in APIcast. The custom Lua file is available link:https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-module/verbose.lua[here].
+In this section you create a custom module to provide more verbose logging information in APIcast. The custom Lua file is available link:https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-module/verbose.lua[here^].
 
 . Examine the code for the `log` function:
 +

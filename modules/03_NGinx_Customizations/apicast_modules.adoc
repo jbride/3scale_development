@@ -4,21 +4,23 @@
 
 == APIcast Policies (Modules)
 
-* 1 entrypoint module
+* One entry point module
 ** Can call other modules
-* Has a method for each phase (init, init_worker, rewrite, access,...)
-* No UI for working with policies (on the Roadmap)
+* Has method for each phase (`init`, `init_worker`, `rewrite`, `access`, etc.)
+* No UI for working with policies (on the roadmap)
 * Default module called `APIcast`
-** Replacing it would redefine whole gateway
-** Like inheritance, custom modules should call APIcast module
+** Replacing it redefines whole gateway
+** Like inheritance, custom modules should call `apicast` module
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-Module is something, that is executed in each nginx phase: init, init_worker, rewrite, access, content, log, post_action, balancer, header_filter, body_filter etc. It handles processing of each request. There can be only ONE module that is being executed.
+A module is executed in each NGINX phase: `init`, `init_worker`, `rewrite`, `access`, `content`, `log`, `post_action`, `balancer`, `header_filter`, `body_filter`, and so on. The module handles the processing of each request. Only _one_ module can be executed.
 
-The name of the module that is executed is defined by the environment variable APICAST_MODULE and defaults to apicast. You can define your own module here completely replacing apicast in order to overwrite the default behaviour of apicast and define your own behaviour for the gateway. Another option is to honour the module inheritance, but still be able to override some methods from the apicast module. We can use Lua metatables to acheive this. 
+The name of the module that is executed is defined by the environment variable `APICAST_MODULE` and defaults to `apicast`. You can define your own module here to replace `apicast` and overwrite its default behavior in favor of your own behavior for the gateway. Another option is to honor the module inheritance, but override some methods from the `apicast` module. You can use Lua metatables to achieve this.
+
+
 endif::showscript[]

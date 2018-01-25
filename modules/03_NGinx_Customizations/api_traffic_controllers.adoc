@@ -4,18 +4,19 @@
 
 == 3scale API Traffic Controllers
 
-image::images/3scale_product_features.png[width=90%]
+image::images/3scale_product_features.png[]
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-The 3scale API Management platform is a flexible, distributed architecture baed and scalable API Management platform. 
+Red Hat 3scale API Management is a flexible and scalable API management platform based on a distributed architecture.
 
-The basic 3Scale architecture diagram is shown here.
-The 3scale API platform mediates between the API consumers, represented on the left, and the API providers, represented on the right.
-3scale’s architecture is hybrid, with separate traffic control and program management layers. The traffic management and API management layers can be deployed separately. The traffic between API consumer and API provider does not go through the 3scale cloud, and thus latencies can be reduced.  
+Another view of the basic architecture diagram is shown here. Red Hat 3scale API Management mediates between the API consumers and the API providers.
 
-Integration with the 3scale platform is accomplished by deploying traffic management agents, which enforce traffic policies, access control, and rate limits. The traffic management could be a custom "APIcast" gateway built on NGINX web server and OpenResty, or a code plugin library embedded  within the API provider.
+The architecture is hybrid, with separate traffic control and program management layers. The traffic management and API management layers can be deployed separately. The traffic between API consumer and API provider does not go through the 3scale cloud, which reduces latencies.
+
+Integration with the 3scale platform is accomplished by deploying traffic management agents, which enforce traffic policies, access control, and rate limits. The traffic management can be a custom APIcast gateway built on an NGINX web server and OpenResty, or a code plug-in library embedded within the API provider.
+
 
 endif::showscript[]

@@ -4,21 +4,23 @@
 
 == APIcast Libraries
 
+.Extended NGINX Modules
+
 * Caching DNS resolver
 * Load balancer
-* HTTP Client (with cache)
+* HTTP client (with cache)
 
-== 3scale internal use
+.Internal Use
 
-* Microservices (API Mashups)
-* Routers/Proxies
+* Microservices (API mashups)
+* Routers/proxies
 * Upstream IP whitelist/blacklist
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-The 3scale development team has extended the nginx modules, and created libraries for use with APIcast Gateway. Some of these libaries like Caching DNS resolver, load balancer and HTTP client are available for extension. There are also other libraries that are primarily intended for internal use e.g API mashups, routers/proxies aand IP whitelist and blacklist.
+The Red Hat 3scale API Management development team has extended the NGINX modules and created libraries for use with the APIcast gateway. Some of these libraries, like the Caching DNS resolver, load balancer, and HTTP client, are available for extension. There are also other libraries that are primarily intended for internal use--for example, the API mashups, routers/proxies, and IP whitelist and blacklist libraries.
 
 
 endif::showscript[]

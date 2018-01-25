@@ -2,14 +2,15 @@
 :data-uri:
 :noaudio:
 
-== APIcast Custom Config
+== APIcast Configuration
 
-* nginx configurations
-* Inject custom nginx configuration to gateway
+.Custom NGNIX Configuration
+
+* Inject custom NGINX configuration into gateway
 * Does not override existing configuration
-* Mount to `conf.d` or `sites.d` 
-* Hooks to the nginx phases
-* Sample custom config `echo.conf`:
+* Mount to `conf.d` or `sites.d`
+* Hooks to NGINX phases
+* Sample custom configuration `echo.conf`:
 +
 [source,text]
 ----
@@ -27,10 +28,10 @@ server {
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-Sometimes you might require injecting custom nginx configuration into the gateway for customization. For example to add another server block to handle some routing. This does not override existing configuration. So the gateway will work as usual + your extra configuration.
+Sometimes you may need to inject a custom NGINX configuration into the gateway for customization--for example, to add another server block to handle some routing. This does not override the existing configuration. The gateway works as usual plus your extra configuration.
 
-That can be done very easily just adding the conf file to the container in the appropriate config location.
+That can be done very easily by just adding the configuration file to the container in the appropriate location.
 
 endif::showscript[]

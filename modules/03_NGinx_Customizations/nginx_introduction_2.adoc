@@ -4,25 +4,13 @@
 
 == NGINX Web Server
 
-image::images/nginx_architecture.png[width=90%]
+image::images/nginx_architecture.png[]
 
-
-* Functional modules
-** Core
-** Event modules
-** Phase handlers
-** Protocols
-** Variable handlers
-** Filters
-** Upstreams
-** Load balancers
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-The nginx worker code includes the core and the functional modules. The core of nginx is responsible for maintaining a tight run-loop and executing appropriate sections of modules' code on each stage of request processing. Modules constitute most of the presentation and application layer functionality. Modules read from and write to the network and storage, transform content, do outbound filtering, apply server-side include actions and pass the requests to the upstream servers when proxying is activated.
-
-nginx's modular architecture generally allows developers to extend the set of web server features without modifying the nginx core. nginx modules come in slightly different incarnations, namely core modules, event modules, phase handlers, protocols, variable handlers, filters, upstreams and load balancers. At this time, nginx doesn't support dynamically loaded modules; i.e., modules are compiled along with the core at build stage.
+The NGINX worker code includes the core and the functional modules. The core of NGINX is responsible for maintaining a tight run-loop and executing appropriate sections of module code at each stage of request processing. Modules constitute most of the presentation and application layer functionality. Modules read from and write to the network and storage, transform content, do outbound filtering, apply server-side include actions, and pass the requests to the upstream servers when proxying is activated.
 
 endif::showscript[]

@@ -2,30 +2,37 @@
 :data-uri:
 :noaudio:
 
-== APIcast Default Module
+== APIcast Modules
 
-* Default `apicast` policy.
-* Policies for 6 nginx phases:
-** _init_ - loading configuration (boot mode)
-** _init_worker_ - starting timer to refresh the configuration (boot mode)
-** _rewrite_ - loading confirguration for given host (lazy mode)
-** _access_
-*** matching the request and authorizing synchronously if needed
-*** resolving upstream DNS records if needed
-*** setting up nginx variab;es for correct proxying upstream
-* _balancer_ - chose peer based on selected algorithm
-* _post_action_ - report to 3scale backend if cached call went through
-* Policy Chain - combining policies to serve requests
+.Default Module (Default `apicast` Policy)
+
+* Policies for six NGINX phases:
+** `init` - Load configuration (boot mode)
+** `init_worker` - Start timer to refresh the configuration (boot mode)
+** `rewrite` - Load configuration for given host (lazy mode)
+** `access`:
+*** Match the request and authorizing synchronously if needed
+*** Resolve upstream DNS records if needed
+*** Set up NGINX variables for correct proxying upstream
+** `balancer` - Choose peer based on selected algorithm
+** `post_action` - Report to 3scale back end if cached call went through
+
+* Policy chain - Combine policies to serve requests
+
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-By default, APIcast applies the apicast policy to all the services. This policy includes all the functionality offered by APIcast (mapping rules matching, authorization and reporting against 3scale backend, etc.). 
+By default, APIcast applies the `apicast` policy to all services. This policy includes all of the functionality offered by APIcast--mapping rules matching, authorization, and reporting against 3scale back end, etc.).
 
-Policies can be combined using a policy chain. A policy chain is simply a sorted list of policies. init and init-worker are boot mode policies and run only during start up. init is executed when APIcast boots, and init_worker when each of each of its workers start. Other policies are 
+Policies can be combined using a _policy chain_. A policy chain is simply a sorted list of policies.
 
-The way policy chains work is as follows: suppose that we have a policy A that describes what to do in the rewrite and header_filter phases and a policy B that describes what to run in access and header_filter. Assume also that when describing the chain, we indicate that policy A should be run before policy B. When APIcast receives a request, it will check the policy chain described to see what it should run on each phase.
+`init` and `init-worker` are boot-mode policies and run only during startup. `init` is executed when APIcast boots, and `init_worker` is executed when each of each of its workers start.
+
+Other policies are are executed in the request handling phases, and can be combined using policy chains.
+
+The way policy chains work is as follows: Suppose policy A describes what to do in the `rewrite` and `header_filter` phases and policy B describes what to run in `access` and `header_filter` phases. Assume also that when describing the chain, that policy A should be run before policy B. When APIcast receives a request, it checks the policy chain described to see what it should run on each phase.
 
 
 

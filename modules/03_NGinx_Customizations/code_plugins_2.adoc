@@ -2,32 +2,17 @@
 :data-uri:
 :noaudio:
 
-== Code Plugins
+== Code Plug-ins
 
 image::images/api_code_plugin.png[]
-
-* Plugin API calls to backend:
-** *authrep* - single call for access to API and reporting traffic
-** *authorize* - access call for API request
-** *report* - report traffic on API
-* Plugin Authentication:
-** App_Id
-** user_key
-** OAuth
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-Plugins are deployed within your API code to insert a traffic filter on all calls as shown in the figure.
+Plug-ins are deployed within your API code to insert a traffic filter on all calls, as shown in the diagram.
 
-The plugin supports the 3 main calls to the 3scale backend:
 
-* authrep grants access to your API and reports the traffic on it in one call.
-* authorize grants access to your API.
-* report reports traffic on your API.
-
-3scale supports 3 authentication modes: App Id, User Key and OAuth. The first two are similar on their calls to the backend, they support authrep. OAuth differs in its usage two calls are required: first authorize then report.
 
 endif::showscript[]

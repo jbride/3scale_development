@@ -5,23 +5,23 @@
 == NGINX Web Server
 
 * HTTP and reverse proxy server
-* Mail and TCP/UDP proxt server
+* Mail and TCP/UDP proxy server
 * Powers 30% of world's busiest sites
-* Non-blocking, event based reactor
+* Non-blocking, event-based reactor
 * Single threaded, master + workers
-* Modular Architecture
+* Modular architecture
 * SSL and TLS SNI support
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-APIcast is an NGINX based API gateway used to integrate your internal and external API services with 3scale’s API Management Platform.
+APIcast is an NGINX-based API gateway used to integrate your internal and external API services with Red Hat 3scale API Management.
 
-nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server. According to Netcraft, nginx served or proxied 30.17% busiest sites in December 2017. 
+NGINX (engine x) is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server. According to Netcraft, NGINX served or proxied 30.17% of the busiest sites in December 2017.
 
-The architecture of nginx is modular and event based. nginx has one master and several worker processes; worker processes run under an unprivileged user.The way nginx and its modules work is determined in the configuration file. By default, the configuration file is named nginx.conf. 
+The architecture of NGINX is modular and event-based. NGINX has one master and several worker processes; worker processes run under an unprivileged user. The way NGINX and its modules work is determined in the configuration file. By default, the configuration file is named `nginx.conf`. 
 
-nginx uses multiplexing and event notifications heavily, and dedicates specific tasks to separate processes. Connections are processed in a highly efficient run-loop in a limited number of single-threaded processes called workers. Within each worker nginx can handle many thousands of concurrent connections and requests per second.
+NGINX uses multiplexing and event notifications heavily, and dedicates specific tasks to separate processes. Connections are processed in a highly efficient run-loop in a limited number of single-threaded processes called workers. Within each worker, NGINX can handle many thousands of concurrent connections and requests per second.
 
 endif::showscript[]
