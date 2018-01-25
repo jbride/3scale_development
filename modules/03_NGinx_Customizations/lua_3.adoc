@@ -2,13 +2,15 @@
 :data-uri:
 :noaudio:
 
-== Lua - Quick reckoner
+== Lua
+
+.Quick Study
 
 * Very similar to JavaScript
 * Closures and functions similar to JavaScript
-* Object-oriented functions are a bit different to JavaScript
-* Metatable is very similar to prototype inheritence
-* Functions are first class objects
+* Object-oriented functions are a bit different from JavaScript
+* Metatable similar to prototype inheritance
+* Functions are first-class objects
 * Lua tables are like JavaScript objects
 * Code example:
 +
@@ -25,8 +27,8 @@ function _M.log()
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-Lua programming language structure, functions and closures are very similar to JavaScript. Any developers familiar with Javascript can easily pick up the concepts for programming Lua. 
+Lua programming language structure, functions, and closures are similar to JavaScript. Any developers familiar with Javascript can easily pick up Lua programming concepts. 
 
 endif::showscript[]

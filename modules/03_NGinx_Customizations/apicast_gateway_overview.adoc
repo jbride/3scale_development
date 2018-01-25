@@ -4,27 +4,32 @@
 
 == 3scale APIcast Gateway
 
-* API Gateway from 3scale
+.Overview
+
+* API gateway from 3scale
 * Traffic controller for API requests
 * Connects to the 3scale API Manager
 * Components:
 ** NGINX server
 ** Lua
-** Openresty
+** OpenResty
 * Environments:
-** Staging 
+** Staging
 ** Production
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-APIcast is an NGINX based API gateway used to integrate your internal and external API services with 3scale API Management Platform. The latest released and supported version of APIcast is 2.0. APIcast is not a standalone API gateway, it needs connection to 3scale API Manager. 
+APIcast is an NGINX-based API gateway used to integrate your internal and external API services with Red Hat 3scale API Management. The latest released and supported version of APIcast is 2.0.
+
+APIcast is not a standalone API gateway--it needs to be connected to to Red Hat 3scale API Management.
 
 By default, when you create a 3scale account, you get APIcast hosted in two different environments:
 
-* Staging: Intended to be used only while configuring and testing your API integration. When you have confirmed that your setup is working as expected, then you can choose to deploy it to the production environment.
-* Production: Limited to 50,000 calls per day and supports the following out-of-the-box authentication options: API key, and App ID and App key pair.
+* Staging is intended to be used only while configuring and testing your API integration. When you have confirmed that your setup is working as expected, then you can deploy it to the production environment.
+
+* Production is limited to 50,000 calls per day and supports the following out-of-the-box authentication options: API key, app ID, and app key pair.
 
 
 endif::showscript[]

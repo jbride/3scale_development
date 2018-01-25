@@ -2,25 +2,25 @@
 :data-uri:
 :noaudio:
 
-== Topics
+== Module Topics
 
-* 3scale API Gateway
-* API Gateway Components
-* Gateway Phases
-* Modules/Custom Modules
-* Configuration/Custom configuration
-* 3scale code plugins
+* 3scale API Traffic Controllers
+* 3scale APIcast Gateway
+* NGINX Web Server
+* OpenResty Web Platform
+* APIcast Libraries
+* APIcast Modules
+* APIcast Configuration
+* Lua
+* Code Plug-ins
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-This module introduces the API Traffic Management agents for 3scale, chiefly the APICast gateway. APICast Gateway is a thin reverse proxy handling API requests, enforcing policies and security, and routing to the application API endpoint. It is built on NGinx, Lua and OpenResty. It has certain pre-configured components and configurations to help with API traffic management. We also look into adding custom modules and configurations to enhance the default functionality of the gateway.
-
-
-
+This module introduces NGINX customizations. It begins with the 3scale API traffic management controllers, chiefly the APIcast gateway. The module continues with the NGNIX web server, including an overview, the basic architecture, the functional modules, and its integration with the OpenResty web platform. The APIcast libraries are discussed, with a mention of the extended NGNIX modules and the modules used primarily for internal purposes. Next the APIcast modules are covered, featuring the nine module phases and a look at the default module and custom modules, followed by APIcast configuration. The module concludes with an overview of Lua and its basic concepts and a discussion of code plug-ins.
 
 
 endif::showscript[]
