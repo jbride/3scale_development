@@ -1,0 +1,30 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Manage non-REST API Using 3scale
+
+* APIcast Gateway customization for HTTP Protocol
+* Use code plugins for other protocols (e.g TCP)
+* Use custom Lua modules
+* example: SOAP:
+** Match `SOAPAction` header
+** Create Mapping Rule for `POST` operation
+** Create Method for each SOAP *endpoint*
+** Create Metrics for each SOAP *operation*
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+As APICast gateway is built on top of NGINX, Lua and OpenResty, it supports HTTP protocol. Hence, any alternate non-REST APIs that use HTTP transport layer can be supported using custom modules in APIcast. For APIs using other protocols, the traffic controller needs to be created using the code plugins and the mappings, methods and metrics matched to the API.
+
+An example of using custom Lua modules would be to support a SOAP API provider. Here, as SOAP uses POST request with a SOAPAction header, the Lua script has to provide special methods to NGINX for urlrewrite response from SOAP endpoints.
+
+Mapping rules in 3scale Service would be defined in such a way that each SOAP endpoint would have a method definition (since the URL is unique for each endpoint). Each operation for the SOAP endpoint can be defined in Metrics so that 3scale can provide finegrained metrics on the SOAP operations.
+
+
+endif::showscript[]

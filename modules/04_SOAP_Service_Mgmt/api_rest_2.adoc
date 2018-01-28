@@ -1,0 +1,30 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== REST API Architecture
+
+* REST is data-driven
+* Can permit multiple data formats (JSON, XML, text)
+* Security using HTTPS protocol
+* Lightweight framework
+
+== REST Limitations for APIs
+
+* Using non-HTTP protocols
+* Stateful 
+* Constrained by too few HTTP verbs
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+REST APIs are based on URIs (Uniform Resource Identifier, of which a URL is a specific type) and the HTTP protocol, and use JSON for a data format. REST is all about simplicity, thanks to HTTP protocols. REST is optimized for the web. Using JSON as its data format makes it compatible with browsers.
+
+RESTful APIs are quite fashionable at the moment. However, you should not
+follow this trend just for the sake of that. There are use cases which are very well
+suited for it, but there are others which favor other architectural styles.
+
+
+endif::showscript[]

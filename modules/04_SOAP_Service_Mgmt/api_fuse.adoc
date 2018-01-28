@@ -1,0 +1,27 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Managing non-REST APIs using 3scale and Fuse
+
+* Separation of Concerns
+* JBoss Fuse as Integration Platform:
+** Camel route exposing REST/HTTP endpoint.
+** Camel producer endpoint using non-REST endpoint
+* Support Transformation, Encryption capabilities
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+Frequently, there are requirements for a 3scale API Management Platform to support Enterprise Integration capabilities. These can be to support multiple transport protocols or payload data types, provide data transformation, payload encryption or enrichment. While some of these usecases might be trivial and could be handled using custom Lua modules, it is good to have separation of concerns between the API Management and Integration layers. Red Hat recommends the JBoss Fuse product as best suited to handle such Enterprise Integration scenarios.
+
+It becomes trivial to support any number of transport protocols, data types, payload transformation or encryption capabilities to address this in the JBoss Fuse product. This product use the popular Apache Camel library to provide routing and mediation capabilities. 
+
+The camel route can expose a REST/HTTP endpoint to be used in 3scale as the backend API, and in turn route the request to the actual provider API endpoint using the protocol expected (e.g SOAP/JMS).
+
+
+endif::showscript[]

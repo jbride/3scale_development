@@ -1,0 +1,31 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Other Non-REST APIs
+
+* Usecases justify RESTless APIs
+* Apache Thrift
+** Interface Definition Language
+** Multiple Target Languages 
+** Low level transports (Socket, Pipe, etc) and Protocols (
+** Examples: Facebook FBOSS API, Evernote SDK, Elasticsearch API
+* Apache Spark & Python
+** H2O Python API
+* Apache Avro
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+The REST architecture offers many benefits, including simplicity, particularly when used over HTTP with a data interchange format as straightforward as JSON. As such, it’s not surprising that REST has largely become the default choice for new API development. there are requirements like requiring support for complex data model or big binary attachments, HTTP as a protocol may not be suitable, and API providers could look for other altearnatives.
+
+Companies like Evernote are turning towards an alternate approach to develop SDKs (Software Development Kits) using open source alternatives like Apache Thrift, a technology originally developed by Facebook. Thrift supports many programming languages and has an impressive test suite that exercises most of the languages, protocols, and transports that represents a matrix of thousands of possible combinations. thrift is an interface description language - Everything is specified in an IDL file from which bindings for many languages can be generated. The languages supported include C++, Java, PHP, Python, Ruby, Smalltalk, Perl, C#, Haskell, etc. 
+
+Apache Avro Interface Definition Language is an alternate IDL language for authoring and interfacing with Apache Avro schemata.
+
+Although alternative approaches are unlikely to dethrone REST, and for many good reasons, the fact that companies like Broadcom and Evernote aren't always turning to REST highlights the fact that it’s important for developers to think critically about their APIs and how they will be used before they make decisions about architecture and protocol.
+
+
+endif::showscript[]

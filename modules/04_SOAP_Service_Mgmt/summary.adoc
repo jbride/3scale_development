@@ -1,0 +1,25 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== Topics
+
+* REST APIs
+* Non REST:
+** SOAP
+** Thrift
+* Management of non-REST APIs on 3scale
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+This module discussed the API management of non-REST based APIs. We covered  the advantages and prevalence of REST APIs in the API Management ecosystem. We discussed the other API specifications like SOAP or Thrift, and some approaches to manage non-REST APIs using 3scale.
+
+
+
+
+endif::showscript[]

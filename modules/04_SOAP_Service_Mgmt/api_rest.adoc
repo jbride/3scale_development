@@ -1,0 +1,39 @@
+:scrollbar:
+:data-uri:
+:noaudio:
+
+== REST APIs
+
+* Most suited for API Economy
+* Constraints of REST:
+** Uniform Interface
+*** Resource-based
+*** Manipulate resources through representations
+*** Hypermedia as the Engine of Application State (HATEOS)
+** Stateless
+** Layered System
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+The REST architecture offers many benefits, including simplicity, particularly when used over HTTP with a data interchange format as straightforward as JSON. As such, it’s not surprising that REST has largely become the default choice for new API development.
+
+
+The chief constraints that are useful for use in APIs are uniform interface, statelessness, and layered system.
+A uniform interface simplifies and decouples the architecture, which enables each part to evolve independently. The guiding principles are: 
+* resource-based - The resources themselves are conceptually separate from the representations that are returned to the client. 
+* When a client holds a representation of a resource, including any metadata attached, it has enough information to modify or delete the resource on the server, provided it has permission to do so.
+* Self descriptive messages - Each message includes enough information to describe how to process the message. 
+* HATEOS - Clients deliver state via body contents, query-string parameters, request headers and the requested URI (the resource name). Services deliver state to clients via body content, response codes, and response headers. This is technically referred-to as hypermedia (or hyperlinks within hypertext).
+
+Aside from the description above, HATEOS also means that, where necessary, links are contained in the returned body (or headers) to supply the URI for retrieval of the object itself or related objects. We'll talk about this in more detail later.
+
+As REST is an acronym for REpresentational State Transfer, statelessness is key. Essentially, what this means is that the necessary state to handle the request is contained within the request itself, whether as part of the URI, query-string parameters, body, or headers.
+
+Layered System - A client cannot ordinarily tell whether it is connected directly to the end server, or to an intermediary along the way. Intermediary servers may improve system scalability by enabling load-balancing and by providing shared caches. Layers may also enforce security policies.
+
+
+endif::showscript[]
