@@ -8,7 +8,8 @@
 * Apache Thrift
 ** Interface Definition Language
 ** Multiple Target Languages 
-** Low level transports (Socket, Pipe, etc) and Protocols (
+** Low level transports (Socket, Pipe, etc)
+** Multiple Protocols (JSON, compact, binary, etc)
 ** Examples: Facebook FBOSS API, Evernote SDK, Elasticsearch API
 * Apache Spark & Python
 ** H2O Python API
