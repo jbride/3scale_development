@@ -12,7 +12,7 @@ APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods ar
 APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||SAML|||1|100|||
 APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||OAuth 2.0|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 500|||0|0|||
-APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?||HTTP 404|||0|0|||
+APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 404|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 403|||1|100|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 401|||0|0|||
 APIMGMTDEV|APIMGMTDEV0106|5|The Private base URL of the provider API is different for Staging (sandbox) and Production APIcast environment.|||TRUE|||0|0|||
