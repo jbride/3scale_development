@@ -14,6 +14,6 @@ APIMGMTDEV|APIMGMTDEV0404|1|Which of the following are Integration usecases that
 APIMGMTDEV|APIMGMTDEV0405|5|LAB: The Stock API service hosted in JBoss Data Virtualization is a REST API.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0405|5|LAB: The Stock API service hosted in JBoss Data Virtualization is a REST API.|||FALSE|||0|0||| 
 APIMGMTDEV|APIMGMTDEV0406|5|Code plugins can be used for Traffic Management of APIs using non-HTTP protocols on 3scale.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0406|5|Code plugins can be used for Traffic Management of APIs using non-HTTP protocols on 3scale.|FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0406|5|Code plugins can be used for Traffic Management of APIs using non-HTTP protocols on 3scale.|||FALSE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0407|5|LAB: The Private Base URL for Stores API is the REST endpoint exposed by Fuse camel route.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0407|5|LAB: The Private Base URL for Stores API is the REST endpoint exposed by Fuse camel route.|||FALSE|||0|0||| 

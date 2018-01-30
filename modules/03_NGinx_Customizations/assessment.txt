@@ -8,18 +8,18 @@ APIMGMTDEV|APIMGMTDEV0302|1|Which of the following is a Traffic Controller that 
 APIMGMTDEV|APIMGMTDEV0303|5|Openresty is a Web Platform built on top of NGINX Web Server.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0303|5|Openresty is a Web Platform built on top of NGINX Web Server.|||FALSE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0304|1|Which of the following NOT a basic type in Lua?|||boolean|||0|0|||
-APIMGMTDEV|APIMGMTDEV0304|1|Which of the following NOT a basic type in Lua?||number|||0|0|||
+APIMGMTDEV|APIMGMTDEV0304|1|Which of the following NOT a basic type in Lua?|||number|||0|0|||
 APIMGMTDEV|APIMGMTDEV0304|1|Which of the following NOT a basic type in Lua?|||array|||1|100|||
 APIMGMTDEV|APIMGMTDEV0304|1|Which of the following NOT a basic type in Lua?|||function|||0|0|||
 APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||conf.d|||0|0|||
-APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?||sites.d|||1|100|||
+APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||sites.d|||1|100|||
 APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||main.d|||0|0|||
 APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||apicast.d|||0|0|||
 APIMGMTDEV|APIMGMTDEV0306|5|The default module for APIcast gateway is called apicast.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0306|5|The default module for APIcast gateway is called apicast.|FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0306|5|The default module for APIcast gateway is called apicast.|||FALSE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0307|1|Which of the following NGINX phases are NOT part of the apicast default module?|||init_worker|||0|0|||
-APIMGMTDEV|APIMGMTDEV0307|1|Which of the following NGINX phases are NOT part of the apicast default module?||rewrite|||0|0|||
+APIMGMTDEV|APIMGMTDEV0307|1|Which of the following NGINX phases are NOT part of the apicast default module?|||rewrite|||0|0|||
 APIMGMTDEV|APIMGMTDEV0307|1|Which of the following NGINX phases are NOT part of the apicast default module?|||post_action|||0|0|||
 APIMGMTDEV|APIMGMTDEV0307|1|Which of the following NGINX phases are NOT part of the apicast default module?|||log|||1|100|||
 APIMGMTDEV|APIMGMTDEV0308|5|LAB: The Statistics for user's subscribed application can be accessed from the Developer Portal.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0308|5|LAB: The Statistics for user's subscribed application can be accessed from the Developer Portal.||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0308|5|LAB: The Statistics for user's subscribed application can be accessed from the Developer Portal.|||FALSE|||0|0|||
