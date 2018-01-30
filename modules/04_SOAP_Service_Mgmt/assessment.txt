@@ -3,7 +3,7 @@ APIMGMTDEV|APIMGMTDEV0401|5|3scale API Management allows for management of SOAP 
 APIMGMTDEV|APIMGMTDEV0401|5|3scale API Management allows for management of SOAP APIs without customisation.|||FALSE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0402|1|Which of the following is NOT a HTTP verb used in REST APIs?|||GET|||0|0|||
 APIMGMTDEV|APIMGMTDEV0402|1|Which of the following is NOT a HTTP verb used in REST APIs?|||POST|||0|0|||
-APIMGMTDEV|APIMGMTDEV0402|1|Which of the following is NOT a HTTP verb used in REST APIs?|||DELETE||0|0|||
+APIMGMTDEV|APIMGMTDEV0402|1|Which of the following is NOT a HTTP verb used in REST APIs?|||DELETE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0402|1|Which of the following is NOT a HTTP verb used in REST APIs?|||HEAD|||1|100|||
 APIMGMTDEV|APIMGMTDEV0403|5|REST APIs are Stateful.|||TRUE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0403|5|REST APIs are Stateful.|||FALSE|||1|100|||
