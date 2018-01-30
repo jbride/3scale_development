@@ -8,7 +8,7 @@ APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for AP
 APIMGMTDEV|APIMGMTDEV0103|5|An Application represents the API consumer accessing the API.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0103|5|An Application represents the API consumer accessing the API.|||FALSE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||API Keys|||0|0|||
-APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?||App ID and App Key|||0|0|||
+APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||App ID and App Key|||0|0|||
 APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||SAML|||1|100|||
 APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||OAuth 2.0|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 500|||0|0|||
