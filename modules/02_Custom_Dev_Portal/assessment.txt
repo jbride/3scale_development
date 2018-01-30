@@ -24,7 +24,7 @@ APIMGMTDEV|APIMGMTDEV0207|1|LAB: The liquid conditional for displaying 'Admin' l
 APIMGMTDEV|APIMGMTDEV0208|5|Each Account can have multiple Group Memberships associated in the Developer Portal.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0208|5|Each Account can have multiple Group Memberships associated in the Developer Portal.|||FALSE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal?|||Account Plan|||0|0|||
-APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal?||Application|||0|0|||
+APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal?|||Application|||0|0|||
 APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal?|||current_user|||1|100|||
 APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal?|||features|||0|0|||
 APIMGMTDEV|APIMGMTDEV0210|5|3scale CMS provides version control so that administrators can review changes to the Developer Portal objects.|||TRUE|||1|100|||
