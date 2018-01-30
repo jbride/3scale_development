@@ -1,1 +1,31 @@
 QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
+APIMGMTDEV|APIMGMTDEV0201|5|The 3scale Admin Portal provides access to the API Developers to sign up and access documentation of the APIs provided.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0201|5|The 3scale Admin Portal provides access to the API Developers to sign up and access documentation of the APIs provided.|||FALSE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0202|1|Which of the following is NOT a liquid concept?|||Tags|||0|0|||
+APIMGMTDEV|APIMGMTDEV0202|1|Which of the following is NOT a liquid concept?|||Drops|||0|0|||
+APIMGMTDEV|APIMGMTDEV0202|1|Which of the following is NOT a liquid concept?|||Filters|||0|0|||
+APIMGMTDEV|APIMGMTDEV0202|1|Which of the following is NOT a liquid concept?|||None of the above|||1|100|||
+APIMGMTDEV|APIMGMTDEV0203|5|Only a section marked as Private can be mapped to a Group.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0203|5|Only a section marked as Private can be mapped to a Group.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0204|1|Which of the following authentication options are available to access the 3scale Developer Portal?|||Username and password|||0|0|||
+APIMGMTDEV|APIMGMTDEV0204|1|Which of the following authentication options are available to access the 3scale Developer Portal?||GitHub|||0|0|||
+APIMGMTDEV|APIMGMTDEV0204|1|Which of the following authentication options are available to access the 3scale Developer Portal?|||AuthO|||0|0|||
+APIMGMTDEV|APIMGMTDEV0204|1|Which of the following authentication options are available to access the 3scale Developer Portal?|||All of the Above|||1|100|||
+APIMGMTDEV|APIMGMTDEV0205|1|LAB: Which parameter is added to the Swagger spec for the Products API in order to import it to ActiveDocs?|||user_name|||0|0|||
+APIMGMTDEV|APIMGMTDEV0205|1|LAB: Which parameter is added to the Swagger spec for the Products API in order to import it to ActiveDocs?||app_name|||0|0|||
+APIMGMTDEV|APIMGMTDEV0205|1|LAB: Which parameter is added to the Swagger spec for the Products API in order to import it to ActiveDocs?|||user_key|||1|100|||
+APIMGMTDEV|APIMGMTDEV0205|1|LAB: Which parameter is added to the Swagger spec for the Products API in order to import it to ActiveDocs?|||app_key|||0|0|||
+APIMGMTDEV|APIMGMTDEV0206|5|3scale ActiveDocs is an instantiation of Swagger API Specification.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0206|5|3scale ActiveDocs is an instantiation of Swagger API Specification.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0207|1|LAB: The liquid conditional for displaying 'Admin' link on the menu for RHAdmin user is on which object of the Developer Portal?|||Homepage|||0|0|||
+APIMGMTDEV|APIMGMTDEV0207|1|LAB: The liquid conditional for displaying 'Admin' link on the menu for RHAdmin user is on which object of the Developer Portal?||submenu Partial|||1|100|||
+APIMGMTDEV|APIMGMTDEV0207|1|LAB: The liquid conditional for displaying 'Admin' link on the menu for RHAdmin user is on which object of the Developer Portal?|||menu_item Partial|||0|0|||
+APIMGMTDEV|APIMGMTDEV0207|1|LAB: The liquid conditional for displaying 'Admin' link on the menu for RHAdmin user is on which object of the Developer Portal?|||index.html|||0|0|||
+APIMGMTDEV|APIMGMTDEV0208|5|Each Account can have multiple Group Memberships associated in the Developer Portal.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0208|5|Each Account can have multiple Group Memberships associated in the Developer Portal.||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal|||Account Plan|||0|0|||
+APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal||Application|||0|0|||
+APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal|||current_user|||1|100|||
+APIMGMTDEV|APIMGMTDEV0209|1|Which of the following variables is part of the context object and available on all pages of Developer Portal|||features|||0|0|||
+APIMGMTDEV|APIMGMTDEV0210|5|3scale CMS provides version control so that administrators can review changes to the Developer Portal objects.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0210|5|3scale CMS provides version control so that administrators can review changes to the Developer Portal objects.||FALSE|||0|0|||
