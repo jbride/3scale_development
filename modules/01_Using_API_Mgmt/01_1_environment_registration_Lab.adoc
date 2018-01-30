@@ -18,18 +18,6 @@ Make sure that the Internet connection is free of corporate proxies or other net
 
 * Up-to-date browser such as Google Chrome or Firefox
 * Red Hat OPENTLC credentials
-* <<enterprise>>
-+
-NOTE: You need the URL and admin access to your 3scale Admin Portal. The URL is similar to this: `https://<your domain>-admin.3scale.net/`.
-
-ifdef::showscript[]
-** An Enterprise account provides the following:
-
-*** Multiple applications per account
-*** Multiple developers per account
-*** Webhooks that you need for the Red Hat Single Sign-On labs
-endif::showscript[]
-
 * Installation of 64-bit link:https://www.virtualbox.org/wiki/Downloads[VirtualBox application^] or libvirt (if you are using Linux) on your local workstation
 +
 NOTE: The 64-bit virtualization technology is mandatory. The 32-bit virtualization does not work for this course.
@@ -257,19 +245,6 @@ NOTE: Some of these resources are hosted on internal Red Hat web sites. Partners
 * link:https://mojo.redhat.com/docs/DOC-1104042["3scale by Red Hat FAQ^"]
 * link:http://post-office.corp.redhat.com/mailman/listinfo/sme-apis["sme-apis mailing list^"]
 * link:https://docs.google.com/document/d/1iYyn666wo1D02Wn0nxCS5NR1_rRmgPvkav-hMWiWyNE/edit#heading=h.1ft5mwfmvjh5["3scale by Red Hat One-Stop^"]
-
-[[enterprise]]
-=== Red Hat 3scale API Management Enterprise Account
-
-This course focuses on the deployment and administration of Red Hat 3scale API Management. One deployment topology available is known as a _hybrid_ approach. A hybrid deployment topology is one in which the APIcast gateway is self-managed in your environment. This self-managed APIcast gateway is in two-way communication with the hosted 3scale by Red Hat API Management Platform (AMP) component.
-
-The second module of this course focuses on this hybrid deployment topology. The labs in that module make heavy use of your 3scale by Red Hat API Management (AMP) account. If you do not have an account, register for one on 3scale by Red Hat's link:https://www.3scale.net/signup/["sign-up page^"].
-
-For this course, your hosted 3scale by Red Hat account needs to be enabled as an _Enterprise_ account. Your account is an Enterprise account if you can create a new service in 3scale by Red Hat. If it is not an Enterprise account, send an email to `support@3scale.net` requesting that your free account be upgraded to Enterprise. Include the following information in the email:
-
-* URL of your new 3scale Admin Portal--that is, `https://<your domain name>-admin.3scale.net`
-* Email address you used to register for the free trial account
-* Mention that you are a student in the _Red Hat 3scale API Management Development_ course
 
 === YAML Tips and Tricks
 
