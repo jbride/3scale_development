@@ -207,7 +207,7 @@ Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP he
 
 In this section you add CORS handling to APIcast.
 
-Two files--`cors.lua` and `cors.conf`--configure CORS for NGINX.
+Two files&#8212;`cors.lua` and `cors.conf`&#8212;configure CORS for NGINX.
 
 . Examine the `cors.lua` file link:https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.lua[here^].
 

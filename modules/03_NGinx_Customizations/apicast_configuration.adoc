@@ -10,7 +10,7 @@
 * Configuration for hostname, service configuration, etc.
 * JSON configuration for gateway
 * Load from file or API
-* link:https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json["https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json^"]
+* link:https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json[https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json^]
 * Loaded in `init` and `init_worker` phases
 * `THREESCALE_CONFIG_FILE` locates the configuration file
 
