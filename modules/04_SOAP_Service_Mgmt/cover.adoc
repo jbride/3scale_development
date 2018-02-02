@@ -6,10 +6,10 @@ ifdef::revealjs_slideshow[]
 == &nbsp;
 
 [#cover-h1,width="600px",left="0px",top="200px"] 
-API Management Development 
+Red Hat 3scale API Management Development 
 
 [#cover-h2,width="800px",left="0px",top="450px"] 
-SOAP Service Management
+API Management for Non-REST Services
 
 [#block,width="200px",left="70px",top="0px"] 
 image::{revealjs_cover_image}[] 
