@@ -2,23 +2,22 @@
 :data-uri:
 :noaudio:
 
-== Topics
+== Summary
 
 * REST APIs
-* Non REST:
-** SOAP
-** Thrift
-* Management of non-REST APIs on 3scale
+* REST API Architecture
+* SOAP Services
+* Other Non-REST APIs
+* Manage Non-REST APIs
 
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-This module discussed the API management of non-REST based APIs. We covered  the advantages and prevalence of REST APIs in the API Management ecosystem. We discussed the other API specifications like SOAP or Thrift, and some approaches to manage non-REST APIs using 3scale.
-
+This module discussed the API management of non-REST based APIs. Red Hat 3scale API Management supports the REST API framework as standard. The module described the advantages and prevalence of REST APIs in the API management ecosystem, and then discussed other API specifications like SOAP and Thrift. The module concluded with some approaches to managing non-REST APIs using Red Hat 3scale API Management and Red Hat JBoss Fuse.
 
 
 

@@ -4,27 +4,25 @@
 
 == REST API Architecture
 
-* REST is data-driven
-* Can permit multiple data formats (JSON, XML, text)
+* Data-driven
+* Permits multiple data formats (JSON, XML, text)
 * Security using HTTPS protocol
 * Lightweight framework
 
-== REST Limitations for APIs
+* REST limitations for APIs:
 
-* Using non-HTTP protocols
-* Stateful 
-* Constrained by too few HTTP verbs
+** Using non-HTTP protocols
+** Stateful
+** Constrained by too few HTTP verbs
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
-REST APIs are based on URIs (Uniform Resource Identifier, of which a URL is a specific type) and the HTTP protocol, and use JSON for a data format. REST is all about simplicity, thanks to HTTP protocols. REST is optimized for the web. Using JSON as its data format makes it compatible with browsers.
+REST APIs are based on URIs--Uniform Resource Identifiers, of which a URL is a specific type--and the HTTP protocol. REST APIs use JSON as the data format. REST is all about simplicity, thanks to HTTP protocols. REST is optimized for the web. Using JSON as its data format makes it compatible with browsers.
 
-RESTful APIs are quite fashionable at the moment. However, you should not
-follow this trend just for the sake of that. There are use cases which are very well
-suited for it, but there are others which favor other architectural styles.
+RESTful APIs are quite fashionable at the moment. However, you should not follow this trend just for the sake of fashion. Some use cases are well suited for it, but others favor other architectural styles.
 
 
 endif::showscript[]

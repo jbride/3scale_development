@@ -2,29 +2,29 @@
 :data-uri:
 :noaudio:
 
-== Manage non-REST API Using 3scale
+== Manage Non-REST APIs
 
-* APIcast Gateway customization for HTTP Protocol
-* Use code plugins for other protocols (e.g TCP)
+* APIcast gateway customization for HTTP protocol
+* Use code plug-ins for other protocols such as TCP
 * Use custom Lua modules
-* example: SOAP:
+* Example: SOAP:
 ** Match `SOAPAction` header
-** Create Mapping Rule for `POST` operation
-** Create Method for each SOAP *endpoint*
-** Create Metrics for each SOAP *operation*
+** Create mapping rule for `POST` operation
+** Create method for each SOAP endpoint
+** Create metrics for each SOAP operation
 
 
 
 ifdef::showscript[]
 
-=== Transcript
+Transcript:
 
 
-As APICast gateway is built on top of NGINX, Lua and OpenResty, it supports HTTP protocol. Hence, any alternate non-REST APIs that use HTTP transport layer can be supported using custom modules in APIcast. For APIs using other protocols, the traffic controller needs to be created using the code plugins and the mappings, methods and metrics matched to the API.
+Because the APICast gateway is built on top of NGINX, Lua, and OpenResty, it supports the HTTP protocol. Therefore, any non-REST APIs that uses an HTTP transport layer can be supported in APIcast with custom modules. For APIs using other protocols, a traffic controller needs to be created using code plug-ins and mappings, methods, and metrics matched to the API.
 
-An example of using custom Lua modules would be to support a SOAP API provider. Here, as SOAP uses POST request with a SOAPAction header, the Lua script has to provide special methods to NGINX for urlrewrite response from SOAP endpoints.
+An example of using custom Lua modules would be to support a SOAP API provider. Here, because SOAP uses `POST` requests with a `SOAPAction` header, the Lua script has to provide special methods to NGINX for the `urlrewrite` response from SOAP endpoints.
 
-Mapping rules in 3scale Service would be defined in such a way that each SOAP endpoint would have a method definition (since the URL is unique for each endpoint). Each operation for the SOAP endpoint can be defined in Metrics so that 3scale can provide finegrained metrics on the SOAP operations.
+Mapping rules in a 3scale service need to be defined in such a way that each SOAP endpoint has a method definition, because the URL is unique for each endpoint. Each operation for the SOAP endpoint can be defined in metrics so that 3scale can provide fine-grained metrics on the SOAP operations.
 
 
 endif::showscript[]
