@@ -1,31 +1,31 @@
 QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
-APIMGMTDEV|APIMGMTDEV0101|5|API Mapping Rules can be used to track different HTTP operations for the same REST path separately.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0101|5|API Mapping Rules can be used to track different HTTP operations for the same REST path separately.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale?|||Hits|||0|0|||
-APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale?|||megabytes|||0|0|||
-APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale?|||Number of elements|||0|0|||
-APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale?|||All of the above|||1|100|||
-APIMGMTDEV|APIMGMTDEV0103|5|An Application represents the API consumer accessing the API.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0103|5|An Application represents the API consumer accessing the API.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||API Keys|||0|0|||
-APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||App ID and App Key|||0|0|||
-APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||SAML|||1|100|||
-APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale?|||OAuth 2.0|||0|0|||
+APIMGMTDEV|APIMGMTDEV0101|5|API mapping rules can be used to separately track different HTTP operations for the same REST path.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0101|5|API mapping rules can be used to separately track different HTTP operations for the same REST path.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale API Management?|||Hits|||0|0|||
+APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale API Management?|||megabytes|||0|0|||
+APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale API Management?|||Number of elements|||0|0|||
+APIMGMTDEV|APIMGMTDEV0102|1|Which of the following metrics can be tracked for APIs in 3scale API Management?|||All of the above|||1|100|||
+APIMGMTDEV|APIMGMTDEV0103|5|An application represents the API consumer accessing the API.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0103|5|An application represents the API consumer accessing the API.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale API Management?|||API Keys|||0|0|||
+APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale API Management?|||App ID and App Key|||0|0|||
+APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale API Management?|||SAML|||1|100|||
+APIMGMTDEV|APIMGMTDEV0104|1|Which of the following API authentication methods are NOT available in 3scale API Management?|||OAuth 2.0|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 500|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 404|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 403|||1|100|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 401|||0|0|||
-APIMGMTDEV|APIMGMTDEV0106|5|The Private base URL of the provider API is different for Staging (sandbox) and Production APIcast environment.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0106|5|An Application represents the API consumer accessing the API.|||TRUE|||0|0|||
 APIMGMTDEV|APIMGMTDEV0106|5|An Application represents the API consumer accessing the API.|||FALSE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see exceed the rate limit for the 'Get All Products' method?|||HTTP 500|||0|0|||
-APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see exceed the rate limit for the 'Get All Products' method?|||HTTP 404|||0|0|||
-APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see exceed the rate limit for the 'Get All Products' method?|||HTTP 403|||1|100|||
-APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see exceed the rate limit for the 'Get All Products' method?|||HTTP 401|||0|0|||
-APIMGMTDEV|APIMGMTDEV0108|5|Each API (Service) in 3scale can have multiple application plans associated with it.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0108|5|Each API (Service) in 3scale can have multiple application plans associated with it.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce Quota for a single user?|||Application plan|||0|0|||
-APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce Quota for a single user?|||End user plan|||1|100|||
-APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce Quota for a single user?|||Service plan|||0|0|||
-APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce Quota for a single user?|||Account plan|||0|0|||
-APIMGMTDEV|APIMGMTDEV0110|5|LAB: The apicast staging and production pods are running in the same OpenShift Project as the rest of the AMP resources.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0110|5|LAB: The apicast staging and production pods are running in the same OpenShift Project as the rest of the AMP resources.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 500|||0|0|||
+APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 404|||0|0|||
+APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 403|||1|100|||
+APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 401|||0|0|||
+APIMGMTDEV|APIMGMTDEV0108|5|Each API (service) in 3scale API Management can have multiple application plans associated with it.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0108|5|Each API (service) in 3scale API Management can have multiple application plans associated with it.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce quota for a single user?|||Application plan|||0|0|||
+APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce quota for a single user?|||End-user plan|||1|100|||
+APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce quota for a single user?|||Service plan|||0|0|||
+APIMGMTDEV|APIMGMTDEV0109|1|Which of the following plans need to be used to enforce quota for a single user?|||Account plan|||0|0|||
+APIMGMTDEV|APIMGMTDEV0110|5|LAB: The apicast-staging and production pods are running in the same OpenShift Project as the rest of the AMP resources.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0110|5|LAB: The apicast-staging and production pods are running in the same OpenShift Project as the rest of the AMP resources.|||FALSE|||0|0|||
