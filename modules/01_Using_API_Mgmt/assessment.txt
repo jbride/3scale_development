@@ -15,8 +15,8 @@ APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would 
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 404|||0|0|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 403|||1|100|||
 APIMGMTDEV|APIMGMTDEV0105|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you send a request to 'Create Product'?|||HTTP 401|||0|0|||
-APIMGMTDEV|APIMGMTDEV0106|5|An Application represents the API consumer accessing the API.|||TRUE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0106|5|An Application represents the API consumer accessing the API.|||FALSE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0106|5|The Private base URL of the provider API is different for Staging (sandbox) and Production APIcast environment.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0106|5|The Private base URL of the provider API is different for Staging (sandbox) and Production APIcast environment.|||FALSE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 500|||0|0|||
 APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 404|||0|0|||
 APIMGMTDEV|APIMGMTDEV0107|1|LAB: In the ProductsBasicApp, what HTTP error would you see if you exceed the rate limit for the 'Get All Products' method?|||HTTP 403|||1|100|||
