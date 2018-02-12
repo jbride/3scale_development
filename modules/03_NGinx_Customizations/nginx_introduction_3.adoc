@@ -1,6 +1,6 @@
 :scrollbar:
 :data-uri:
-:noaudio:
+
 
 == NGINX Web Server
 
