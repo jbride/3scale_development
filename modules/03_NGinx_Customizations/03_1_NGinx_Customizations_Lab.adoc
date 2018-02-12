@@ -26,7 +26,7 @@ To write custom modules, you need to use inheritance to override the default `AP
 
 === Create Custom Verbose Logging Module
 
-In this section you create a custom module to provide more verbose logging information in APIcast. The custom Lua file is available link:https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-module/verbose.lua[here^].
+In this section you create a custom module to provide more verbose logging information in APIcast. The custom Lua file is available link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-module/verbose.lua[here^].
 
 . Examine the code for the `log` function:
 +
@@ -49,7 +49,7 @@ end
 +
 [source,text]
 -----
-$ curl -o verbose.lua https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-module/verbose.lua
+$ curl -o verbose.lua https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-module/verbose.lua
 -----
 
 . Verify that you are logged in to OpenShift with your login credentials from the terminal.
@@ -115,7 +115,7 @@ Similar to the custom module, a custom configuration can be used to inherit the 
 
 In this section you create a custom configuration to provide more a verbose response to client by echoing all the request headers in the response, along with the API response.
 
-The configuration is link:https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-config/echo.conf[here^].
+The configuration is link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-config/echo.conf[here^].
 
 . Examine the code for the `log` function:
 +
@@ -138,7 +138,7 @@ server {
 +
 [source,text]
 -----
-$ curl -o echo.conf https://raw.githubusercontent.com/3scale/apicast/master/examples/custom-config/echo.conf
+$ curl -o echo.conf https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-config/echo.conf
 -----
 
 . Verify that you are logged in to OpenShift with your login credentials from the terminal.
@@ -209,9 +209,9 @@ In this section you add CORS handling to APIcast.
 
 Two files&#8212;`cors.lua` and `cors.conf`&#8212;configure CORS for NGINX.
 
-. Examine the `cors.lua` file link:https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.lua[here^].
+. Examine the `cors.lua` file link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.lua[here^].
 
-. Examine the `cors.conf` file link:https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.conf[here^].
+. Examine the `cors.conf` file link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.conf[here^].
 
 
 === Deploy CORS Custom Module and Configuration to OpenShift
@@ -220,8 +220,8 @@ Two files&#8212;`cors.lua` and `cors.conf`&#8212;configure CORS for NGINX.
 +
 [source,text]
 -----
-$ curl -o cors.lua https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.lua
-$ curl -o cors.conf https://raw.githubusercontent.com/3scale/apicast/master/examples/cors/cors.conf
+$ curl -o cors.lua https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.lua
+$ curl -o cors.conf https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.conf
 -----
 
 . Verify that you are logged in to OpenShift with your login credentials from the terminal.
