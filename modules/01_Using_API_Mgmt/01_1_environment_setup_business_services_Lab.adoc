@@ -4,16 +4,23 @@
 :toc2:
 
 
-== Business Services Lab
+== Environment Registration & Business Services Lab
 
 In this lab you familiarize yourself with the course's lab assets and deploy RESTful business services to Red Hat OpenShift Container Platform.
 
 .Goals
+* Review lab environment and client VM setup
 * Learn about the course's lab assets
 * Deploy business service APIs in your OpenShift environment
 
 
 :numbered:
+== Environment Registration
+
+This course uses the same lab environment that you have originally provisioned for the pre-requisite course `Red Hat 3scale API Management Implementation`. Hence, please continue to use the same OpenShift Container Platform and Virtual Machine for running the labs in this course.
+
+NOTE: The OPENTlc lab environment gets deleted automatically after 14 days, hence please login to https://labs.opentlc.com and extend the lifetime of your environment by 1 more week. 
+
 == Explore Lab Assets
 
 To support the lab exercises, you need API RESTful business services that you can manage and secure. These are provided in the lab assets. In this exercise, you explore these business services.
