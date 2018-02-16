@@ -512,7 +512,7 @@ stockpg-5-j8181       1/1       Running     0          18h
 +
 [source,text]
 -----
-$ curl -k http://stock-api-$OCP_PROJDCT_PREFIX.$OCP_WILDCARD_DOMAIN/odata4/Stock-API/FederatedStock/stock?$format=JSON
+$ curl -k http://stock-api-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/odata4/Stock-API/FederatedStock/stock?$format=JSON
 -----
 
 * Expect a response like the following:
