@@ -118,12 +118,9 @@ In this section you associate an application to your previously defined users. T
 
 . Navigate to the *Developers* tab.
 . Select *RHBank* -> *1 Application*.
-* Notice that the default service *Echo API* is automatically associated with the *RHBank* account:
 +
 image::images/3scale_amp_products_create_app.png[]
-
-
-
++
 . Click *Create Application*.
 . Enter the following values:
 * *Application plan*: `ProductsBasicPlan`
@@ -244,18 +241,13 @@ $ oc create route edge products-production-route \
 +
 [source,text]
 -----
-$ oc get routes  | greo products
+$ oc get routes  | grep products
 -----
 +
 .Sample Output
 -----
-NAME                          HOST/PORT                                                            PATH      SERVICES             PORT      TERMINATION   WILDCARD
-backend-route                 backend-user76-3scale.apps.6a94.openshift.opentlc.com                          backend-listener     http      edge/Allow    None
-products-production-route     products-production-apicast-user76.apps.6a94.openshift.opentlc.com             apicast-production   gateway   edge          None
-products-staging-route        products-staging-apicast-user76.apps.6a94.openshift.opentlc.com                apicast-staging      gateway   edge          None
-system-developer-route        user76-3scale.apps.6a94.openshift.opentlc.com                                  system-developer     http      edge/Allow    None
-system-provider-admin-route   user76-3scale-admin.apps.6a94.openshift.opentlc.com                            system-provider      http      edge/Allow    None
-
+products-production-route       products-production-apicast-user76.apps.na1.openshift.opentlc.com               apicast-production        gateway   edge          None
+products-staging-route          products-staging-apicast-user76.apps.na1.openshift.opentlc.com                  apicast-staging           gateway   edge          None
 -----
 
 === Assign API Endpoints
@@ -283,7 +275,8 @@ IMPORTANT: This is the production route URL you created in the previous section.
 . Make a request based on the `curl` request generated in the client to verify that the staging API URL is accessed correctly:
 +
 image::images/3scale_amp_products_curl_test_url.png[]
-
++
+NOTE: When running the `curl` request from the command line, you need to add argument `-k` to the request for the request to be executed correctly.
 . Once the request is successful, click *Promote to Production* and test the `curl` request for production.
 
 
@@ -335,15 +328,22 @@ image::images/3scale_amp_products_app_plan_limit5.png[]
 image::images/3scale_amp_products_app_plan_limit6.png[]
 
 . Copy the `curl` request link.
++
+image::images/3scale_amp_products_curl_test_url.png[]
++
+NOTE: When running the `curl` request from the command line, you need to add argument `-k` to the request for the request to be executed correctly.
++
 * The request is to URL `rest/services/product/1`, so it makes a `GET` request to the `Get` method configured.
 
-. Make 5 requests to the URL:
+. Make 5 requests to the URL and notice that the response is correct.
 +
+.Sample Output
 [source,text]
 -----
-$ curl -v -k "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/product/1?user_key=0c25e59b6e7027552bdfd97440ddee51"
------
+{"productid":1,"productname":"Ninja Blender","productprice":320.0}
 
+-----
++
 . Make a 6th request, and expect the following response:
 +
 .Sample Output
@@ -355,16 +355,26 @@ $ curl -v -k "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps
 * Connection #0 to host products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com left intact
 Authentication failed
 -----
-
++
 * Because the limit set for the `Get` method is 5 requests per hour, the 6th and subsequent requests produce an HTTP 403 response.
 
 . Repeat the test for the `/rest/services/products` endpoint to test the limit for the *Get All Products* method.
+* In the above `curl` request, replace the URL `rest/services/product/1` with `/rest/services/products`.
 +
-[source,text]
------
-$ curl -v -k "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/products?user_key=0c25e59b6e7027552bdfd97440ddee51"
------
+image::images/3scale_amp_products_curl_test_url_2.png[]
++
+NOTE: When running the `curl` request from the command line, you need to add argument `-k` to the request for the request to be executed correctly.
 +
 * Because the limit is set to 1 request per minute, expect an *HTTP 403 Forbidden* response on subsequent requests.
-
++
+.Sample Output
+[source,text]
+-----
+..
+< HTTP/1.1 403 Forbidden
+..
+* Connection #0 to host products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com left intact
+Authentication failed
+-----
++
 NOTE: In the SaaS version of 3scale AMP (and in a future release of 3scale on-premise), you can create pricing rules for your APIs in the application plans. This functionality is out of scope for this lab.

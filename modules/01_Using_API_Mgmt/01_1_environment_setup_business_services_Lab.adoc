@@ -101,6 +101,9 @@ NAME                               READY     STATUS      RESTARTS   AGE
 products-api-1-02s28               1/1       Running     0          4m
 productsdb-1-39dkc                 1/1       Running     0          5m
 -----
++
+NOTE: The pods should take about 2-3 minutes to reach `Running` status. Please confirm your pods are Running before executing the next steps.
++
 .. Get the route details:
 +
 [source,text]

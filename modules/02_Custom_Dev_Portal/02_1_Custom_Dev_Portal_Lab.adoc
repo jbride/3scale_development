@@ -195,17 +195,25 @@ image::images/3scale_amp_products_dev_portal5.png[]
 image::images/3scale_amp_products_dev_portal6.png[]
 
 .. In line 3, replace `Echo` with `RHMart`.
-.. Replace line 5 with the following:
-+
-[source,text]
------
-            {% active_docs version: "2.0" services: "products_spec" %}
------
-
 .. Click *Save*:
 +
 image::images/3scale_amp_products_dev_portal7.png[]
-
++
+. Click on partial *shared/swagger_ui*:
++
+image::images/3scale_amp_products_dev_portal7_0.png[]
++
+.. Change line 11 to following:
++
+[source,text]
+-----
+    var url = "{{provider.api_specs.products_spec.url}}";
+-----
++
+.. Click *Save*.
++
+image::images/3scale_amp_products_dev_portal7_1.png[]
++
 . Click *Homepage*:
 +
 image::images/3scale_amp_products_dev_portal8.png[]
@@ -351,7 +359,7 @@ Welcome to the Administration Section of the portal.
 image::images/3scale_amp_products_dev_portal_groups_5.png[]
 
 .. Click *Create Page*.
-* You see the *Welcome* page in the *admin* section on the menu:
+* You see the *Admin* page in the *admin* section on the menu:
 +
 image::images/3scale_amp_products_dev_portal_groups_6.png[]
 

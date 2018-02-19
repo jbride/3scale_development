@@ -17,18 +17,15 @@
 
 .Prerequisites
 * Completion of previous labs of this course
-* `EXTERNAL_HOST` and `OCP_WILDCARD_DOMAIN` environment variables set in your shell
+* `OCP_WILDCARD_DOMAIN` environment variables set in your shell
 +
-TIP: To check if your shell still has these environment variables set, run the `echo $EXTERNAL_HOST` and `echo $OCP_WILDCARD_DOMAIN` commands. If the variables are no longer set, return to the first lab in this course and follow the steps there to set them again.
-
+TIP: To check if your shell still has these environment variables set, run  `echo $OCP_WILDCARD_DOMAIN` command. If the variables are no longer set, return to the first lab in this course and follow the steps there to set them again.
++
 * 3scale Admin Portal URL and user credentials to log in
 +
 IMPORTANT: The URL for your lab environment is `https://$OCP_PROJECT_PREFIX-3scale-admin.$OCP_WILDCARD_DOMAIN`. The userID/password is `admin/admin`.
-
-* Red Hat OpenShift Container Platform administration URL and userID/password.
 +
-IMPORTANT: The OpenShift URL for your lab environment is `https://$EXTERNAL_HOST:8443/`. The userID/password for development is `developer/developer`, and the userID/password for administration is `admin/admin`.
-
+* Red Hat OpenShift Container Platform administration URL and userID/password.
 
 :numbered:
 
@@ -44,7 +41,7 @@ In this lab you expose an existing SOAP-based JEE application running on a JBoss
 
 === SOAP Request Using Lua and NGINX Customization
 
-In the previous module, a custom module for Lua was written using Red Hat 3scale API Management to include SOAP headers and add basic routing of a request to a SOAP API endpoint. The reference below shows how this was done.
+In the previous module, a custom module for Lua was written using Red Hat 3scale API Management to include SOAP headers and add basic routing of a request to a SOAP API endpoint. The reference below shows one example of how this was done.
 
 .Reference
 * link:http://middlewareblog.redhat.com/2017/08/30/integrating-soap-based-web-services-into-red-hat-3scale-api-management/["Integrating SOAP-Based Web Services into Red Hat 3scale API Management^"]
@@ -151,8 +148,7 @@ $ oc project $OCP_PROJECT_PREFIX-stores-api
 +
 [source,text]
 -----
-$ oc create -f 
-$HOME/lab/3scale_development_labs/templates/stores-api.json
+$ oc create -f $HOME/lab/3scale_development_labs/templates/stores-api.json
 -----
 
 .. Create the new application using the `stores-api` template:
@@ -211,8 +207,7 @@ $ oc project $OCP_PROJECT_PREFIX-stores-api
 +
 [source,text]
 -----
-$ oc create -f 
-$HOME/lab/3scale_development_labs/templates/stores-fis.json
+$ oc create -f $HOME/lab/3scale_development_labs/templates/stores-fis.json
 -----
 
 . Create a new application using the `stores-fis` template:
@@ -422,16 +417,18 @@ $ oc create route edge stores-production-route \
 +
 [source,text]
 -----
-$ curl -k “<<camel-stage-apicast route>>/allcustomers?user_key=<<your user_key>>“
-[{"name":"redhat","address":["FuseSource Office"],"numOrders":47,"revenue":4821.0,"test":100.0,"birthDate":null,"type":"BUSINESS"}]
+$ curl -k “<<camel-stage-apicast route>>/allstores?user_key=<<your user_key>>“
+{"store":[{"storeID":1,"storeName":"Downtown\n  Store","storeLat":-34.6052704,"storeLong":-58.3791766},{"storeID":2,"storeName":"EastSide\n  Store","storeLat":-34.5975668,"storeLong":-58.3710199}]}
+
 -----
 
 .. Promote the API to production, test the production URL, and check the response:
 +
 [source,text]
 -----
-$ curl -k “<<camel-prod-apicast route>>/allcustomers?user_key=<<your user_key>>“
-[{"name":"redhat","address":["FuseSource Office"],"numOrders":47,"revenue":4821.0,"test":100.0,"birthDate":null,"type":"BUSINESS"}]
+$ curl -k “<<camel-prod-apicast route>>/allstores?user_key=<<your user_key>>“
+{"store":[{"storeID":1,"storeName":"Downtown\n  Store","storeLat":-34.6052704,"storeLong":-58.3791766},{"storeID":2,"storeName":"EastSide\n  Store","storeLat":-34.5975668,"storeLong":-58.3710199}]}
+
 -----
 
 * A Camel route can be used to provide routing for 3scale API Management's gateway to the SOAP web service.

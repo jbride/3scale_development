@@ -252,7 +252,7 @@ $ oc set volume dc/apicast-staging --add --name=cors-conf --mount-path /opt/app-
 +
 [source,text]
 -----
-$ oc patch dc/apicast --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/2/subPath", "value":"cors.lua"},{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/3/subPath", "value":"cors.conf"}]'
+$ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/2/subPath", "value":"cors.lua"},{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/3/subPath", "value":"cors.conf"}]'
 -----
 
 . Set the environment variable `APICAST_MODULE`:

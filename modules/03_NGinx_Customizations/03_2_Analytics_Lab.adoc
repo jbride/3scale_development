@@ -22,7 +22,7 @@ In this section, you generate some load for the API and then check the analytics
 +
 image::images/3scale_amp_products_visit_dev_portal.png[]
 
-. Log in as the `rhbankadmin` user with the password provided in the earlier lab.
+. Log in as the `rhadmin` user with the password provided in the earlier lab.
 . Click the *Documentation* tab:
 +
 image::images/3scale_amp_products_analytics_1.png[]
@@ -119,7 +119,7 @@ image::images/3scale_amp_products_analytics_9.png[]
 
 ==== Developer Portal for Specific User
 
-. Log in to the Developer Portal as user `rhbankadmin` with the password you provided for the account.
+. Log in to the Developer Portal as user `rhadmin` with the password you provided for the account.
 . Click  the *Statistics* tab:
 +
 image::images/3scale_amp_products_analytics_10.png[]
