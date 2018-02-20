@@ -117,7 +117,7 @@ image::images/3scale_amp_products_create_dev.png[]
 In this section you associate an application to your previously defined users. This generates a user key for the application. The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
 
 . Navigate to the *Developers* tab.
-. Select *RHBank* -> *1 Application*.
+. Select *RHBank* -> *Application*.
 +
 image::images/3scale_amp_products_create_app.png[]
 +

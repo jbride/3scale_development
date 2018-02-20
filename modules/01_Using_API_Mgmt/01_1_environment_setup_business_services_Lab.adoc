@@ -102,7 +102,7 @@ products-api-1-02s28               1/1       Running     0          4m
 productsdb-1-39dkc                 1/1       Running     0          5m
 -----
 +
-NOTE: The pods should take about 2-3 minutes to reach `Running` status. Please confirm your pods are Running before executing the next steps.
+NOTE: It takes about 2-3 minutes for the application to be deployed. Before continuing to the next steps, confirm that your pods show a Running status, that the related build is complete, and that there are no deployment tasks running.
 +
 .. Get the route details:
 +

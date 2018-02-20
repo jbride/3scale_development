@@ -70,7 +70,7 @@ image::images/3scale_amp_products_swagger2.png[]
 +
 image::images/3scale_amp_products_swagger3.png[]
 
-. Select *File -> Download JSON*:
+. Select *File -> Convert and save as JSON*:
 +
 image::images/3scale_amp_products_swagger4.png[]
 
