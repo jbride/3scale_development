@@ -60,7 +60,7 @@ $ curl -o verbose.lua https://raw.githubusercontent.com/3scale/apicast/3.1-stabl
 $ oc project $OCP_PROJECT_PREFIX-3scale-amp
 -----
 
-. Create a configuration map in the OpenShift project, making sure to provide the correct path to the `verbose.lua` file:
+. Create a config map in the OpenShift project, making sure to provide the correct path to the `verbose.lua` file:
 +
 [source,text]
 -----
