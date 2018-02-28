@@ -19,7 +19,7 @@
 * Completion of previous labs of this course
 * `OCP_WILDCARD_DOMAIN` environment variables set in your shell
 +
-TIP: To check if your shell still has these environment variables set, run  `echo $OCP_WILDCARD_DOMAIN` command. If the variables are no longer set, return to the first lab in this course and follow the steps there to set them again.
+TIP: To check if your shell still has these environment variables set, run the `echo $OCP_WILDCARD_DOMAIN` command. If the variables are no longer set, return to the first lab in this course and follow the steps there to set them again.
 +
 * 3scale Admin Portal URL and user credentials to log in
 +
