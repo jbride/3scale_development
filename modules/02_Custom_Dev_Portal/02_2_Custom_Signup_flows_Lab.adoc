@@ -1,0 +1,22 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:linkattrs:
+
+
+== Custom Signup Flows Lab
+
+In this lab you create custom signup flows for managing Developer signups for APIs managed through 3scale. A few scenarios covered are single application,  multiple application signups, group membership flows. 
+
+.Goals
+* Create API documentation for the Products API application
+* Integrate the API documentation with 3scale API Management
+* Create a custom development portal
+* Create a client application to call the Products API
+
+:numbered:
+
+== API Documentation
+
+.References
+* https://developers.redhat.com/blog/2017/12/18/3scale-developer-portal-signup-flows/
