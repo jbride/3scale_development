@@ -16,7 +16,204 @@ In this lab you create custom signup flows for managing Developer signups for AP
 
 :numbered:
 
-== API Documentation
+== Introduction
+
+Please read this excellent article from Kevin Price on 3scale signup and signup flows.
+
+https://developers.redhat.com/blog/2017/12/18/3scale-developer-portal-signup-flows/
+
+In this lab, we will be following the 4 examples discussed in the blog and adapt it to the services and APIs managed here.
+
+
+== Single Application Signup flow
+
+This is the simplest signup flow that only allows a subscription to a single Service and Application Plan upon account creation. You do not need to enable any special features in the 3scale Developer portal to use this flow. 
+
+The signup flow is provided in the partial */home/jboss/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid*.
+
+. Open the file */home/jboss/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid* and examine the code for the signup:
+.. Service/Application filter
++
+[source, text]
+----
+            {% for service in provider.services %} 
+      		<h2> {{ service.name }} </h2>
+      		<div class="row">
+            {% for plan in service.application_plans%}
+----
++
+NOTE: The above liquid filter allows to iterate through the list of all services for the provider, and further iterate through all the application plans. Thus, this filter allows you to display a list of all services along with the service plans.
++
+.. Plan Features/Limits
++
+[source, text]
+----
+            <div class="col-md-4">
+                <article class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>{{ plan.name }}</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            {% if plan.features == present %}
+                            <div class="col-md-6">
+                                <h5>Features</h5>
+                                <ul class="features list-unstyled">
+                                    {% for feature in plan.features %}
+                                    <li>
+                                        <i class="fa fa-check"></i> {{ feature.name }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="col-md-6">
+                                <h5>Limits</h5>
+                                <ul class="limits list-unstyled">
+                                    {% if plan.usage_limits == present %} {% for limit in plan.usage_limits %}
+                                    <li>
+                                        <i class="fa fa-signal"></i> {{ limit.metric.name }} &ndash; {{ limit.value }} {{ limit.metric.unit }}s per {{ limit.period }}
+                                    </li>
+                                    {% endfor %} {% else %}
+                                    <li>
+                                        <i class="fa fa-signal"></i> No limits
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+----
++
+NOTE: The above code allows display of the plan name and features/limits setup for the plan.
++
+.. Signup link
++
+[source, text]
+----
+                   <a class="btn btn-cta-secondary pull-right" href="{{ urls.signup }}?{{ plan | to_param }}&{{ service.service_plans.first | to_param }}">Signup to plan {{ plan.name }}</a>
+                          		
+----
++
+NOTE: This section shows the link to redirect to the signup form for the chosen plan and service.
++
+. Add this partial to the developer portal.
+.. click on *New Partial*
+.. Provide System name* as *single_app_signup_form*
+.. Copy the contents of the file **/home/jboss/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid* into the text field.
+.. Click on *Create Partial*.
+.. Confirm that the partial shows up in the menu list of partials.
++
+image::images/3scale_amp_custom_signup_single_plan.png[]
+
+. Edit the *Homepage*:
+.. Delete the lines 119 - 230.
+.. Add the following line to the bottom of the file:
++
+[source, text]
+....
+  <section class="plan">
+    {% include 'single_app_signup_form' %}
+  </section>
+{% endif %}
+....
++
+NOTE: The include ensures the content of the partial is included to be displayed in the Homepage.
++
+.. Save the file.
+. Publish both the changes.
++
+image::images/3scale_amp_custom_signup_single_plan_2.png[]
++
+. Now click on *Visit Developer Portal* and ensure the Homepage now displays the Products service as well.
++
+image::images/3scale_amp_custom_signup_single_plan_3.png[]
++
+. Now sign up using the form by clicking on the *Signup for ProductsBasicPlan*.
+. Fill up the form with a new user details and a valid email address.
++
+image::images/3scale_amp_custom_signup_single_plan_4.png[]
++
+. Once signup is successful, you will get a Success page.
++
+image::images/3scale_amp_custom_signup_single_plan_5.png[]
++
+. Look for the email to the email address provided.
++
+image::images/3scale_amp_custom_signup_single_plan_6.png[]
++
+. Click on the *activate your account* link and sign in with the username/password used to create the account. 
+. Finally, in the admin portal click on the *Developers* tab, check that the Account & user are created.
++
+image::images/3scale_amp_custom_signup_single_plan_7.png[]
+
+== Multiple Application Signup Flow
+
+The multiple application signup flow allows users to signup for multiple services (and the associated application plans) directly using a single signup form. To use this flow, the *Multiple Applications* feature needs to be enabled in the Developer Portal. 
+
+. Login to the admin portal using your credentials and navigate to *Developer Portal*.
+. Click on *Feature Visibility*.
+. Ensure that the *Multiple Applications* feature is *_visible_*.
++
+image::images/3scale_amp_custom_signup_multi_plan.png[]
+
+The signup flow is provided in the partial */home/jboss/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid*.
+
+. Open the file */home/jboss/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid* and examine the code for the signup:
+. You will notice that the form is quite similar to the *_single_app_signup_form.html.liquid*. The chief points to note are:
+.. The signup form:
++
+[source, text]
+----
+<form action="{{ urls.signup }}" method="get">
+----
++
+.. checkbox input:
++
+[source, text]
+----
+<input type="checkbox" name="plan_ids[]" value="{{ plan.id }}">Signup to {{ plan.name }}</input>
+<input type="hidden" name="plan_ids[]" value="{{ service.service_plans.first.id }}"></input>
+
+----
++
+.. A submit button to direct to the Signup form.
++
+[source, text]
+----
+    <button type="submit" class="btn btn-cta-primary">Signup</a>
+----
++
+. Upload the partial to the Developer Portal.
+.. System name* : *multi_app_signup_form*
+.. Copy the contents of the file */home/jboss/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid* and click on *Create Partial*.
+. Ensure the partial shows up in the menu.
++
+image::images/3scale_amp_custom_signup_multi_plan_2.png[]
++
+. Edit the *Homepage* and change the include section to use the *multi_app_signup_form* instead of *single_app_signup_form*.
+. Now save and *Publish* the changes.
+. Click on *Visit Developer Portal* and notice the home page now has the multiple signup form, with a checkbox for each application plan.
++
+image::images/3scale_amp_custom_signup_multi_plan_3.png[]
++
+. Try to signup for 2 different applications (e.g API Unlimited and ProductsBasicPlan).
+. In the signup form, provide the right email address and user details.
++
+image::images/3scale_amp_custom_signup_multi_plan_4.png[]
++
+. Now click on the link in the confirmation email and login.
+. Login as the new user and notice the Application and Keys created for the chosen applications.
+. Finally, in the admin portal click on the *Developers* tab, check that the Account & user are created.
++
+image::images/3scale_amp_custom_signup_multi_plan_5.png[]
++
+NOTE: Note that if there are any services with default application plans, then a default application is created for the account created using the signup form. In order to prevent this, do NOT mark any application plan as default in the service specification.
+
+== Custom Field Flow
+
+== Group Membership Flow
+
 
 .References
 * https://developers.redhat.com/blog/2017/12/18/3scale-developer-portal-signup-flows/
