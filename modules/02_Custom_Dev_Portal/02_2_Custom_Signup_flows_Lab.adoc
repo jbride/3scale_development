@@ -29,9 +29,9 @@ In this lab, we will be following the 4 examples discussed in the blog and adapt
 
 This is the simplest signup flow that only allows a subscription to a single Service and Application Plan upon account creation. You do not need to enable any special features in the 3scale Developer portal to use this flow. 
 
-The signup flow is provided in the partial */home/jboss/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid*.
+The signup flow is provided in the partial *~/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid*.
 
-. Open the file */home/jboss/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid* and examine the code for the signup:
+. Open the file *~/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid* and examine the code for the signup:
 .. Service/Application filter
 +
 [source, text]
@@ -100,7 +100,7 @@ NOTE: This section shows the link to redirect to the signup form for the chosen 
 . Add this partial to the developer portal.
 .. click on *New Partial*
 .. Provide System name* as *single_app_signup_form*
-.. Copy the contents of the file **/home/jboss/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid* into the text field.
+.. Copy the contents of the file *~/lab/3scale_development_labs/DevPortal/_single_app_signup_form.html.liquid* into the text field.
 .. Click on *Create Partial*.
 .. Confirm that the partial shows up in the menu list of partials.
 +
@@ -157,9 +157,9 @@ The multiple application signup flow allows users to signup for multiple service
 +
 image::images/3scale_amp_custom_signup_multi_plan.png[]
 
-The signup flow is provided in the partial */home/jboss/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid*.
+The signup flow is provided in the partial *~/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid*.
 
-. Open the file */home/jboss/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid* and examine the code for the signup:
+. Open the file *~/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid* and examine the code for the signup:
 . You will notice that the form is quite similar to the *_single_app_signup_form.html.liquid*. The chief points to note are:
 .. The signup form:
 +
@@ -186,7 +186,7 @@ The signup flow is provided in the partial */home/jboss/lab/3scale_development_l
 +
 . Upload the partial to the Developer Portal.
 .. System name* : *multi_app_signup_form*
-.. Copy the contents of the file */home/jboss/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid* and click on *Create Partial*.
+.. Copy the contents of the file *~/lab/3scale_development_labs/DevPortal/_multiple_app_signup_form.html.liquid* and click on *Create Partial*.
 . Ensure the partial shows up in the menu.
 +
 image::images/3scale_amp_custom_signup_multi_plan_2.png[]
@@ -279,7 +279,7 @@ image::images/3scale_amp_custom_signup_field_plan_6.png[]
 . Click on *Settings* link for the Stores API, and select *default* plan, and check the link for *Developers can select a plan when creating a new application*.
 === Developer Portal changes
 
-. Add the partial *custom_field_signup_flow* with the contents of the file */home/jboss/lab/3scale_development_labs/DevPortal/_custom_field_plans.html.liquid*
+. Add the partial *custom_field_signup_flow* with the contents of the file *~/lab/3scale_development_labs/DevPortal/_custom_field_plans.html.liquid*
 . In the *Homepage*, add the following after line 87 (before the *{% else %}* line.
 +
 [source, text]
