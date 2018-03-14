@@ -338,7 +338,7 @@ Now repeat the steps from the above section to create a user with *internal* acc
 Group Membership flow is especially useful when you want to control the access to Services, and not just the application plans. If you want to create sections of content that users can only access when they have the correct permissions then you should use this flow. To subscribe to any API a user must have signed up to create an account first. Therefore, the Services and Plans are only visible to users once they have an Account. You should assign the appropriate Group Membership once the Account has been created. 
 
 
-Our usecase for this lab will be similar to the last lab on custom field signup. Instead of relying on application plans for *internal* and *public* user signup, we will restrict the service itself to be either *internal* or *public* so that service will only be seen by the users who belong to the particular group. This way, we can restrict even the ability to view the services that are not available for the users.
+Our usecase for this lab will be similar to the last lab on custom field signup. Instead of relying on application plans for *internal* and *public* user signup, we will restrict the service itself to be either *private* or *external* so that service will only be seen by the users who belong to the particular group. This way, we can restrict even the ability to view the services that are not available for the users.
 
 Below are the steps for enabling the group membership signup flow:
 
@@ -369,7 +369,7 @@ image::images/3scale_amp_group_member_signup_plan_3.png[]
 +
 image::images/3scale_amp_group_member_signup_plan_4.png[]
 +
-. Now, for the *StoresSOAP* service, similar to able deselect the *Default Plan* dropbox.
+. Now, for the *StoresSOAP* service, similar to above deselect the *Default Plan* dropbox.
 . For the *StoresSOAP* service, create a new feature for the *Default* service plan:
 .. *Name* : private feature
 .. *System name* : serviceplan/private
@@ -386,12 +386,12 @@ image::images/3scale_amp_group_member_signup_plan_5.png[]
 .. *Title*: external
 .. *Public*: uncheck the box
 .. *Parent*: Root
-.. *Partial Path*: /
+.. *Partial Path*: /external
 . Click on *Create Section*.
 +
 image::images/3scale_amp_group_member_signup_plan_6.png[]
 +
-. Create another *New Section* for *private*.
+. Create another *New Section* for *private*, as follows:
 +
 image::images/3scale_amp_group_member_signup_plan_7.png[]
 +
@@ -408,6 +408,9 @@ image::images/3scale_amp_group_member_signup_plan_9.png[]
 === Add *Group Membership Flow* to Developer Portal
 
 . In the Developer Portal, add a new partial *group_member_signup_form*, copying contents from file */home/jboss/lab/3scale_development_labs/DevPortal/_group_membership_plans.html.liquid*
++
+NOTE: Study this file, and understand the liquid logic used in order to present the user with the correct signup form depending on their group membership.
++
 . In the *Homepage* make the following changes:
 .. Remove the reference to following line created in previous lab:
 +
@@ -437,6 +440,74 @@ image::images/3scale_amp_group_member_signup_plan_9.png[]
 ----
 +
 NOTE: This liquid code ensures that if the user has a private section (e.g is part of the group, then the section is presented to the user. Otherwise, the custom field signup form from previous lab is presented.
++
+. Publish all the changes in the Developer Portal.
+
+=== Test the Group Membership flow for *external* access
+
+. Now click on *Visit Developer Portal*.
+. Do not select any of the plans, scroll to the bottom of the page and click on *sign up* button.
+. Provide a new user details (with a valid email address).
+. Ignore the *ACCESS* parameter.
+. Click on *Sign up*.
++
+image::images/3scale_amp_group_member_signup_plan_10.png[]
++
+. Navigate to the *Developers* tabs and note the new account is created.
++
+image::images/3scale_amp_group_member_signup_plan_11.png[]
++
+NOTE: Note that the account created does not have any service subscriptions or applications associated with it. 
++
+. Now activate the user by clicking on the *Activate* link in the Developers page.
++
+image::images/3scale_amp_group_member_signup_plan_12.png[]
++
+. Click on *Group Memberships* breadcrumb in the Account details page.
++
+image::images/3scale_amp_group_member_signup_plan_13.png[]
++
+. Assign the Group *External* to the user and Save.
++
+image::images/3scale_amp_group_member_signup_plan_14.png[]
++
+. In a new browser window, login with the user credentials to the Developer Portal.
+. Note the Homepage after sign-in shows the *Pick a group plan* section for the user to subscribe.
++
+image::images/3scale_amp_group_member_signup_plan_15.png[]
++
+. Click on *Subscribe to the Stores service* link.
+. Notice that the *Services* page shows the user subscribed to the *Default* service for the Stores API.
++
+image::images/3scale_amp_group_member_signup_plan_16.png[]
++
+NOTE: You can also edit the *Services - Index* page to only show the subscribed services, or the remove the link for the service subscriptions for the other services, so that the user can only see the services he is already subscribed to. This is left as an exercise.
++
+. Click on the *Applications* menu item.
++
+image::images/3scale_amp_group_member_signup_plan_17.png[]
++
+. Click on *Create New Application*.
+. In the form, provide the details:
+.. *Name* : RHBank12 Stores API
+.. *Description* : RHBank12 Stores API Plan
++
+image::images/3scale_amp_custom_signup_field_plan_11.png[]
++
+. Click on *Create Application*. 
+
+. Now in the Admin Portal, navigate to the *Developers*, select the Account and click on the Application created for Stores API.
+. Notice the Application State. 
+. Click on *Accept* to accept the application.
++
+image::images/3scale_amp_custom_signup_field_plan_18.png[]
++
+. Run a test request with the user key to confirm the application access is working correctly.
+
+=== Test the Custom field flow for *Internal* access
+
+Now repeat the steps from the above section to create a user with *private* group membership, and ensure that you can subscribe the user to the *Stores SOAP API service*.
+
 
 
 
