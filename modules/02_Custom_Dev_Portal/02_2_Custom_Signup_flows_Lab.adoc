@@ -277,6 +277,7 @@ image::images/3scale_amp_custom_signup_field_plan_5.png[]
 image::images/3scale_amp_custom_signup_field_plan_6.png[]
 +
 . Click on *Settings* link for the Stores API, and select *default* plan, and check the link for *Developers can select a plan when creating a new application*.
+
 === Developer Portal changes
 
 . Add the partial *custom_field_signup_flow* with the contents of the file */home/jboss/lab/3scale_development_labs/DevPortal/_custom_field_plans.html.liquid*
@@ -333,6 +334,111 @@ image::images/3scale_amp_custom_signup_field_plan_13.png[]
 Now repeat the steps from the above section to create a user with *internal* access, and ensure that you can subscribe the user to the *StoresSOAPBasicPlan*.
 
 == Group Membership Flow
+
+Group Membership flow is especially useful when you want to control the access to Services, and not just the application plans. If you want to create sections of content that users can only access when they have the correct permissions then you should use this flow. To subscribe to any API a user must have signed up to create an account first. Therefore, the Services and Plans are only visible to users once they have an Account. You should assign the appropriate Group Membership once the Account has been created. 
+
+
+Our usecase for this lab will be similar to the last lab on custom field signup. Instead of relying on application plans for *internal* and *public* user signup, we will restrict the service itself to be either *internal* or *public* so that service will only be seen by the users who belong to the particular group. This way, we can restrict even the ability to view the services that are not available for the users.
+
+Below are the steps for enabling the group membership signup flow:
+
+=== Set up Service Plan
+
+. Login to the Admin Portal and navigate to the *Settings* tab.
+. Check the box for *Service Plans*.
+. Click on *Update Settings*.
++
+image::images/3scale_amp_group_member_signup_plan.png[]
++
+. Click on *APIs* tab and choose *Stores -> Service Plans*.
+. Unselect the *default* plan in the *Default Plan* dropbox.
++
+image::images/3scale_amp_group_member_signup_plan_2.png[]
++
+. Click on the *Default* service plan.
+. Click on *New Feature* link.
+. Add the following values:
+.. *Name* : external feature
+.. *System name* : serviceplan/external
+.. *Description* : This is the external service plan.
+. Click on *Save*.
++
+image::images/3scale_amp_group_member_signup_plan_3.png[]
++
+. Click the *x* under *Enabled?* to enable the feature.
++
+image::images/3scale_amp_group_member_signup_plan_4.png[]
++
+. Now, for the *StoresSOAP* service, similar to able deselect the *Default Plan* dropbox.
+. For the *StoresSOAP* service, create a new feature for the *Default* service plan:
+.. *Name* : private feature
+.. *System name* : serviceplan/private
+.. *Description* : This is the private service plan.
+. Save and enable the service feature.
++
+image::images/3scale_amp_group_member_signup_plan_5.png[]
+
+=== Create New Section in Developer Portal
+
+. Navigate to the *Developer Portal* tab of the admin portal.
+. Click on the *New Section* from the *New Page* drop down.
+. Enter the following values:
+.. *Title*: external
+.. *Public*: uncheck the box
+.. *Parent*: Root
+.. *Partial Path*: /
+. Click on *Create Section*.
++
+image::images/3scale_amp_group_member_signup_plan_6.png[]
++
+. Create another *New Section* for *private*.
++
+image::images/3scale_amp_group_member_signup_plan_7.png[]
++
+. Click on *Groups* tab.
+. Create a new group *External* and assign the *external* section.
++
+image::images/3scale_amp_group_member_signup_plan_8.png[]
++
+. Create another new group *Private* and assign the *private* section.
+. Confirm that both groups are created and right sections assigned.
++
+image::images/3scale_amp_group_member_signup_plan_9.png[]
+
+=== Add *Group Membership Flow* to Developer Portal
+
+. In the Developer Portal, add a new partial *group_member_signup_form*, copying contents from file */home/jboss/lab/3scale_development_labs/DevPortal/_group_membership_plans.html.liquid*
+. In the *Homepage* make the following changes:
+.. Remove the reference to following line created in previous lab:
++
+[source, text]
+----
+ {% include 'custom_field_signup_form' %}
+----
++
+. Add the following lines after the *</header>* section:
++
+[source, text]
+----
+{% if current_user and current_account.applications.size == 0 %}
+
+  {% if current_user.sections.size > 0 %}
+
+
+  {% include 'group_member_signup_form' %}
+
+  {% else %}
+
+
+  {% include 'custom_field_signup_form' %}
+
+  {% endif %}
+{% endif %}
+----
++
+NOTE: This liquid code ensures that if the user has a private section (e.g is part of the group, then the section is presented to the user. Otherwise, the custom field signup form from previous lab is presented.
+
+
 
 
 .References
