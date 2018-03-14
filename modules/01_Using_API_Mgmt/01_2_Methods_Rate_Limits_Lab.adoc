@@ -137,6 +137,43 @@ image::images/3scale_amp_products_app_plan_userkey.png[]
 
 == Create Mappings and Methods
 
+=== Investigate Products API
+
+In order to create the methods and mappings, it is important to understand the API specification for the Products API. The Products API provides a Swagger specification which we can use to check out the documentation for the API.
+
+To access the Swagger documentation, follow the steps below:
+
+. In a new browser window, navigate to `http://editor.swagger.io/`.
+. Select *File -> Import URL*.
+. Enter the URL of your business API swagger specification:
++
+`http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml`
++
+IMPORTANT: The values do not resolve in the browser, so you need to provide the full path, for example: `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80/rest/swagger.yaml`
+
+. Click *OK*.
+. In line 6, replace *host* from *localhost:8080* to the URL for the products API e.g products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
++
+IMPORTANT: The values do not resolve in the browser, so you need to provide the full path, for example: `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com`
++
+. Notice that the methods, relative paths and sample request/response are loaded on the screen.
++
+image::images/3scale_amp_products_api_swagger.png[]
++
+. Pay particular attention to the 4 REST services, corresponding HTTP methods, relative path, HTTP scheme and descriptions.
++
+image::images/3scale_amp_products_api_swagger_2.png[]
++
+. You can send sample requests to the API for each method to get an understanding of the request and response types.
++
+image::images/3scale_amp_products_api_swagger_3.png[]
++
+. Notice the response and response content types for each request.
++
+image::images/3scale_amp_products_api_swagger_4.png[]
+
+Now that you are familiar with the API, the next step is to define the methods and mappings for the API in the 3scale API Management portal.
+
 === Methods
 
 . Navigate to the *API* tab.
@@ -378,3 +415,18 @@ Authentication failed
 -----
 +
 NOTE: In the SaaS version of 3scale AMP (and in a future release of 3scale on-premise), you can create pricing rules for your APIs in the application plans. This functionality is out of scope for this lab.
+
+=== Test Rate Limits in Production (Bonus)
+
+Now, try the following steps:
+
+. Promote the Products API service to Production.
+. Bounce the APIcast production pod for the configuration to be updated.
+. Try sending the requests to the rate limit URLs as in the previous section. Alternate between production and staging URLs.
+
+To test your understanding of the rate limits, try to answer the following questions:
+
+. What do you observe when you send requests to the production URL and the staging URL?
+. Does the invocation against the staging URL impact the rate limits as in the production URL?
+. Is the rate limit effective separately for staging and production URLs or does the rate limit apply cumulatively for both URLs?
+. Why do you think rate limit behaviour is this way?

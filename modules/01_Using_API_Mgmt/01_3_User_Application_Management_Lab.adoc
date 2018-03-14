@@ -43,6 +43,12 @@ In this section you will see how a 3scale administrator can send an email messag
 image::images/ocp_amp_config_map_smtp.png[]
 +
 NOTE: Note that the setup would store the password as plain text, so please ensure you use a separate account as your SMTP, instead of your personal email account.
++
+. If the config map *smtp* needs to be updated, then you need to bounce the following deployments in order to re-read the config:
+.. system-app
+.. system-resque
+.. system-sidekiq
+
 
 === Send Message from Admin Portal
 
@@ -57,7 +63,6 @@ image::images/3scale_amp_products_account_send_message.png[]
 .. *To*: RHBank
 .. *Subject*: Test Message
 .. *Body*: This is a test message from the Products API admin team regarding your account. Regards, Admin
-. Disable the *Create Product* and *Delete Product* methods by clicking the green check marks in the *Enabled* column:
 +
 image::images/3scale_amp_products_account_send_message_2.png[]
 
@@ -72,7 +77,12 @@ image::images/3scale_amp_products_account_send_message_5.png[]
 image::images/3scale_amp_products_account_send_message_3.png[]
 +
 NOTE: Note that the email is sent from the email address registered with AMP for the SMTP credentials.
-
+IMPORTANT: If you are using a *gmail* account, you might encounter an issue with Google blocking the signin attempt from the OCP cluster on AWS. You might notice the following error:
++
+image::images/3scale_amp_email_gmail_error.png[]
++
+TIP: Login to your *gmail* account and update the permissions in gmail to permit the login for SMTP.
++
 . Also confirm that the email is in the *Sent* folder of the SMTP account
 +
 image::images/3scale_amp_products_account_send_message_4.png[]
