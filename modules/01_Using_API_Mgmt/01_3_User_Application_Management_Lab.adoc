@@ -119,6 +119,11 @@ NOTE: If the user does not receive the invitation, you can resend the invitation
 image::images/3scale_amp_products_account_invite_user_4.png[]
 
 . Click on the link in the email to join the developer account. This will open an *Invitation Sign In* form on the Developer Portal.
++
+NOTE: The Developer Portal is by default restricted behind an access code, so you might encounter an error page on clicking the activation link. In order to prevent this, go to the *Settings -> Developer Portal* section of Admin Portal and delete the *Developer Portal Access Code*.
++
+image::images/3scale_amp_products_account_invite_user_11.png[]
++
 . Provide a username and password and click on *Sigun up*.
 +
 image::images/3scale_amp_products_account_invite_user_5.png[]
