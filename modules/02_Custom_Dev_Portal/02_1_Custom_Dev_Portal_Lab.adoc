@@ -22,7 +22,7 @@ In this section, you generate and test ActiveDocs documentation for the API crea
 
 ActiveDocs is not a Swagger replacement; it is an instantiation of it. With ActiveDocs, you do not have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec["Create a (Swagger) Spec^"].
 
-=== Create Swagger API Documentation
+=== Customize Products API Swagger Docs
 
 . In a new browser window, navigate to `http://editor.swagger.io/`.
 . Select *File -> Import URL*.
