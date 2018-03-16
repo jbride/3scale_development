@@ -6,13 +6,13 @@
 
 == Custom Development Portal Lab
 
-In this lab you create API documentation for the APIs managed by Red Hat 3scale API Management, learn about the Developer Portal and customization, and create a client application to consume the APIs exposed.
+In this lab you create API documentation for the APIs managed by Red Hat 3scale API Management, learn about the Developer Portal and customization and explore additional role based access control features of 3scale.
 
 .Goals
 * Create API documentation for the Products API application
 * Integrate the API documentation with 3scale API Management
-* Create a custom development portal
-* Create a client application to call the Products API
+* Customize the development portal
+* Explore additional role based access control features available via both Application Plans and in the Developer Portal
 
 :numbered:
 
