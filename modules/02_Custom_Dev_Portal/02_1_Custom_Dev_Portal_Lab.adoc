@@ -148,7 +148,7 @@ Another simple mechanism to determine the URL to your developer portal is direct
 image::images/dev_portal_route.png[]
 
 Alternatively, you could just as easily determine this using the OpenShift oc utility:
-+
+ 
 -----
 $ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3scale-amp --template "https://{{.spec.host}}"`\n\n"
 -----
