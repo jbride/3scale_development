@@ -291,12 +291,9 @@ image::images/3scale_amp_products_dev_portal13.png[]
 +
 image::images/3scale_amp_products_dev_portal14.png[]
 
+== Additional Role Based Access Control 
 
-== Advanced Developer Portal Customizations
-
-=== Different Groups for Developers and Admin
-
-==== Create Admin Account Application Using `ProductsPremiumPlan`
+=== Premium App Plan with fully exposed Products API
 
 In a previous lab, recall that you defined a _ProductsBasicPlan_ where both the _Create Product_ and _Delete Product_ methods are disabled.
 Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group. 
@@ -344,10 +341,9 @@ The response should be the following:
 {"message":"Product 13 deleted"}
 -----
 
+=== Augment Dev Portal with Admin Section and Group
 
-==== Create Admin Section and Groups
-
-In this section you create a private section of the portal for access by admin users, create a group, and associate the group with `ProductsPremiumApp`.
+In this section you create a private section of the developer portal for access by users of the `RHAdmin` group.
 
 . Log in to 3scale by Red Hat's Admin Portal using your credentials.
 . Click the *Developer Portal* tab, and then click *New Section*:
@@ -439,7 +435,7 @@ image::images/3scale_amp_products_dev_portal_groups_13.png[]
 
 * The configuration for the Admin section and groups is complete and can be tested.
 
-==== Test the Admin Group Section
+=== Test the Admin Group Section
 
 . Open the Developer Portal and click *Sign In*.
 . Log in as user `rhadmin` with the password you provided earlier:
