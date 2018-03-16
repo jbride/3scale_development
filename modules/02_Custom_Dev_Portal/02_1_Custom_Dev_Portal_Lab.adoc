@@ -130,6 +130,28 @@ image::images/3scale_amp_products_activedocs7.png[]
 +
 image::images/3scale_amp_products_activedocs8.png[]
 
+== Determine URL of Dev Portal
+
+From time to time, you'll likely need the URL to your developer portal.
+
+The CMS of your 3scale AMP provides a link at the top of the homepage called:  _Visit Developer Portal_.
+Clicking that link will automatically redirect your browser to the URL of the developer portal.
+
+The welcome email send to new developer users also includes the link to the developer portal.
+
+Another simple mechanism to determine the URL to your developer portal is directly from OpenShift.
+
+. In you browser, navigate to and log into your OCP Web Console.
+. Navigate to: `Applications -> Routes`.
+. The URL to your developer portal is the _Hostname_ of the route called:  `system-developer-route`:
++
+image::images/dev_portal_route.png[]
+
+Alternatively, you could just as easily determine this using the OpenShift oc utility:
++
+-----
+$ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3scale-amp --template "https://{{.spec.host}}"`\n\n"
+-----
 
 == Customize Developer Portal
 
