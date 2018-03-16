@@ -276,7 +276,12 @@ image::images/3scale_amp_products_dev_portal14.png[]
 
 ==== Create Admin Account Application Using `ProductsPremiumPlan`
 
-In the first module, you set up the `rhbankdev` user as part of the `RHBank` group. While creating the rate limits, you disabled the `Create Account` and `Delete Account` methods, so exepct a request for either of these methods to result in a *HTTP 403: Not Authorized* error.
+In a previous lab, recall that you defined a _ProductsBasicPlan_ where both the _Create Product_ and _Delete Product_ methods are disabled.
+Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group. 
+
+Subsequently, you could exepct a request for either of these methods to result in a *HTTP 403: Not Authorized* error.
+
+In this section of the lab, you will now define a different application plan and group that will have full access to all methods of the Products API.
 
 Using the same steps:
 
