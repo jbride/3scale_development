@@ -321,6 +321,11 @@ NOTE: When running the `curl` request from the command line, you need to add arg
 
 In this section you configure and test a rate-limiting policy in an application plan for the API created in the previous section.
 
+You will create an ApplicationPlan called _ProductsBasicPlan_.
+Only some of the methods of the products API will be enabled with this application plan.
+
+In a later lab of this course, you will create a different application plan (named _ProductsPremiumPlan_) that will have all of the methods of the products API enabled.
+
 === Set Rate Limits
 
 . In 3scale by Red Hat's Admin Portal, verify that you are logged in, and then click the *APIs* tab.
@@ -355,7 +360,6 @@ image::images/3scale_amp_products_app_plan_limit4.png[]
 . Click *Update Application plan*:
 +
 image::images/3scale_amp_products_app_plan_limit5.png[]
-
 
 === Test Rate Limits
 
@@ -430,3 +434,10 @@ To test your understanding of the rate limits, try to answer the following quest
 . Does the invocation against the staging URL impact the rate limits as in the production URL?
 . Is the rate limit effective separately for staging and production URLs or does the rate limit apply cumulatively for both URLs?
 . Why do you think rate limit behaviour is this way?
+
+=== Test Disabled Methods (Bonus)
+
+What response code would you expect to receive if you attempt to create or delete a product from your API managed Products API ?
+
+Try it out to confirm.
+
