@@ -23,8 +23,8 @@
 * 25%: User signup Setup section
 * 25%: Development Portal & API Docs section
 
-* Minimum *75%* score needed to *PASS*.
 
+.Deliverables
 * Provide a README with the following:
 ** Your 3scale Admin & Developer Portal environments (Host, Admin user/password, Developer signup link)
 ** Provide sufficient documentation for each section explaining your design choices.
@@ -103,9 +103,24 @@ $ oc create route edge catalog-route --service=catalog
 [source,text]
 -----
 $ oc get pods
+NAME                           READY     STATUS      RESTARTS   AGE
+catalog-2-k9vnq                1/1       Running     0          22h
+catalog-mongodb-1-bfw7n        1/1       Running     0          5d
+inventory-1-q9b7k              1/1       Running     0          5d
+inventory-postgresql-1-r2jpj   1/1       Running     0          5d
+
 -----
 
 === Explore the APIs
+
+Notice that the Swagger spec is provided for both APIs. You can use the Swagger editor (http://editor.swagger.io/) to explore the APIs.
+
+.Catalog API
+image::images/coolstore_catalog_api_methods.png[]
+
+
+.Inventory API
+image::images/coolstore_inventory_api_methods.png[]
 
 The following are the valid product ids seeded for this POC:
 
@@ -117,8 +132,9 @@ The following are the valid product ids seeded for this POC:
 * 444435
 * 444436
 
-Notice that the Swagger spec is provided for both APIs. You can use the Swagger editor (http://editor.swagger.io/) to explore the APIs.
+You can try sample requests for the Catalog & Inventory APIs using the above product ids.
 
+TIP: You can use the Swagger API docs to understand the methods & mappings required to be set up for the APIs in 3scale.
 
 
 == POC Requirements
@@ -154,7 +170,7 @@ Notice that the Swagger spec is provided for both APIs. You can use the Swagger 
 
 == Additional Notes
 
-To grade the assignment, please upload a README file with the following information:
+To submit the assignment for grading, please upload a README file with the following information:
 
 . 3scale Admin Portal URL, admin userid/password
 . 3scale Developer Portal URL & signup page
@@ -162,5 +178,7 @@ To grade the assignment, please upload a README file with the following informat
 . Any design considerations for each section describing your choices.
 . Any additional points/information relating to the assignment that you would like to share.
 . Any time limits (e.g environment expiry date) after which the solution is inaccessible for testing.
++
+NOTE: Please have the lab environment accessible for upto 1 week after submission, to enable grader to access the URLs for grading.
 
 
