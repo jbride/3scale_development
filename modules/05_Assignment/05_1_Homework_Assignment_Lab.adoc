@@ -116,11 +116,11 @@ inventory-postgresql-1-r2jpj   1/1       Running     0          5d
 Notice that the Swagger spec is provided for both APIs. You can use the Swagger editor (http://editor.swagger.io/) to explore the APIs.
 
 .Catalog API
-image::images/coolstore_catalog_api_methods.png[]
+image::coolstore_catalog_api_methods.png[]
 
 
 .Inventory API
-image::images/coolstore_inventory_api_methods.png[]
+image::coolstore_inventory_api_methods.png[]
 
 The following are the valid product ids seeded for this POC:
 
