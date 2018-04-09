@@ -7,7 +7,7 @@
 
 .Standard Configuration
 
-* Configuration for hostname, service configuration, etc.
+* Configuration for host name, service configuration, etc.
 * JSON configuration for gateway
 * Load from file or API
 * link:https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json[https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json^]
@@ -19,7 +19,7 @@ ifdef::showscript[]
 
 Transcript:
 
-The APIcast gateway needs to be configured to determine the service configuration, hostname, etc.
+The APIcast gateway needs to be configured to determine the service configuration, host name, etc.
 
 The gateway can load the configuration from a file, API, or write it through the management API (for debugging purposes).
 

@@ -32,4 +32,5 @@ $ oc delete configmap/inventory-config
 -----
 
 
-
+== Versions
+1.0 - Feb 28, 2018 - Initial Release

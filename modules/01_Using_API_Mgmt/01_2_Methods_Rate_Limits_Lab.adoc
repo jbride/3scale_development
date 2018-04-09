@@ -313,7 +313,7 @@ IMPORTANT: This is the production route URL you created in the previous section.
 +
 image::images/3scale_amp_products_curl_test_url.png[]
 +
-NOTE: When running the `curl` request from the command line, you need to add argument `-k` to the request for the request to be executed correctly.
+NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
 . Once the request is successful, click *Promote to Production* and test the `curl` request for production.
 
 
@@ -372,7 +372,7 @@ image::images/3scale_amp_products_app_plan_limit6.png[]
 +
 image::images/3scale_amp_products_curl_test_url.png[]
 +
-NOTE: When running the `curl` request from the command line, you need to add argument `-k` to the request for the request to be executed correctly.
+NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
 +
 * The request is to URL `rest/services/product/1`, so it makes a `GET` request to the `Get` method configured.
 
@@ -404,7 +404,7 @@ Authentication failed
 +
 image::images/3scale_amp_products_curl_test_url_2.png[]
 +
-NOTE: When running the `curl` request from the command line, you need to add argument `-k` to the request for the request to be executed correctly.
+NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
 +
 * Because the limit is set to 1 request per minute, expect an *HTTP 403 Forbidden* response on subsequent requests.
 +
