@@ -6,13 +6,13 @@
 
 == Custom Development Portal Lab
 
-In this lab you create API documentation for the APIs managed by Red Hat 3scale API Management, learn about the Developer Portal and customization, and create a client application to consume the APIs exposed.
+In this lab you create API documentation for the APIs managed by Red Hat 3scale API Management, learn about the Developer Portal and customization and explore additional role based access control features of 3scale.
 
 .Goals
 * Create API documentation for the Products API application
 * Integrate the API documentation with 3scale API Management
-* Create a custom development portal
-* Create a client application to call the Products API
+* Customize the development portal
+* Explore additional role based access control features available via both Application Plans and in the Developer Portal
 
 :numbered:
 
@@ -22,7 +22,10 @@ In this section, you generate and test ActiveDocs documentation for the API crea
 
 ActiveDocs is not a Swagger replacement; it is an instantiation of it. With ActiveDocs, you do not have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec["Create a (Swagger) Spec^"].
 
-=== Create Swagger API Documentation
+=== Customize Products API Swagger configs
+In a previous lab, you have already been introduced to the swagger configuration file (in yaml representation) of your product API.
+
+In this section of the lab, you will customize that swagger configuration so as to make it specific to your products API managed by your apicast gateway.
 
 . In a new browser window, navigate to `http://editor.swagger.io/`.
 . Select *File -> Import URL*.
@@ -127,6 +130,28 @@ image::images/3scale_amp_products_activedocs7.png[]
 +
 image::images/3scale_amp_products_activedocs8.png[]
 
+== Determine URL of Dev Portal
+
+From time to time, you'll likely need the URL to your developer portal.
+
+The CMS of your 3scale AMP provides a link at the top of the homepage called:  _Visit Developer Portal_.
+Clicking that link will automatically redirect your browser to the URL of the developer portal.
+
+The welcome email send to new developer users also includes the link to the developer portal.
+
+Another simple mechanism to determine the URL to your developer portal is directly from OpenShift.
+
+. In you browser, navigate to and log into your OCP Web Console.
+. Navigate to: `Applications -> Routes`.
+. The URL to your developer portal is the _Hostname_ of the route called:  `system-developer-route`:
++
+image::images/dev_portal_route.png[]
+
+Alternatively, you could just as easily determine this using the OpenShift oc utility:
+ 
+-----
+$ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3scale-amp --template "https://{{.spec.host}}"`\n\n"
+-----
 
 == Customize Developer Portal
 
@@ -266,14 +291,16 @@ image::images/3scale_amp_products_dev_portal13.png[]
 +
 image::images/3scale_amp_products_dev_portal14.png[]
 
+== Additional Role Based Access Control 
 
-== Advanced Developer Portal Customizations
+=== Premium App Plan with fully exposed Products API
 
-=== Different Groups for Developers and Admin
+In a previous lab, recall that you defined a _ProductsBasicPlan_ where both the _Create Product_ and _Delete Product_ methods are disabled.
+Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group. 
 
-==== Create Admin Account Application Using `ProductsPremiumPlan`
+Subsequently, you could exepct a request for either of these methods to result in a *HTTP 403: Not Authorized* error.
 
-In the first module, you set up the `rhbankdev` user as part of the `RHBank` group. While creating the rate limits, you disabled the `Create Account` and `Delete Account` methods, so exepct a request for either of these methods to result in a *HTTP 403: Not Authorized* error.
+In this section of the lab, you will now define a different application plan and group that will have full access to all methods of the Products API.
 
 Using the same steps:
 
@@ -314,10 +341,9 @@ The response should be the following:
 {"message":"Product 13 deleted"}
 -----
 
+=== Augment Dev Portal with Admin Section and Group
 
-==== Create Admin Section and Groups
-
-In this section you create a private section of the portal for access by admin users, create a group, and associate the group with `ProductsPremiumApp`.
+In this section you create a private section of the developer portal for access by users of the `RHAdmin` group.
 
 . Log in to 3scale by Red Hat's Admin Portal using your credentials.
 . Click the *Developer Portal* tab, and then click *New Section*:
@@ -409,7 +435,7 @@ image::images/3scale_amp_products_dev_portal_groups_13.png[]
 
 * The configuration for the Admin section and groups is complete and can be tested.
 
-==== Test the Admin Group Section
+=== Test the Admin Group Section
 
 . Open the Developer Portal and click *Sign In*.
 . Log in as user `rhadmin` with the password you provided earlier:
