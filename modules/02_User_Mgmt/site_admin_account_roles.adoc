@@ -1,0 +1,39 @@
+:noaudio:
+
+:scrollbar:
+:data-uri:
+
+
+== Users and Rights on Admin Portal
+
+* 2 types of users:
+** *Admins* - full access to all areas, and member management.
+** *members* - Limited access to certain areas or services only.
+
+* Give users rights on Admin Portal 
+** *by area* - access to section in Admin Portal & corresponding REST API
+*** Developer Portal (Account Management API)
+*** Analytics
+*** Billing
+** *by services*
+
+
+ifdef::showscript[]
+
+Transcript:
+
+In order to share the workload of administering your APIs, you may wish to invite team members from your organization to access the 3scale Admin Portal. 
+
+The term users refers to members of the administration team. The 3scale Admin Portal has two types of users:
+
+Admins: Which have full access to all areas and services, and can invite other members.
+Members: Which have limited access to areas of the product (e.g. Analytics, Developer Portal) and, if you’re an enterprise customer, also to services.
+
+There are two main type of rights you can give to members of your team:
+
+By area: Such as analytics, billing, or developer administration.
+By service: Choose which services to give access to members amongst all of your services. 
+
+Giving members access to certain areas of the 3scale Admin Portal will give them access only to the equivalent API.
+
+endif::showscript[]

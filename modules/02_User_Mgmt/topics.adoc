@@ -8,11 +8,13 @@
 
 
 * Accounts Overview
-* Provider Account
+* Admin Account
+* Admin Access Keys
+* Admin Portal access with SSO
 * Developer Account
-* User Management
+* Service subscription
 * API Keys
-* User Mapping with SSO
+
 
 
 
@@ -20,7 +22,7 @@ ifdef::showscript[]
 
 Transcript:
 
-This module provides an introduction to the Account Management of 3scale. The different types of user accounts e.g Provider accounts and developer accounts are introduced. Administration tasks for Providers and developers are discussed respectively. We also look at the user management, including user lifecycle, invites, approvals and activation. Managing user mapping through a LDAP is also discussed. Finally, we look at key management for users to access APIs.
+This module provides an introduction to the Account Management of 3scale. The different types of user accounts e.g Provider administrator accounts and developer accounts are introduced. Administration tasks for Providers and developers are discussed respectively. We also look at the user management, including user lifecycle, invites, approvals and activation. Managing user mapping to 3scale admin portal through a LDAP is also discussed. Finally, we look at key management for users to access APIs.
 
 
 endif::showscript[]
