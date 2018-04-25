@@ -325,6 +325,22 @@ NOTE: When running the `curl` request from the command line, you need to add a `
 
 In this section you configure and test a rate-limiting policy in an application plan for the API created in the previous section.
 
+=== Introduction
+
+Rate limits allow you to throttle access to your API resources. You can configure different limits for separate developer segments through the use of application plans.
+
+Once you have rate limits in place, these limits will control the responses a developer receives when they make authorization request calls to the backend service using 3scale. The limits are configured in the Admin Portal, and will be enforced by the APICast gateway during service invocation. The gateway receives the configuration information from the 3scale backend which contains the rate limits for the different application plans within each service. 
+
+The sequence of steps is as follows:
+
+. APICast refreshes itself with the latest API configurations from the backend every 5 minutes (or as configured)
+. APICast implements a local in-memory cache for authorization keys and metrics.
+. With every inbound request to a backend service, apicast uses an asynch transport to make an *authrep* request to the backend listener API in 3scale.
+. *authrep* response from 3scale backend updates local apicast cache.
+. APIcast will reject all subsequent inbound requests if backend determines that rate limit is exceeded.
+
+In this lab, you will check the rate limiting in the context of the Products API. 
+
 You will create an ApplicationPlan called _ProductsBasicPlan_.
 Only some of the methods of the products API will be enabled with this application plan.
 
