@@ -173,7 +173,7 @@ image::images/3scale_amp_products_account_invite_user_10.png[]
 
 == Regenerate & Customize User Keys
 
-In this lab, we will see how users can manage the user_key for accessing APIs managed by 3scale. We will look at 2 scenarios: firstly, regenrate the random key generated, and secondly, to let the user enter their own custom key.
+In this lab, we will see how users can manage the user_key for accessing APIs managed by 3scale. We will look at 2 scenarios: firstly, regenerate the random key generated, and secondly, to let the user enter their own custom key.
 
 === Regenerate `user_key` from Admin Portal
 
@@ -259,4 +259,4 @@ NOTE: The App_Key can be created or deleted through the Developer Portal as well
 
 === Change API Docs
 
-Attempt this section after completing lab 2. As the authentication has changed from user_key to App_Id and App_key, you need to update the Swagger API to reflect this change. As a bonus exercise, update the APIDocs as suggested in Lab 2, substituting the _user_key_ with _app_id_ and _app_key_ correctly, so that test requests can be sent from the Documentation page of the portal to this API endpoint.
+Attempt this section after completing module 3 labs. As the authentication has changed from user_key to App_Id and App_key, you need to update the Swagger API to reflect this change. As a bonus exercise, update the APIDocs as suggested in Module 3, substituting the _user_key_ with _app_id_ and _app_key_ correctly, so that test requests can be sent from the Documentation page of the portal to this API endpoint.

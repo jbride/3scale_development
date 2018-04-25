@@ -1,0 +1,30 @@
+:noaudio:
+
+:scrollbar:
+:data-uri:
+
+
+== Webhooks
+
+.Webhook Events setup in Admin Portal
+
+image::images/3scale_amp_admin_webhooks.png
+
+
+* HTTP callback triggered by 3scale event.
+* Events can be developer portal or admin portal related.
+* Sends an XML document in standard format
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+The use of webhooks allows you to tightly integrate 3scale with your back-office workflow. When specified events happen within the 3scale system, your applications will be notified with a webhook message, and you can use the data such as from a new account signup to populate your CRM system.
+
+A webhook is a custom HTTP callback triggered by an event. In the 3scale system, all the possible events are displayed as in the screenshot shown. When one of these events occurs, the 3scale system makes an HTTP (or HTTPS) request to the URI configured in the webhooks section.  The default behavior is to trigger webhooks only by actions triggered from within the Developer Portal. You can also allow webhooks to be fired by actions in the Admin Portal. 
+ 
+
+
+endif::showscript[]
