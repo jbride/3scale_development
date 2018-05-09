@@ -1,24 +1,23 @@
 :noaudio:
-
 :scrollbar:
 :data-uri:
 
 
-== Single Sign On (SSO) for Admin Portal
+== Single Sign-On (SSO) for Admin Portal
 
-* Support for single sign on using Red Hat SSO & Auth0
+* Support for single sign-on using Red Hat SSO and Auth0
 * Can restrict access by roles or user groups
-* Members need to signup with 3scale using SSO to login
+* Members need to sign up using SSO to log in
 
 ifdef::showscript[]
 
 Transcript:
 
-3scale supports single sign on (SS0) authentication for your members and admins.
+3scale API Management supports single sign-on authentication for members and administrators.
 
-The admin portal supports the Red Hat SSO & Auth0, each which support a number of identity brokering and member federation options. Only users that have been added to RH SSO or Auth0 will be able to access your 3scale admin portal through SSO. Once you have established SSO through your chosen provider, you must configure it and enable it on the 3scale admin portal. 
+The Admin Portal supports Red Hat SSO and Auth0, each of which supports a number of identity brokering and member federation options. Only users that have been added to Red Hat SSO or Auth0 can access the Admin Portal through SSO. Once you have established SSO through your chosen provider, you must configure it and enable it on the Admin Portal.
 
-Once you have configured SSO, members can sign on using the account credentials in connected IdPs.
+Once you have configured SSO, members can sign on using the account credentials in the connected Intrusion Detection and Prevention Systems (IdPs).
 
 
 endif::showscript[]

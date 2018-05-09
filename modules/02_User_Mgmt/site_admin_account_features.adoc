@@ -1,5 +1,4 @@
 :noaudio:
-
 :scrollbar:
 :data-uri:
 
@@ -7,21 +6,22 @@
 == Account Administrator Features
 
 
-.Account Management
-image::images/3scale_amp_admin_account_management.png[]
+.*Account Management*
 
-* Administration
-** Organization Details (Company Name, Logo, TimeZone)
+image:images/3scale_amp_admin_account_management.png[]
+
+* Administration:
+** Adding/editing organization details (company name, timezone, logo)
 ** Exporting data from Admin Portal
-** Admin User Management 
-** SSO Integration
+** Managing administrator users
+** Integrating Red Hat Single Sign-On (SSO)
 
 ifdef::showscript[]
 
 Transcript:
 
 
-The account administrator can manage provider accounts using 3scale Admin Portal. The administor has a section in 3scale portal wherein the tasks shown here can be performed. These include editing the organisational details e.g company name, time zone & logo to be used for admin portal; providing Single sign on integration for admin user accounts, or inviting users to admin portal, and enabling admin tasks to be carried out by multiple users with different roles.
+The account administrator can manage provider accounts using the Admin Portal. A section in the Admin Portal lists the tasks that can be performed. These include editing the organizational details such as company name, time zone, and logo to be used in the Admin Portal, exporting data from the Admin Portal, managing administrator users, and providing SSO integration for administrator user accounts. Other tasks include inviting users to the Admin Portal and enabling administrator tasks to be carried out by multiple users with different roles.
 
 
 endif::showscript[]

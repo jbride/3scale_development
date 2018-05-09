@@ -1,39 +1,38 @@
 :noaudio:
-
 :scrollbar:
 :data-uri:
 
 
 == Users and Rights on Admin Portal
 
-* 2 types of users:
-** *Admins* - full access to all areas, and member management.
-** *members* - Limited access to certain areas or services only.
+* Two user types (roles):
+** `admin`- full access to all areas, and member management
+** `member` - limited access to certain areas or services
 
-* Give users rights on Admin Portal 
-** *by area* - access to section in Admin Portal & corresponding REST API
+* Assign users rights on Admin Portal
+** *By area* - access to section in Admin Portal and corresponding REST API
 *** Developer Portal (Account Management API)
 *** Analytics
 *** Billing
-** *by services*
+** *By services*
 
 
 ifdef::showscript[]
 
 Transcript:
 
-In order to share the workload of administering your APIs, you may wish to invite team members from your organization to access the 3scale Admin Portal. 
+To share the workload of administering your APIs, you may wish to invite team members from your organization to access the Admin Portal.
 
-The term users refers to members of the administration team. The 3scale Admin Portal has two types of users:
+The term _users_ refers to members of the administration team. The Admin Portal has two types of users, defined by role:
 
-Admins: Which have full access to all areas and services, and can invite other members.
-Members: Which have limited access to areas of the product (e.g. Analytics, Developer Portal) and, if you’re an enterprise customer, also to services.
+* `admin` users have full access to all areas and services, and can invite other members.
+* `member` users have limited access to areas of the product--for example, analytics, the Developer Portal, and, if you’re an enterprise customer, also to services.
 
-There are two main type of rights you can give to members of your team:
+Members of your team can be assigned rights in two ways:
 
-By area: Such as analytics, billing, or developer administration.
-By service: Choose which services to give access to members amongst all of your services. 
+* *By area*: Such as analytics, billing, or developer administration.
+* *By service*: Choose which services to give access to members.
 
-Giving members access to certain areas of the 3scale Admin Portal will give them access only to the equivalent API.
+Giving members access to certain areas of the Admin Portal gives them access only to the equivalent API.
 
 endif::showscript[]
