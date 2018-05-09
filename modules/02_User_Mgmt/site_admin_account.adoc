@@ -11,10 +11,10 @@
 |3scale API Management
 a|* Sign in to Admin Portal using account user/email provided on sign-up:
 +
-image:images/3scale_saas_admin_signin.png[]
+image:images/3scale_saas_admin_signin.png[width=100%]
 a|* Sign in to Admin Portal using default `admin` user:
 +
-image::images/3scale_amp_admin_signin.png[]
+image::images/3scale_amp_admin_signin.png[width=100%]
 |===
 
 ifdef::showscript[]
