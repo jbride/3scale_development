@@ -24,7 +24,7 @@ Any changes to the Developer Portal can be accessed in a draft version to ensure
 
 The Developer Portal can be a public site accessible to all developers with the URL, or it can be restricted so that it is accessible only to users with the shared access code.
 
-Some advanced features of the platform are by default not visible to developers. HTML fragments of its controls are not rendered on the Developer Portal so that your styling remains intact when upgrading. For example, developers do not see a Create User button on the portal if the Multiple Users feature is hidden.
+Some advanced features of the platform are by default not visible to developers. HTML fragments of its controls are not rendered on the Developer Portal so that your styling remains intact when upgrading. For example, developers do not see a Create User button on the portal if the Multiple Users feature is hidden. All signup flows are "custom". Hence, even enabling a single application signup leading to display of the signup button, is a customization. These customizations can break during an upgrade of the AMP, when the default pages & objects are updated. Hence, some of the pages are hidden under features and not tracked unless the feature is enabled by the site admin. This is to prevent users accidentally updating or breaking a page.
 
 
 
