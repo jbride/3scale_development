@@ -1,30 +1,30 @@
 :noaudio:
-
 :scrollbar:
 :data-uri:
 
 
 == Account Administrator
 
-* On *3scale SaaS*:
-
-.Sign in to Admin Portal using Account user/email provided on signup
-image::images/3scale_saas_admin_signin.png[]
-
-* On *3scale AMP*:
-
-.Sign in to Admin Portal using default "admin" user created.
-image::images/3scale_amp_admin_signin.png[]
-
+[cols="2"]
+|===
+|3scale API Management SaaS
+|3scale API Management
+a|* Sign in to Admin Portal using account user/email provided on sign-up:
++
+image:images/3scale_saas_admin_signin.png[width=100%]
+a|* Sign in to Admin Portal using default `admin` user:
++
+image::images/3scale_amp_admin_signin.png[width=100%]
+|===
 
 ifdef::showscript[]
 
 Transcript:
 
 
-There is a default admin user with an account subscription access provided. On a Red Hat 3scale API Management platform, usually SaaS, it is the account that the provider uses to log in to 3scale and manage APIs. In the 3scale AMP, this represents the "admin" account to access the Admin Portal.
+There is a default `admin` user with account subscription access. On SaaS Red Hat 3scale API Management, it is the account the provider uses to log in and manage APIs. In the API Management Platform (AMP) component, this represents the `admin` account used to access the Admin Portal.
 
-Both the figures above represent the admin user and signin credentials for accessing the Admin Portal. This is the admin user that has access to the Account Management features of the Admin Portal. This user can create other users/accounts for managing other aspects of administration for providers, as we shall see in the next slide.
+Both of the figures above represent the `admin` user and sign-in credentials for accessing the Admin Portal. This is the `admin` user that has access to the account management features of the Admin Portal. This user can create other users and accounts for managing other aspects of administration for providers, as shown in the next slide.
 
 
 endif::showscript[]

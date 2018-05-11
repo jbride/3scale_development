@@ -1,19 +1,18 @@
 :noaudio:
-
 :scrollbar:
 :data-uri:
 
 
 == Module Topics
 
-
-* Accounts Overview
-* Admin Account
-* Admin Access Keys
-* Admin Portal access with SSO
+* Account Data Model
+* Account Administrator
+* Account Administrator Features
+* User Rights on Admin Portal
+* Single Sign-On for Admin Portal
 * Webhooks
 * Developer Account
-* Service subscription
+* Service Subscriptions
 
 
 
@@ -22,6 +21,6 @@ ifdef::showscript[]
 
 Transcript:
 
-This module provides an introduction to the Account Management of 3scale. The different types of user accounts e.g Provider administrator accounts and developer accounts are introduced. Administration tasks for Providers and developers are discussed respectively. We also look at the user management, including user lifecycle, invites, approvals and activation. Managing user mapping to 3scale admin portal through a LDAP is also discussed. 
+This module provides an introduction to the account management in Red Hat 3scale API Management. The account data model is reviewed, followed by a description of the account administrator role and the two types of users. The module continues with a discussion of Admin Portal single sign-on, webhooks, and developer accounts. The module concludes with a look at service subscriptions.
 
 endif::showscript[]
