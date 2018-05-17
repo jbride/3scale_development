@@ -19,7 +19,7 @@ a|
 ** Ruby gem
 ** Perl
 ** PHP
-a|** Java
+a|** Java^TM^
 ** .NET
 ** Node.js
 |======

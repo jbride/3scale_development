@@ -33,7 +33,7 @@ TIP: To check if your shell still has this environment variable set, execute the
 
 == Initial API Resources
 
-In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APICast gateway. You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
+In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APIcast gateway. You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
 
 
 === Log In to Admin Portal
@@ -295,15 +295,15 @@ products-staging-route          products-staging-apicast-user76.apps.na1.openshi
 +
 IMPORTANT: This is the route you set in the Business Services Lab. It should be `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:80`. Note that the values do not resolve on 3scale AMP, so you need to provide the full path--for example: `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80`
 +
-NOTE: If your Business service is running in the same OpenShift cluster as your APICast gateway, then you can use service endpoint instead of the Route endpoint. The service endpoint will be the service host and port information provided in the Service description, as shown below. 
+NOTE: If your business service is running in the same OpenShift cluster as your APIcast gateway, then you can use the service endpoint instead of the route endpoint. The service endpoint will be the service host and port information is provided in the service description, as shown below: 
 +
 image::images/ocp_product_service_endpoint.png[]
 +
-* *Staging public base URL*: Route to the products APICast staging endpoint
+* *Staging public base URL*: Route to the products APIcast staging endpoint
 +
 IMPORTANT: This is the staging route URL you created in the previous section. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Note that the values do not resolve on 3scale AMP, so you need to provide the full path--for example: `products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
 +
-* *Production public base URL*: Route to the products APICast production endpoint
+* *Production public base URL*: Route to the products APIcast production endpoint
 +
 IMPORTANT: This is the production route URL you created in the previous section. It should be `https://products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Note that the values do not resolve on 3scale AMP, so you need to provide the full path--for example: `https://products-production-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
 
@@ -329,15 +329,15 @@ In this section you configure and test a rate-limiting policy in an application 
 
 Rate limits allow you to throttle access to your API resources. You can configure different limits for separate developer segments through the use of application plans.
 
-Once you have rate limits in place, these limits will control the responses a developer receives when they make authorization request calls to the backend service using 3scale. The limits are configured in the Admin Portal, and will be enforced by the APICast gateway during service invocation. The gateway receives the configuration information from the 3scale backend which contains the rate limits for the different application plans within each service. 
+Once you have rate limits in place, these limits control the responses a developer receives when he or she makes authorization request calls to the backend service using 3scale. The limits are configured in the Admin Portal, and are enforced by the APIcast gateway during service invocation. The gateway receives the configuration information from the 3scale backend which contains the rate limits for the different application plans within each service. 
 
 The sequence of steps is as follows:
 
-. APICast refreshes itself with the latest API configurations from the backend every 5 minutes (or as configured)
-. APICast implements a local in-memory cache for authorization keys and metrics.
-. With every inbound request to a backend service, apicast uses an asynch transport to make an *authrep* request to the backend listener API in 3scale.
-. *authrep* response from 3scale backend updates local apicast cache.
-. APIcast will reject all subsequent inbound requests if backend determines that rate limit is exceeded.
+. APIcast refreshes itself with the latest API configurations from the backend every 5 minutes (or as configured).
+. APIcast implements a local in-memory cache for authorization keys and metrics.
+. With every inbound request to a backend service, APIcast uses an asynch transport to make an `authrep` request to the backend listener API in 3scale.
+. An `authrep` response from the 3scale backend updates the local apicast cache.
+. APIcast rejects all subsequent inbound requests if the backend determines that the rate limit has been exceeded.
 
 In this lab, you will check the rate limiting in the context of the Products API. 
 

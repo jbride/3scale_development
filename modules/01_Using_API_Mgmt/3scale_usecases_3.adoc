@@ -12,7 +12,7 @@
 ** Visibility
 ** API UX
 * Defining APIs
-* Integrating APIs with Red Hat 3scale API Management
+* Integrating APIs with Red Hat^(R)^ 3scale API Management
 * Managing API access (application plans, limits & pricing rules)
 * Engaging developers
 * Exposing API
