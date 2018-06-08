@@ -143,7 +143,7 @@ image::images/3scale_amp_products_create_app2.png[]
 image::images/3scale_amp_products_app_plan_userkey.png[]
 
 
-== Create Mappings and Methods
+== Create Methods and Mappings
 
 From the previous lab, recall the resources exposed by the Products API when you reviewed them in: http://editor.swagger.io.
 This understanding of the Products API will now be utilized to define _methods_ in 3scale and map those methods to the resources exposed by your Products API.
@@ -202,7 +202,12 @@ image::images/3scale_amp_products_create_all_methods.png[]
 image::images/3scale_amp_products_create_all_mappings.png[]
 
 
-== Create Stage and Prod Routes
+== Product API Stage and Prod Routes
+
+Remote clients will invoke your Products API via a routes assigned to your _apicast_  stage and production services.
+
+The default installation of 3scale does include generic routes to your _apicast_ services.
+In this section, you will remove these generic routes and replace with routes more specific to your Products API.
 
 . From the command line, verify that you are logged in to OpenShift.
 . Verify that you are in the *3scale AMP* project:
@@ -295,6 +300,9 @@ image::images/3scale_amp_products_curl_test_url.png[]
 +
 NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
 . Once the request is successful, click *Promote to Production* and test the `curl` request for production.
++
+Recall that you may have to wait up to 5 minutes for the new _proxy_ state to be synchronized in your production APIcast.
+Alternatively, you could redeploy your production APIcast if you don't want to wait. 
 
 
 == Rate Limiting
@@ -387,13 +395,14 @@ NOTE: When running the `curl` request from the command line, you need to add a `
 [source,text]
 -----
 ..
-< HTTP/1.1 403 Forbidden
+< HTTP/1.1 429 Too Many Requests
 ..
 * Connection #0 to host products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com left intact
-Authentication failed
+
+Limits exceeded
 -----
 +
-* Because the limit set for the `Get` method is 5 requests per hour, the 6th and subsequent requests produce an HTTP 403 response.
+* Because the limit set for the `Get` method is 5 requests per hour, the 6th and subsequent requests produce an HTTP 429 response.
 
 . Repeat the test for the `/rest/services/products` endpoint to test the limit for the *Get All Products* method.
 * In the above `curl` request, replace the URL `rest/services/product/1` with `/rest/services/products`.

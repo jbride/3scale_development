@@ -222,7 +222,7 @@ $ curl -X GET http://"$(oc get route/products-api -o template --template {{.spec
 +
 Expect to see a list of products that were seeded into your PostgreSQL based Products database.
 
-== Product API Documentation
+== Products API Documentation
 
 Your Products service provides a _swagger.yaml_ configuration file that documents the resources that it exposes.
 
