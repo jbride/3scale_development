@@ -80,16 +80,18 @@ image::images/3scale_amp_products_create_service_2.png[]
 
 Plans are used for granting access to specific APIs and endpoints, limiting traffic, and monetizing API usage. Application plans let you configure access rights to an API by specifying rate limits and pricing rules. All applications must be associated with a plan. Application plans can be customized for each application.
 
-. In the newly created *Products* service, create a new application plan:
-+
-image::images/3scale_amp_products_app_plan.png[]
+In this section of the lab, you'll create two new Application Plans for the *Products* service.
+ 
 
 . In the APIs section, expand the *Products* API and scroll down to the *Published Application Plans* section.
-. Click *Create Application Plan*.
-. Use the following parameters:
++
+image::images/3scale_amp_products_app_plan.png[]
+. Create `ProductsBasicPlan`:
+.. Click *Create Application Plan*.
+.. Use the following parameters:
 * *Name*: `ProductsBasicPlan`
 * *System Name*: `products/basic`
-. Click *Create Application Plan*:
+.. Click *Create Application Plan*:
 +
 image::images/3scale_amp_products_app_plan2.png[]
 
