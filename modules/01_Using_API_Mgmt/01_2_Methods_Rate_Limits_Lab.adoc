@@ -46,12 +46,12 @@ NOTE: The URL for 3scale by Red Hat's Admin Portal was noted in the previous lab
 +
 image::images/3scale_amp_admin_portal_login.png[]
 
-. Navigate to *Developers* and delete the default `Developer` user (if it exists) :
+. Navigate to *Developers* and suspend the default `Developer` user (if not already supended) :
 +
 image::images/3scale_amp_admin_delete_developers.png[]
 +
-NOTE:  Deletion of this `Developer` user will reduce possible confusion later on in this lab.
-If this default `Developer` account is not deleted, new API services that are defined will automatically have a default _application_ (with corresponding API keys) created for this user.
+NOTE:  Suspension of this `Developer` user will reduce possible confusion later on in this lab.
+If this default `Developer` account is not suspended, new API services that are defined will automatically have a default _application_ (with corresponding API keys) created for this user.
 You'll then have to subsequently make sure you are using the desired _application_ and not this default _application_ associated with this default _developer_ account.
 
 === Define Products API Service
