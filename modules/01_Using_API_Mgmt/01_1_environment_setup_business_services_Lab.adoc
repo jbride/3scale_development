@@ -212,3 +212,17 @@ $ curl -v -k http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/servi
 
 
 The `products` REST API service is now running and exposed to external clients. In later lab exercises, you learn how to manage and secure these mock business services using Red Hat 3scale API Management.
+
+== Product API swagger.yaml
+
+Your Products service provides a _swagger.yaml_ configuration file that defines the resources that it exposes.
+
+To gain access to this _swagger.yaml_ config file, point your browser to the output of the following command:
+
+-----
+$ echo http://"$(oc get route/products-api -o template --template {{.spec.host}})"/rest/swagger.yaml
+-----
+
+You'll be able to download this _swagger.yaml_ configuration file to your local filesystem and skim through it.
+
+You'll make use of this _swagger.yaml_ configuration file in the next lab.
