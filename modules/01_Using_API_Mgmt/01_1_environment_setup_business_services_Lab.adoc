@@ -36,7 +36,7 @@ $ git clone https://github.com/gpe-mw-training/3scale_development_labs
 
 . Examine the subdirectory structure of the labs and note the available subprojects:
 * *Products*: JEE application that exposes a JAX-RS REST API. This is the business API that you manage using Red Hat 3scale API Management.
-*Stores*: JBoss^(R)^ EAP application that exposes a CXF SOAP API web service.
+* *Stores*: JBoss^(R)^ EAP application that exposes a CXF SOAP API web service.
 * *StoresFIS*:  JBoss Fuse camel application that exposes a REST API and routes to the Stores SOAP service.
 * *templates*: OpenShift templates for defining the service build and deployment parameters of your project.
 * *3scale-Swagger-Import*: Custom tool for importing API definitions using OpenAPI Specifications (OAS) into Red Hat 3scale API Management.
@@ -50,10 +50,29 @@ $ git clone https://github.com/gpe-mw-training/3scale_development_labs
 
 In this section you deploy the Products API on a Red Hat JBoss Enterprise Application Platform (EAP) container running on OpenShift. The products data exists in a PostgreSQL database, which is deployed to the same OpenShift namespace.
 
-IMPORTANT: When executing commands using the `oc` utility, you must be logged in to the master API of your OpenShift environment with your `OCP_USER_ID` credentials.
+The lab assets that you previously cloned include everything needed to build and run the _Products API_.
+
+Specific to the Products API, study the following from your lab assets:
+
+. *~/lab/3scale_development_labs/templates/products-api.json*
+. *~/lab/3scale_development_labs/Products/src/main/java*
+
+To test your understanding of the _Products API_ assets, answer the following questions:
+
+. What source code is compiled in the _BuildConfig_ object responsible for creating the Products container image ?
+. How is the PostgreSQL based Products database seeded with data ?
+. The REST API of the Products service will generate a _swagger.yaml_ configuration file that defines the resources and HTTP methods exposed by the API.
++
+This _swagger.yaml_ is exposed by the Products service at runtime and can be viewed in a tool such as:  http://editor.swagger.io .
++
+What is used to generate the _swagger.yaml_ configuration ?
 
 
 === Create New Project for Products API Services
+
+. Using the `oc` found in the course virtual machine, log into the master API of your OpenShift environment.
++
+NOTE: The login session to your OpenShift environment is valid for 24 hours.  Every 24 hours, you'll have to re-authenticate using the `oc` utility and subsequently re-generate a new session.
 
 . Create a new project for your Products API business service applications:
 +
