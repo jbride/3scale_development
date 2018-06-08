@@ -411,16 +411,16 @@ image::images/3scale_amp_products_curl_test_url_2.png[]
 +
 NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
 +
-* Because the limit is set to 1 request per minute, expect an *HTTP 403 Forbidden* response on subsequent requests.
+* Because the limit is set to 1 request per minute, expect an *HTTP 429 Forbidden* response on subsequent requests.
 +
 .Sample Output
 [source,text]
 -----
 ..
-< HTTP/1.1 403 Forbidden
+< HTTP/1.1 429 Forbidden
 ..
 * Connection #0 to host products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com left intact
-Authentication failed
+Limits exceeded
 -----
 +
 NOTE: In the SaaS version of 3scale AMP (and in a future release of 3scale on-premise), you can create pricing rules for your APIs in the application plans. This functionality is out of scope for this lab.
