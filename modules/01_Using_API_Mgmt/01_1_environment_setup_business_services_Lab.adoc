@@ -72,7 +72,7 @@ What is used to generate the _swagger.yaml_ configuration ?
 
 === Create New Project for Products API Services
 
-. Using the `oc` found in the course virtual machine, log into the master API of your OpenShift environment.
+. Using the `oc` utility found in the course virtual machine, log into the master API of your OpenShift environment.
 +
 NOTE: The login session to your OpenShift environment is valid for 24 hours.  Every 24 hours, you'll have to re-authenticate using the `oc` utility and subsequently re-generate a new session.
 
