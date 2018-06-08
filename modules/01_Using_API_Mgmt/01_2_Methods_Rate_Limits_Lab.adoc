@@ -145,43 +145,10 @@ image::images/3scale_amp_products_app_plan_userkey.png[]
 
 == Create Mappings and Methods
 
-=== Investigate Products API
+From the previous lab, recall the resources exposed by the Products API when you reviewed them in: http://editor.swagger.io.
+This understanding of the Products API will now be utilized to define _methods_ in 3scale and map those methods to the resources exposed by your Products API.
 
-In order to create the methods and mappings, it is important to understand the API specification for the Products API. The Products API provides a Swagger specification which we can use to check out the documentation for the API.
-
-To access the Swagger documentation, follow the steps below:
-
-. In a new browser window, navigate to `http://editor.swagger.io/`.
-. Select *File -> Import URL*.
-. Enter the URL of your business API swagger specification.  This URL can be determined by executing the following:
-+
------
-$ echo http://"$(oc get route/products-api -n $OCP_PROJECT_PREFIX-products-api -o template --template {{.spec.host}})"/rest/swagger.yaml
------
-
-. Click *OK*.
-. In line 6, replace *host* from *localhost:8080* to the route URL for the products API. ie; the output of the following: 
-+
------
-$ echo "$(oc get route/products-api -n $OCP_PROJECT_PREFIX-products-api -o template --template {{.spec.host}})"
------
-. Notice that the methods, relative paths and sample request/response are loaded on the screen.
-+
-image::images/3scale_amp_products_api_swagger.png[]
-+
-. Pay particular attention to the 4 REST services, corresponding HTTP methods, relative path, HTTP scheme and descriptions.
-+
-image::images/3scale_amp_products_api_swagger_2.png[]
-+
-. You can send sample requests to the API for each method to get an understanding of the request and response types.
-+
-image::images/3scale_amp_products_api_swagger_3.png[]
-+
-. Notice the response and response content types for each request.
-+
-image::images/3scale_amp_products_api_swagger_4.png[]
-
-Now that you are familiar with the API, the next step is to define the methods and mappings for the API in the 3scale API Management portal.
+Afterwards, in a later section of this lab, we'll use those methods to define _rate limits_ and collect utilization _metrics_ on each of those Product API resources.
 
 === Methods
 

@@ -195,7 +195,11 @@ products-api               products-sjayanti-redhat-com.apps.na1.openshift.opent
 
 * This is the URL to connect to the Products API service. 
 * It uses the format `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN`.
-.. Test that the `products` API service accepts requests and returns the correct response:
+
+
+== Products API Smoke Test
+
+. Test that the `products` API service accepts requests and returns the correct response:
 +
 [source,text]
 -----
@@ -210,10 +214,15 @@ $ curl -v -k http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/servi
 {"productid":1,"productname":"Ninja Blender","productprice":320.0}
 -----
 
+. A list of all products can be retrieved by executing the following: 
++
+-----
+$ curl -X GET http://"$(oc get route/products-api -o template --template {{.spec.host}})"/rest/services/products | python -m json.tool
+-----
++
+Expect to see a list of products that were seeded into your PostgreSQL based Products database.
 
-The `products` REST API service is now running and exposed to external clients. In later lab exercises, you learn how to manage and secure these mock business services using Red Hat 3scale API Management.
-
-== Product API Test and Documentation
+== Product API Documentation
 
 Your Products service provides a _swagger.yaml_ configuration file that documents the resources that it exposes.
 
@@ -225,12 +234,40 @@ $ echo http://"$(oc get route/products-api -o template --template {{.spec.host}}
 
 Via your browser, you can download this _swagger.yaml_ configuration file to your local filesystem and skim through it.
 
-You'll make use of this _swagger.yaml_ configuration file in the next lab.
+This Swagger documentation can be better visualized in a tool such as:  http://editor.swagger.io
 
-Also, smoke test your Product API by executing the following at the command line:
- 
+. In a new browser window, navigate to `http://editor.swagger.io/`.
+. Select *File -> Import URL*.
+. Enter the URL of your business API swagger specification.  This URL can be determined by executing the following:
++
 -----
-$ curl -X GET http://"$(oc get route/products-api -o template --template {{.spec.host}})"/rest/services/products | python -m json.tool
+$ echo http://"$(oc get route/products-api -n $OCP_PROJECT_PREFIX-products-api -o template --template {{.spec.host}})"/rest/swagger.yaml
 -----
 
-Expect to see a list of products that were seeded into your PostgreSQL based Products database.
+. Click *OK*.
+. In line 6, replace *host* from *localhost:8080* to the route URL for the products API. ie; the output of the following:
++
+-----
+$ echo "$(oc get route/products-api -n $OCP_PROJECT_PREFIX-products-api -o template --template {{.spec.host}})"
+-----
+
+. Notice that the methods, relative paths and sample request/response are loaded on the screen.
++
+image::images/3scale_amp_products_api_swagger.png[]
++
+. Pay particular attention to the 4 REST services, corresponding HTTP methods, relative path, HTTP scheme and descriptions.
++
+image::images/3scale_amp_products_api_swagger_2.png[]
++
+. You can send sample requests to the API for each method to get an understanding of the request and response types.
++
+image::images/3scale_amp_products_api_swagger_3.png[]
++
+. Notice the response and response content types for each request.
++
+image::images/3scale_amp_products_api_swagger_4.png[]
+
+Now that you are familiar with the API, the next step is to define the methods and mappings for the API in the 3scale API Management portal.
+
+
+The `products` REST API service is now running and exposed to external clients. In later lab exercises, you learn how to manage and secure these mock business services using Red Hat 3scale API Management.
