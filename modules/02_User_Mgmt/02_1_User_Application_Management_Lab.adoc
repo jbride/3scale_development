@@ -93,10 +93,14 @@ image::images/3scale_amp_products_account_send_message_4.png[]
 
 == Invite User to Join Developer Account
 
-In 3scale API Management, multiple users can be created for the same account. When the developer account for RHBank was created in the previous lab, the account was created for a specific email ID, username, and password. The Organization/Group Name provided is the name of the account. The default user created is an `admin` user of the developer account, and as such, can invite other users to the account.
+When the developer account for RHBank was created in the previous lab, the account was created for a specific email ID, username, and password. 
+In 3scale API Management, multiple users can be created for the same account. 
 
+In this section of the lab, new user's will be invited to account.
 
-=== Send Invitation to User's Email Address
+You'll do this initially as the 3scale site admin and then do so again as the _RHBank_ account admin.
+
+=== Site Admin: Send Invitation to User's Email Address
 
 . Click the *Developers* tab.
 . Click the *RHBank* account.
@@ -154,8 +158,6 @@ image::images/3scale_amp_products_account_invite_user_8.png[]
 
 === Administer User Account
 
-NOTE: Start this procedure after completing the lab *2.1 Development Portal Customization*.
-
 . Access the Developer Portal and log in as the new user.
 . Review your application and credentials in the portal.
 . Click *Settings* and try to access the *Users* and *Invitations* links:
@@ -166,6 +168,10 @@ image::images/3scale_amp_products_account_invite_user_9.jpg[]
 . Sign out of the Developer Portal.
 
 === Administer Administrator Account
+
+Previously you created an account called _RHBank_ and an account admin called: _rhbankdev_.
+
+As an account admin, the user _rhbankdev_ can invite other users to the account.
 
 . Log in as an `admin` user of the RHBank account (`rhbankdev`).
 . Click the *Users* tab.
