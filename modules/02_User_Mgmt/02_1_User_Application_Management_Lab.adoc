@@ -171,7 +171,10 @@ image::images/3scale_amp_products_account_invite_user_9.jpg[]
 
 Previously you created an account called _RHBank_ and an account admin called: _rhbankdev_.
 
-As an account admin, the user _rhbankdev_ can invite other users to the account.
+As an account admin, the user _rhbankdev_ can invite other users to the account via the Developer Portal.
+
+NOTE:  Account admins (ie: _rhbankdev_ ) only have access to the Developer Portal.  
+They do not have access to the 3scale Admin Portal.
 
 . Log in as an `admin` user of the RHBank account (`rhbankdev`).
 . Click the *Users* tab.
