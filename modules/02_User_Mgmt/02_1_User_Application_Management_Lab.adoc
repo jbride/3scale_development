@@ -167,7 +167,7 @@ image::images/3scale_amp_products_account_invite_user_9.jpg[]
 . Notice that you get an *Access Denied* error because these tabs are reserved for `admin` users.
 . Sign out of the Developer Portal.
 
-=== Administer Administrator Account
+=== Account Admin: Send Invitation to User’s Email Address
 
 Previously you created an account called _RHBank_ and an account admin called: _rhbankdev_.
 
