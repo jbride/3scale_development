@@ -199,8 +199,16 @@ image::images/3scale_amp_products_app_userkey_regenerate.png[]
 . Confirm the change by clicking *OK* in the pop-up window and verify that a new user key was generated.
 . Try the request to the Product API with the old key and observe the *Authentication Failed* error.
 . Retry the request with the new user key and observe that the request succeeds.
+
+=== Enable User to Manage their API Key
+
+. As a site admin logged into the Admin Portal, navigate to: `APIs -> Products -> Settings -> Application Requirements`
+. Ensure that the following checkbox is enabled:  `Developers can manage applications`
+. In the Developer Portal, log in as one of the users that was previously invited to the `RHBank` Account.
+. As this account user, navigate to: `Applications` and click on _RHBank's App_
+. Notice the account user's ability to `Regenerate` the API key
 +
-NOTE: Users can also manage their user key from the Developer Portal. After completing the labs in the "Custom Developer Portal" module, repeat this procedure and regenerate the user key from the Developer Portal.
+image::images/user_regenerate_key.png[]
 
 === Set Custom Key
 
@@ -221,7 +229,7 @@ NOTE: A custom user key can also be provided in the Developer Portal.  You could
 
 == Change Authentication to App ID and App Key
 
-An alternative to using the API key (user key) for authentication is to use a combination of app ID and app key. In this method, the application is identified bny its app ID and then authenticated with the app key. 
+An alternative to using the API key (user key) for authentication is to use a combination of app ID and app key. In this method, the application is identified by its app ID and then authenticated with the app key. 
 
 In this section you change the authentication for the Products service to use the app ID and app key instead of the API key.
 
