@@ -205,7 +205,7 @@ image::images/3scale_amp_products_app_userkey_regenerate.png[]
 . As a site admin logged into the Admin Portal, navigate to: `APIs -> Products -> Settings -> Application Requirements`
 . Ensure that the following checkbox is enabled:  `Developers can manage applications`
 . In the Developer Portal, log in as one of the users that was previously invited to the `RHBank` Account.
-. As this account user, navigate to: `Applications` and click on _RHBank's App_
+. As this account user, navigate to: `Applications` and click on _ProductsApp_
 . Notice the account user's ability to `Regenerate` the API key
 +
 image::images/user_regenerate_key.png[]
