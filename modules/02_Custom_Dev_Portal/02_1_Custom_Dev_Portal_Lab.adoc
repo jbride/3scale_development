@@ -29,11 +29,11 @@ In this section of the lab, you will customize that swagger configuration so as 
 
 . In a new browser window, navigate to `http://editor.swagger.io/`.
 . Select *File -> Import URL*.
-. Enter the URL of your business API swagger specification:
+. Enter the URL of your business API swagger specification as per the output of the following :
 +
-`http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml`
-+
-IMPORTANT: The values do not resolve in the browser, so you need to provide the full path, for example: `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80/rest/swagger.yaml`
+-----
+echo http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml
+-----
 
 . Click *OK*.
 . In the YAML editor, make the following changes:
@@ -54,12 +54,15 @@ IMPORTANT: The values do not resolve in the browser, so you need to provide the 
 +
 image::images/3scale_amp_products_swagger1.png[]
 +
-.. Line 50: Repeat step c (the change for line 24):
+The above config snippet will augment the Products API documentation with an indication that a _user_key_ field is required.
+And, via the _x-data-threescale-name_ configuration, this field will be auto-filled with the user's actual API key when invoking this service from the API documentation.
+
+.. Line 50: Repeat the previous change for line 24:
 +
 image::images/3scale_amp_products_swagger2.png[]
 
 .. Line 74: Repeat step c.
-.. Line 98: Delete the curly brackets.
+.. Line 98: Delete the square brackets.
 .. Line 99: Repeat step c for adding a user key:
 +
 [source,YAML]
@@ -137,7 +140,7 @@ From time to time, you'll likely need the URL to your developer portal.
 The CMS of your 3scale AMP provides a link at the top of the homepage called:  _Visit Developer Portal_.
 Clicking that link will automatically redirect your browser to the URL of the developer portal.
 
-The welcome email send to new developer users also includes the link to the developer portal.
+The welcome email sent to new developer users also includes the link to the developer portal.
 
 Another simple mechanism to determine the URL to your developer portal is directly from OpenShift.
 
@@ -235,9 +238,9 @@ image::images/3scale_amp_products_dev_portal7_0.png[]
     var url = "{{provider.api_specs.products_spec.url}}";
 -----
 +
-.. Click *Save*.
-+
 image::images/3scale_amp_products_dev_portal7_1.png[]
++
+.. Click *Save*.
 +
 . Click *Homepage*:
 +
@@ -298,7 +301,7 @@ image::images/3scale_amp_products_dev_portal14.png[]
 In a previous lab, recall that you defined a _ProductsBasicPlan_ where both the _Create Product_ and _Delete Product_ methods are disabled.
 Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group. 
 
-Subsequently, you could exepct a request for either of these methods to result in a *HTTP 403: Not Authorized* error.
+Subsequently, you could exepct a request for either of these methods to result in a *HTTP 429: Too Many Requests* error.
 
 In this section of the lab, you will now define a different application plan and group that will have full access to all methods of the Products API.
 
