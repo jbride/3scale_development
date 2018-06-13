@@ -16,6 +16,22 @@ In this lab you create API documentation for the APIs managed by Red Hat 3scale 
 
 :numbered:
 
+
+== Reference
+
+This lab will introduce you the Developer Portal.
+However, you will likely want to reference additional documentation as you are working through this lab.
+
+Suggested reference material is as follows:
+
+* link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview^]
+* link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference^]
++
+The same reference is also available by navigating your browser to the following in the Admin Portal:  _Documentation  (in the top left corner) -> Liquid Reference_
++
+image::images/liquid_reference.png[]
+
+
 == API Documentation
 
 In this section, you generate and test ActiveDocs documentation for the API created in the previous module.
@@ -151,7 +167,7 @@ Another simple mechanism to determine the URL to your developer portal is direct
 image::images/dev_portal_route.png[]
 
 Alternatively, you could just as easily determine this using the OpenShift oc utility:
- 
+
 -----
 $ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3scale-amp --template "https://{{.spec.host}}"`\n\n"
 -----
@@ -294,12 +310,12 @@ image::images/3scale_amp_products_dev_portal13.png[]
 +
 image::images/3scale_amp_products_dev_portal14.png[]
 
-== Additional Role Based Access Control 
+== Additional Role Based Access Control
 
 === Premium App Plan with fully exposed Products API
 
 In a previous lab, recall that you defined a _ProductsBasicPlan_ where both the _Create Product_ and _Delete Product_ methods are disabled.
-Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group. 
+Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group.
 
 Subsequently, you could exepct a request for either of these methods to result in a *HTTP 429: Too Many Requests* error.
 
@@ -468,8 +484,3 @@ image::images/3scale_amp_products_dev_portal_groups_17.png[]
 
 
 Groups and private sections can be used to control access to certain sections of the Developer Portal, or to ensure that different sections or layouts could be accessed depending on the user's role.
-
-.References
-
-* link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview^]
-* link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference^]
