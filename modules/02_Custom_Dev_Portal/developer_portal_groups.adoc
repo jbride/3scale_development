@@ -2,9 +2,7 @@
 :data-uri:
 
 
-== 3scale Developer Portal
-
-.*CMS Overview*
+== CMS Overview
 
 image:images/developer-portal-overview.png[]
 
