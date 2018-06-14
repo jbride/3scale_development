@@ -14,7 +14,7 @@
 | *Analytics* | Report API performance insights
 | *API DevOps* | REST API for administrator, automating deployments
 | *API documentation* | Document Swagger API using 3scale ActiveDocs
-| *Developer Portal* | Create and customize Developer Portal
+| *Developer Portal CMS* | Create and customize Developer Portal
 | *Billing* | Integrate payment gateways and invoicing
 |======
 
@@ -32,7 +32,7 @@ Transcript:
 * Use *Analytics* to report API performance insights.
 * *API DevOps* provides the REST API for the administrator and can be used to automate deployments.
 * *API documentation* is where you document the Swagger API using 3scale ActiveDocs.
-* Use the *Developer Portal* functionality to create and customize the Developer Portal.
+* Use the *Developer Portal CMS* functionality to create and customize the Developer Portal.
 *  *Billing* is where you integrate payment gateways and invoicing.
 
 endif::showscript[]

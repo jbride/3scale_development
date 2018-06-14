@@ -21,7 +21,10 @@ Transcript:
 
 3scale's Admin Portal is the web console to manage and administer your Red Hat 3scale API Management services. It provides a rich web interface for all management activities.
 
-The Admin Portal URL is accessible at a public URL, which is provided on sign-up to the SaaS environment or on deployment of the AMP environment. An admin account with password is created during the installation of AMP. For the SaaS environment, an admin account is provided during sign-up. Using this admin account, API provider administrators can sign up to manage their APIs. An alternative Admin API is also provided in case administrators prefer to use REST service requests to manage their APIs.
+The Admin Portal URL is accessible at a public URL, which is provided on sign-up to the SaaS environment or on deployment of the AMP environment. An admin account with password is created during the installation of AMP. For the SaaS environment, an admin account is provided during sign-up. Using this admin account, API provider administrators can sign up to manage their APIs. 
+
+In addition, a RESTful Admin API is also provided via the Admin Portal.
+This RESTful Admin API facilitates automated provisioning and configuration of your 3scale AMP using CI/CD DevOps tooling.
 
 The configurations created in the Admin Portal are synced to the traffic controller periodically so that the API consumer calls flowing through the gateway are enforced with the right policies and mappings.
 

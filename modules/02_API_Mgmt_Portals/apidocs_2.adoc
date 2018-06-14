@@ -22,10 +22,15 @@ ActiveDocs is not a Swagger replacement--it is an instantiation of it. With Acti
 
 The only thing you need to do is build a Swagger-compliant specification of your API and add it to your Admin Portal, and the interactive documentation will be all set. Your developers can launch requests against your API through your Developer Portal.
 
-Red Hat 3scale API Management extended the Swagger specification in several ways to accommodate certain features that were needed for interactive API documentation:
+ActiveDocs extends the Swagger specification in several ways to accommodate certain features needed for interactive API documentation in the 3scale Developer Portal:
 
 * Autofill of API keys
-* Swagger proxy to allow calls to non-CORS-enabled APIs
+* For business APIs that are not CORS enabled, a Swagger proxy that does allow for Cross-Origin Resource Sharing
++
+NOTE: This is likely not very valuable any longer.  
+The 3scale APIcast gateway itself can now be configured to support CORS.  
+In addition, if using OAuth2 and RH-SSO, CORS enablement of your business APIs can be facilitated with these products.
+
 
 With ActiveDocs, users can easily test and call your OAuth-enabled API from one place.
 
