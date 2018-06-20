@@ -6,3 +6,4 @@ See [Table of content](toc.adoc)
 == Versions
 1.0 - Feb 28, 2018 - Initial Release
 1.1 - May 16, 2018 - Module 2 added.
+1.2 - Jun 20, 2018 - Numerous Corrections 
