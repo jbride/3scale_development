@@ -1,0 +1,21 @@
+:scrollbar:
+:data-uri:
+
+
+== API Application
+
+
+* Represents API consumer accessing API
+* Unique set of credentials - API keys
+* Linked to developer accounts
+* Associated with application plan
+* Can be disabled/retired by API administrator
+
+
+ifdef::showscript[]
+
+Transcript:
+
+An application is piece of software code that is developed by an API consumer to access an API. The application normally has associated with it, within the Red Hat 3scale API Management system, a unique set of API credentials for the API, a traffic history of the calls sent to the API, and metadata captured when the application is created. Applications are linked to developer accounts.
+
+endif::showscript[]

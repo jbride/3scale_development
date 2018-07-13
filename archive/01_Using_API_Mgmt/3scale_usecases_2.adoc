@@ -1,0 +1,36 @@
+:scrollbar:
+:data-uri:
+
+
+== Use Cases
+
+
+* *Content and transaction channel*
+** API as content outreach
+** Leverage network effects
+** Open up new distribution channel
+** Example: media distribution
+* *Mobile and IOT support*
+** Open access for non-human interactions
+** Standardize access control through apps (Facebook)
+* *Internal agility*
+** Standardize access to internal data
+** Improve system design
+** Quickly adapt to internal and external changes (Amazon Web Services)
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+There are other prominent use cases for Red Hat 3scale API Management.
+
+* Content and transaction channel: Use your APIs to increase your organization's content outreach to new territories. Standardize APIs and leverage network effects for a larger user base.
+
+* Mobile and IOT support: Standardize on APIs using REST/HTTP to allow new uses of the business APIs through applications and IOT end points.
+
+* Internal agility: Standardize access to all internal data through APIs. This improves system design and allows the application to adapt to internal and external changes quickly.
+
+
+endif::showscript[]

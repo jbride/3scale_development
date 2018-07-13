@@ -1,0 +1,26 @@
+:scrollbar:
+:data-uri:
+
+
+== APIcast Policies (Modules)
+
+* One entry point module
+** Can call other modules
+* Has method for each phase (`init`, `init_worker`, `rewrite`, `access`, etc.)
+* No UI for working with policies (on the roadmap)
+* Default module called `APIcast`
+** Replacing it redefines whole gateway
+** Like inheritance, custom modules should call `apicast` module
+
+
+ifdef::showscript[]
+
+Transcript:
+
+
+A module is executed in each NGINX phase: `init`, `init_worker`, `rewrite`, `access`, `content`, `log`, `post_action`, `balancer`, `header_filter`, `body_filter`, and so on. The module handles the processing of each request. Only _one_ module can be executed.
+
+The name of the module that is executed is defined by the environment variable `APICAST_MODULE` and defaults to `apicast`. You can define your own module here to replace `apicast` and overwrite its default behavior in favor of your own behavior for the gateway. Another option is to honor the module inheritance, but override some methods from the `apicast` module. You can use Lua metatables to achieve this.
+
+
+endif::showscript[]

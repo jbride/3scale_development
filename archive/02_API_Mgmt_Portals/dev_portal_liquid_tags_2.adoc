@@ -1,0 +1,41 @@
+:scrollbar:
+:data-uri:
+
+
+== Liquid Programming Language
+
+.Liquid Tags
+
+* Context - Determines variables available to use on current page
+* Variables (drops) available for every page in CMS:
+** `provider`
+** `urls`
+** `current_user`
+** `current_account`
+** `today`
+* Additional variables for built-in pages:
+** Special tag: `{% debug:help %}`
+** Adds comment on all available variables to current page
+* Hierarchy - Access elements in context as hierarchical structure:
+** Current username: `{{ current_user.username }}`
+** Application name: `{{ current_account.applications.first.name }}`
+
+ifdef::showscript[]
+
+Transcript:
+
+The context describes which variables (drops) are available to use on the current page. The basic set includes the following variables:
+
+* `provider`
+* `urls`
+* `current_user`
+* `current_account`
+* `today`
+
+These variables are available on every page throughout the CMS. However, additional variables are available on most of the built-in pages. To check which variables are available on the current page, use the special tag `{% debug:help %}`. It adds the list of all of the top-level variables available to use as a comment in the source of the page.
+
+The direct consequence of the context is that the Liquid drops are organized in a hierarchical structure. The available set of variables gives you a list of only the top-level drops. Using them, you can access elements deeper inside the hierarchy.
+
+
+
+endif::showscript[]

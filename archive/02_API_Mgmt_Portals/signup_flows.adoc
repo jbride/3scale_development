@@ -1,0 +1,28 @@
+:scrollbar:
+:data-uri:
+
+
+== Developer Sign-Up Flows
+
+* Allow sign-up of users from Developer Portal
+* Sign up to allow API access for account plans, service plans, or application plans
+* Multiple options:
+** Automated - No approvals required
+** Approval - Admin to approve developer sign-up
+** Plans - Allow plan changes directly by developers
+** Default - Enable default plan for developers
+* Multiservice sign-ups
+
+ifdef::showscript[]
+
+Transcript:
+
+Sign-up workflows are a critical aspect of the developer experience you provide through your Developer Portal. The process can range from being completely automatic and self-service to the other extreme of totally controlling over who gains access to what, with various levels of granularity.
+
+Red Hat 3scale API Management allows you to model your API with a combination of account plans (optional), service plans (optional), and application plans. For each of these plans, you can control whether there is an approval gate that you operate. For each one, you also determine whether there is a default, or if the developer is required to take the next step and make a choice.
+
+For the extreme of maximum automation and self-service, remove all approval steps and enable all possible default plans. This way, a key can be issued to provide access to your API immediately after sign-up.
+
+If you’re using the multiple services functionality, you can customize the sign-up procedure to allow customers to subscribe to different services.
+
+endif::showscript[]

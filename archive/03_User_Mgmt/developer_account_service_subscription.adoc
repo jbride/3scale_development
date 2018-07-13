@@ -1,0 +1,28 @@
+
+:scrollbar:
+:data-uri:
+
+== Service Subscriptions
+
+* Contract between account and service
+* APIs (services) have default service plan
+** When account created, service subscription assigned to default plan:
++
+image::images/3scale_amp_service_subscription.png[]
++
+* APIs (services) with multiple service plans and no default:
+** Account subscription must be selected by administrator or self-service
+* Application plan needs service subscription
+
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+Developer accounts need to be subscribed to a particular service to have access to the API (service). By default, when a new API service is created in 3scale API Management, a default service plan is created. Any developer account created has a service subscription to the default service plan. The site administrator has the option to unselect the default service plan. In that case, creating an account does not generate a default service subscription for it, and the subscription needs to be set up explicitly by the administrator.
+
+An application connecting the account to an application plan is dependent on the service subscription of the account. Hence, the service subscription is the first step to contract a service to an account.
+
+endif::showscript[]

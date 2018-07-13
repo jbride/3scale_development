@@ -1,0 +1,34 @@
+:scrollbar:
+:data-uri:
+
+
+== Use Cases
+
+
+* *APIs as a business*
+** API is product
+** Business model based on APIs
+** New channel for existing model (Twilio)
+* *Customer integration*
+** Integrate customers tightly with your system
+** Allow existing customers to automate processes
+** Use bulk operations via APIs (Zendesk, DropBox)
+* *Partner integration*
+** Allow third parties to provide added value to existing services
+** Create marketplace of products built on API (Salesforce, New Relic)
+
+
+ifdef::showscript[]
+
+Transcript:
+
+This slide describes the various use cases for Red Hat 3scale API Management. There are three main use cases:
+
+* APIs as a business: In this use case, the APIs themselves are your product, either creating a new business model based solely on your APIs or creating a new channel for an existing model.
+
+* Customer integration: This "customer ecosystem" use case involves using APIs to allow existing customers to automate the processes they run on your system, use bulk operations, or just integrate more tightly with your system.
+
+* Partner integration: The "partner ecosystem" use case involves allowing third parties to provide added value to your existing service, either for your own platform or for customers using your platform. This use case can also be used to create a marketplace of products built on top of your API.
+
+
+endif::showscript[]

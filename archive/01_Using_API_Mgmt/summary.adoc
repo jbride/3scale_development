@@ -1,0 +1,32 @@
+:scrollbar:
+:data-uri:
+
+
+== Summary
+
+
+* Overview
+* Product Features
+* Use Cases
+* Data Models
+* API Management Steps
+* Methods
+* Metrics
+* API Mapping Rules
+* Rate Limits
+* Application Plans
+* API Application
+* API Keys
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+This module provided an introduction to development with Red Hat 3scale API Management. It began with a high-level look at the product, the API consumer, and the API provider. It continued with  product features and use cases and then dove into the admin and account data models. The module continued with the process of creating and managing an API, including a discussion of methods, metrics, API mapping rules, rate limits, and  controlling access with application plans. The module concluded with the API application and API keys.
+
+
+
+
+endif::showscript[]

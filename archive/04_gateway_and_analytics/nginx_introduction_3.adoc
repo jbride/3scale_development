@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+
+
+== NGINX Web Server
+
+.Functional Modules
+
+* Core
+* Event modules
+* Phase handlers
+* Protocols
+* Variable handlers
+* Filters
+* Upstreams
+* Load balancers
+
+ifdef::showscript[]
+
+Transcript:
+
+NGINX's modular architecture generally allows developers to extend the set of web server features without modifying the NGINX core. NGINX modules come in slightly different incarnations--namely, core modules, event modules, phase handlers, protocols, variable handlers, filters, upstreams, and load balancers. At this time, NGINX does not support dynamically loaded modules; that is, modules are compiled along with the core at build stage.
+
+endif::showscript[]

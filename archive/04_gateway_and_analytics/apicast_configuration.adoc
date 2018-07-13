@@ -1,0 +1,33 @@
+:scrollbar:
+:data-uri:
+
+:linkattrs:
+
+== APIcast Configuration
+
+.Standard Configuration
+
+* Configuration for host name, service configuration, etc.
+* JSON configuration for gateway
+* Load from file or API
+* link:https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json[https://ACCOUNT-admin.3scale.net/admin/api/nginx/spec.json^]
+* Loaded in `init` and `init_worker` phases
+* `THREESCALE_CONFIG_FILE` locates the configuration file
+
+
+ifdef::showscript[]
+
+Transcript:
+
+The APIcast gateway needs to be configured to determine the service configuration, host name, etc.
+
+The gateway can load the configuration from a file, API, or write it through the management API (for debugging purposes).
+
+The configuration can be loaded in `init` and `init_worker` before the server starts serving requests. The gateway needs to cache the configuration locally, possibly even across restarts.
+
+Red Hat 3scale API Management hosts thousands of gateways for its customers and needs a reasonable way to share resources between them. Multi-tenant deployment of this proxy is the preferred way.
+
+You can provide the APIcast configuration via the `THREESCALE_CONFIG_FILE` environment variable or with `-c` on the command line if you need to pass a custom configuration to APIcast.
+
+
+endif::showscript[]

@@ -1,0 +1,30 @@
+:scrollbar:
+:data-uri:
+
+
+== API Keys
+
+* Credentials for application to access APIs
+* Associated with application
+* Created by default when application is created
+* API can use one of following for authentication:
+** API keys
+** App ID and app key
+** OAuth 2.0
+
+
+ifdef::showscript[]
+
+Transcript:
+
+An API key is a type of credential for an application that allows it to make calls on a specific API. API keys are a specific type of authentication pattern.
+
+An application API key is generated when a new application is created (via user or API). It provides access to the API. The type of access is determined by an application plan.
+
+The API key is the simplest form of credential supported. Each application with permissions on the API has a single unique long-character string. The name of the key parameter is `user_key`.
+
+While the API key pattern combines the identity of the application and the secret usage token in one token, the app ID and app key pair pattern separates the two. Each application using the API issues an immutable initial identifier known as the application ID, or app ID. The app ID is constant and may or may not be secret. In addition, each application may have 1 to _n_ app keys. Each key is associated directly with the app ID and should be treated as secret.
+
+OpenAuth is a set of specifications that enable a variety of different authentication patterns for APIs. Red Hat 3scale API Management supports OAuth 2.0 in combination with Red Hat Single Sign-On Server.
+
+endif::showscript[]

@@ -1,0 +1,18 @@
+:scrollbar:
+:data-uri:
+
+
+== Code Plug-ins
+
+image::images/api_code_plugin.png[]
+
+
+ifdef::showscript[]
+
+Transcript:
+
+Plug-ins are deployed within your API code to insert a traffic filter on all calls, as shown in the diagram.
+
+
+
+endif::showscript[]

@@ -1,0 +1,486 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:linkattrs:
+
+
+== Custom Development Portal Lab
+
+In this lab you create API documentation for the APIs managed by Red Hat 3scale API Management, learn about the Developer Portal and customization and explore additional role based access control features of 3scale.
+
+.Goals
+* Create API documentation for the Products API application
+* Integrate the API documentation with 3scale API Management
+* Customize the development portal
+* Explore additional role based access control features available via both Application Plans and in the Developer Portal
+
+:numbered:
+
+
+== Reference
+
+This lab will introduce you the Developer Portal.
+However, you will likely want to reference additional documentation as you are working through this lab.
+
+Suggested reference material is as follows:
+
+* link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview^]
+* link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference^]
++
+The same reference is also available by navigating your browser to the following in the Admin Portal:  _Documentation  (in the top left corner) -> Liquid Reference_
++
+image::images/liquid_reference.png[]
+
+
+== API Documentation
+
+In this section, you generate and test ActiveDocs documentation for the API created in the previous module.
+
+ActiveDocs is not a Swagger replacement; it is an instantiation of it. With ActiveDocs, you do not have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec["Create a (Swagger) Spec^"].
+
+=== Customize Products API Swagger configs
+In a previous lab, you have already been introduced to the swagger configuration file (in yaml representation) of your product API.
+
+In this section of the lab, you will customize that swagger configuration so as to make it specific to your products API managed by your apicast gateway.
+
+. In a new browser window, navigate to `http://editor.swagger.io/`.
+. Select *File -> Import URL*.
+. Enter the URL of your business API swagger specification as per the output of the following :
++
+-----
+echo http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml
+-----
+
+. Click *OK*.
+. In the YAML editor, make the following changes:
+.. Line 6: Change the host to your `products-apicast-staging` route endpoint--for example:
++
+`products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443`
+.. Line 11: Change the scheme to `https`.
+.. Line 24: Add the following lines to add a user key:
++
+[source,YAML]
+-----
+        - name: "user_key"
+          in: "query"
+          type: string
+          x-data-threescale-name: "user_keys"
+          required: true
+-----
++
+image::images/3scale_amp_products_swagger1.png[]
++
+The above config snippet will augment the Products API documentation with an indication that a _user_key_ field is required.
+And, via the _x-data-threescale-name_ configuration, this field will be auto-filled with the user's actual API key when invoking this service from the API documentation.
+
+.. Line 50: Repeat the previous change for line 24:
++
+image::images/3scale_amp_products_swagger2.png[]
+
+.. Line 74: Repeat step c.
+.. Line 98: Delete the square brackets.
+.. Line 99: Repeat step c for adding a user key:
++
+[source,YAML]
+-----
+        - name: "user_key"
+          in: "query"
+          type: string
+          x-data-threescale-name: "user_keys"
+          required: true
+-----
++
+image::images/3scale_amp_products_swagger3.png[]
+
+. Select *File -> Convert and save as JSON*:
++
+image::images/3scale_amp_products_swagger4.png[]
+
+. Save the JSON file to your disk.
+. Close the browser tab.
+
+=== Create Documentation Using ActiveDocs
+
+
+. Log in to your 3scale Admin Portal from the browser.
+. Click the *APIs* tab.
+. Click *ActiveDocs*:
++
+image::images/3scale_amp_products_activedocs1.png[]
+
+. Click *Create a new spec*:
++
+image::images/3scale_amp_products_activedocs2.png[]
+
+. Enter the following values:
+* *Name*: `Products`
+* *System Name*: `products_spec`
+* *Publish?*: Checked
+* *Description*: `Products API Documentation`
++
+image::images/3scale_amp_products_activedocs3.png[]
+
+. In a text editor, open the `swagger.json` file created in the previous step.
+. Copy the contents of `swagger.json` and paste it into the *API JSON Spec* window:
++
+image::images/3scale_amp_products_activedocs4.png[]
+
+. Click *Create Service*.
++
+image::images/3scale_amp_products_activedocs5.png[]
+
+. If *Publish* appears at the top of the panel, click it.
+
+=== Test the ActiveDocs API and Documentation
+
+. Click *Get all Products* to expand the method.
+. Go to the *Parameters* section.
+. Click the *user_key* value field.
+. Select the *ProductsApp* user key.
+. Click *Try it out*:
++
+image::images/3scale_amp_products_activedocs6.png[]
++
+. If you get a *No response from server* error from the server, you need to accept the SSL certificate of the server by opening the request URL in a browser window and clicking *proceed to <URL>*:
++
+image::images/3scale_amp_products_activedocs7.png[]
+
+. Return to ActiveDocs and try the request again. Expect it to return an HTTP *200* response code and the response body:
++
+image::images/3scale_amp_products_activedocs8.png[]
+
+== Determine URL of Dev Portal
+
+From time to time, you'll likely need the URL to your developer portal.
+
+The CMS of your 3scale AMP provides a link at the top of the homepage called:  _Visit Developer Portal_.
+Clicking that link will automatically redirect your browser to the URL of the developer portal.
+
+The welcome email sent to new developer users also includes the link to the developer portal.
+
+Another simple mechanism to determine the URL to your developer portal is directly from OpenShift.
+
+. In you browser, navigate to and log into your OCP Web Console.
+. Navigate to: `Applications -> Routes`.
+. The URL to your developer portal is the _Hostname_ of the route called:  `system-developer-route`:
++
+image::images/dev_portal_route.png[]
+
+Alternatively, you could just as easily determine this using the OpenShift oc utility:
+
+-----
+$ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3scale-amp --template "https://{{.spec.host}}"`\n\n"
+-----
+
+== Customize Developer Portal
+
+In this lab you work on the Developer Portal for the API’s customers, partners, and users. The Developer Portal can be fully customized to meet your needs. See the link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview^] for more information.
+
+=== Import Logo Files
+
+. Open a web browser and navigate to link:https://github.com/gpe-mw-training/3scale_development_labs/tree/master/DevPortal["3scale_development_labs/DevPortal^"].
+. Download these two files:
+* `RHMartBackground.jpg`
+* `RHMartLogo.png`
+. Log in to 3scale by Red Hat's Admin Portal with your username and password.
+. Click the *Developer Portal* tab, and then click *New Page -> New File*:
++
+image::images/3scale_amp_products_dev_portal1.png[]
+
+. Enter the following:
+* *Section*: `images`
+* *Path*: `/images/RHMartLogo.png`
+* *Attachment*: `RHMartLogo.png` from your local host
++
+image::images/3scale_amp_products_dev_portal2.png[]
+
+. Click *Create File*, and then click *New File*.
+. Enter the following:
+* *Section*: `images`
+* *Path*:  `/images/RHMartBackground.png`
+* *Attachment*: `RHMartBackground.png` from your local host
++
+image::images/3scale_amp_products_dev_portal3.png[]
+
+. Click *Create File*.
+
+=== Change the HTML/CSS
+
+. Click *All*.
+. Click the image:images/Layouts_ico.png[] (Layouts) icon.
+.. Click *Main layout*:
++
+image::images/3scale_amp_products_dev_portal4.png[]
++
+.. Delete line 46:
++
+[source,text]
+-----
+            <a class="navbar-brand" href="/">{{  provider.name }}</a>
+-----
++
+.. Replace it with the following:
++
+[source,text]
+-----
+            <div class="logo">
+               <a href="#">
+                  <img src="/images/RHMartLogo.png" alt="" style="height:100px; width:150px;">
+               </a>
+            </div>
+-----
++
+image::images/3scale_amp_products_dev_portal5.png[]
+
+.. Scroll to the bottom of the page and click *Save*.
+
+. Click the image:images/pages_ico.png[] (Pages) icon, and then click *Documentation*:
++
+image::images/3scale_amp_products_dev_portal6.png[]
+
+.. In line 3, replace `Echo` with `RHMart`.
+.. Click *Save*:
++
+image::images/3scale_amp_products_dev_portal7.png[]
++
+. Under Partials, click *shared/swagger_ui*:
++
+image::images/3scale_amp_products_dev_portal7_0.png[]
++
+.. Change line 11 to the following:
++
+[source,text]
+-----
+    var url = "{{provider.api_specs.products_spec.url}}";
+-----
++
+image::images/3scale_amp_products_dev_portal7_1.png[]
++
+.. Click *Save*.
++
+. Click *Homepage*:
++
+image::images/3scale_amp_products_dev_portal8.png[]
+
+.. Go to the HTML editor, and perform a search and replace of `Echo` (with a capital _E_) to `RHMart` in lines 19, 98, and 112.
+.. Replace line 5 with the following:
++
+[source,text]
+-----
+            <h1 style="text-shadow: 4px 4px #000000;">RH Mart API</h1>
+-----
+
+.. Click *Save*.
+. Under the *css* folder, click *default.css*:
++
+image::images/3scale_amp_products_dev_portal9.png[]
+
+.. Replace line 22 with the following:
++
+[source,text]
+-----
+            background-image: url('/images/RHMartBackground.jpg');
+-----
++
+.. Scroll down to the bottom of the page and click *Save*.
+. Click the *0 Drafts* tab, and then click *Publish All*:
++
+image::images/3scale_amp_products_dev_portal10.png[]
+
+. When prompted to confirm the changes, click *OK*.
+
+
+=== Test the Changes
+
+. Click *Visit Developer Portal*:
++
+image::images/3scale_amp_products_dev_portal11.png[]
++
+* The Developer Portal opens in a new tab on your browser:
++
+image::images/3scale_amp_products_dev_portal12.png[]
+
+. Click *SIGN IN* at the top right, and log in as `rhbankdev` with the password provided in the previous lab.
+. On the homepage, explore the *Applications*, *Statistics*, and *Credentials* sections.
++
+image::images/3scale_amp_products_dev_portal13.png[]
+
+. Click *Documentation*. Note that the ActiveDocs documentation created earlier is shown.
+* You can test the API requests from this page:
++
+image::images/3scale_amp_products_dev_portal14.png[]
+
+== Additional Role Based Access Control
+
+=== Premium App Plan with fully exposed Products API
+
+In a previous lab, recall that you defined a _ProductsBasicPlan_ where both the _Create Product_ and _Delete Product_ methods are disabled.
+Afterwards, an _application_ from this _ProductsBasicPlan_ app plan was set up for members of the `RHBank` group.
+
+Subsequently, you could exepct a request for either of these methods to result in a *HTTP 429: Too Many Requests* error.
+
+In this section of the lab, you will now define a different application plan and group that will have full access to all methods of the Products API.
+
+Using the same steps:
+
+. Create a new user `rhadmin` as part of the `RHAdmin` group
+. Create an application using the `ProductsPremiumPlan` application plan
+. Try the `Create Account` and `Delete Account` requests using the *user key* generated for this account.
+
+.. Example request for `Create Account`:
++
+[source,text]
+-----
+$ curl -k -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
+  \"productid\": null,
+  \"productname\": \"Samsung LED TV\",
+  \"productprice\": 499.95}" "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/product?user_key=6e1bec836da1b3705da23635823f4f2d"
+
+-----
++
+The response should be the following:
++
+[source,text]
+-----
+{"message":"Product created"}
+-----
+
+.. Example request for `Delete Account`:
++
+[source,text]
+-----
+$ curl -k -X DELETE --header "Accept: application/json" "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/product/13?user_key=6e1bec836da1b3705da23635823f4f2d"
+
+-----
++
+The response should be the following:
++
+[source,text]
+-----
+{"message":"Product 13 deleted"}
+-----
+
+=== Augment Dev Portal with Admin Section and Group
+
+In this section you create a private section of the developer portal for access by users of the `RHAdmin` group.
+
+. Log in to 3scale by Red Hat's Admin Portal using your credentials.
+. Click the *Developer Portal* tab, and then click *New Section*:
++
+image::images/3scale_amp_products_dev_portal_groups_1.png[]
+
+.. In the *New Section* form, provide the following information:
+* *Title*: `admin`
+* *Parent*: `Root`
+* *Partial Path*: `/rhadmin`
++
+image::images/3scale_amp_products_dev_portal_groups_2.png[]
+
+.. Verify that *public* is unchecked, and click *Create Section*.
+* Your new section appears in the main menu:
++
+image::images/3scale_amp_products_dev_portal_groups_3.png[]
+
+. Select *New Page -> New Page*:
++
+image::images/3scale_amp_products_dev_portal_groups_4.png[]
+
+.. In the *New Page* form, enter the following values:
+* *Title*: `Admin Page`
+* *Section*: `admin`
+* *Path*: `/rhadmin/welcome`
+* *Liquid enabled*: Checked
+* *Text box*: Enter the following:
++
+[source,text]
+-----
+<h2>Administration Portal</h2>
+
+Hello <B>{{ current_user.username }}</B>, you are an Admin user of  <B>Account organization  {{ current_account.name }}</B>.
+
+Welcome to the Administration Section of the portal.
+-----
++
+image::images/3scale_amp_products_dev_portal_groups_5.png[]
+
+.. Click *Create Page*.
+* You see the *Admin* page in the *admin* section on the menu:
++
+image::images/3scale_amp_products_dev_portal_groups_6.png[]
+
+. Scroll down to the *Partials* section of the menu, and click *submenu*:
++
+image::images/3scale_amp_products_dev_portal_groups_7.png[]
+
+.. Add the following on line 38, after the `Documentation` item.
++
+[source,text]
+-----
+        {% if current_account.name == 'RHAdmin'? %}
+          <li class="{% if urls.docs.active? %}active{% endif %}">
+            <a href="/rhadmin/welcome">Admin</a>
+          </li>
+        {% endif %}
+-----
++
+image::images/3scale_amp_products_dev_portal_groups_8.png[]
+
+.. Click *Save*.
+. Click the *Drafts* tab on the top, and then click *Publish All*:
++
+image::images/3scale_amp_products_dev_portal_groups_9.png[]
++
+* All your changes are published and can be tested from the Developer Portal.
+
+. Click *Groups*, and then click *Create Group*:
++
+image::images/3scale_amp_products_dev_portal_groups_10.png[]
+
+.. Enter the following values:
+* *Name*: `RHAdmin`
+* *Allowed Sections*: `admin`
+.. Click *Create Group*.
+. Navigate to the *Developers* section, and click the *RHAdmin* account.
++
+TIP: This is the account you created in the previous lab to use the *ProductsPremiumPlan*.
+
+.. Click *O Group Memberships*:
++
+image::images/3scale_amp_products_dev_portal_groups_11.png[]
+
+.. Select the *RHAdmin* group in the *Groups* list, and click *Save*:
++
+image::images/3scale_amp_products_dev_portal_groups_13.png[]
+
+* The configuration for the Admin section and groups is complete and can be tested.
+
+=== Test the Admin Group Section
+
+. Open the Developer Portal and click *Sign In*.
+. Log in as user `rhadmin` with the password you provided earlier:
++
+image::images/3scale_amp_products_dev_portal_groups_12.png[]
++
+image::images/3scale_amp_products_dev_portal_groups_13.png[]
+
+* Observe that the *ADMIN* link appears on the top menu.
+
+. Click *ADMIN* and observe that the Administration Portal page appears:
++
+image::images/3scale_amp_products_dev_portal_groups_14.png[]
+
+. Click the image:images/logout_ico.png[] (Log Out) icon to log out of the portal:
++
+image::images/3scale_amp_products_dev_portal_groups_15.png[]
+
+. Log in as user `rhbankdev` with the password provided during signup.
+* Observe that because this user is a basic user, the *ADMIN* link is not available:
++
+image::images/3scale_amp_products_dev_portal_groups_16.png[]
+
+* If the `rhbankdev` user tries to access the `/rhadmin/welcome` link directly, an error message results:
++
+image::images/3scale_amp_products_dev_portal_groups_17.png[]
+
+
+Groups and private sections can be used to control access to certain sections of the Developer Portal, or to ensure that different sections or layouts could be accessed depending on the user's role.

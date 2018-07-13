@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+
+
+== API Mapping Rules
+
+
+* Map incoming calls to API endpoints
+* Use relative path to methods
+* Different HTTP operations can be tracked separately (`GET`, `PUT`, `POST`, `DELETE`, etc.)
+* Provide usage tracking, endpoint access, and limits based on methods/metrics configured with mapping rules
+
+ifdef::showscript[]
+
+Transcript:
+
+After you define your API by creating methods and metrics, you can map your API endpoints or paths to the methods.
+
+Choose the HTTP method available on the specific endpoint path and select the equivalent method to map against. Different operations such as `GET`, `PUT`, `POST`, `DELETE`, and so on, on the same endpoint can be tracked separately.
+
+Usage tracking, endpoint access, and limits are based on the methods and metrics that are configured with these mapping rules.
+
+
+endif::showscript[]

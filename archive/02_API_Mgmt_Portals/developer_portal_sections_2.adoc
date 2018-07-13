@@ -1,0 +1,40 @@
+:scrollbar:
+:data-uri:
+
+
+== Restricted Content
+
+
+.Restricted Blocks of Content
+* Use fields:
+** Custom field for accounts, applications, or users
+** Attach to page as hidden content
+* Use Liquid tags with `if` conditionals:
++
+[source,text]
+----
+{{ if current_account.extra_fields.partner == 'true' }}
+  // content only accessible to partners
+{{ endif }}
+----
++
+* Require user login:
+** Wrap Liquid `if` conditional:
++
+[source,text]
+----
+{{ if current_user }}
+  // only visible if the user is logged in
+{{ endif }}
+----
+
+ifdef::showscript[]
+
+Transcript:
+
+
+You may want to restrict only parts of a page or items in a certain menu. To do that you could use custom fields. You could also use Liquid tag as shown in the examples. 
+
+
+
+endif::showscript[]

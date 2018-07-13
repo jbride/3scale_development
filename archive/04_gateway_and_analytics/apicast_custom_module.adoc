@@ -1,0 +1,27 @@
+:scrollbar:
+:data-uri:
+
+
+== APIcast Modules
+
+.Customizing Modules
+
+* To customize APIcast:
+** Override function
+** Extend configuration
+* Related to HTTP request/response
+** Example: Cross-Origin Resource Sharing (CORS)
+* Custom authentication
+* Time-restricted access
+* Limit on opened connections
+
+
+ifdef::showscript[]
+
+Transcript:
+
+To customize APIcast, whether to change a behavior by overriding a function or extending the configuration, you must change the default APIcast module. This can be achieved either by editing the APIcast configuration or by creating a custom module and using inheritance to plug in the new functionality at the appropriate NGINX phase.
+
+Some of the use cases for customization are to support CORS headers, use custom authentication or custom headers, provide time-restricted access to APIs, and limit the number of opened connections for the API.
+
+endif::showscript[]

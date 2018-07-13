@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+
+
+== Restricted Content
+
+.Restricted Pages
+* Use private sections
+* Map to logical group of users
+* Create pages within section
+* Add group with access to section
+* Set group permission for developers to access
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+
+You may want some parts of your Developer Portal; for example, whole pages, to be accessible only by a specific group of developers. At a high level, this is how you would do that. 
+
+
+endif::showscript[]

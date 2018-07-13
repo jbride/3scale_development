@@ -1,0 +1,28 @@
+:scrollbar:
+:data-uri:
+
+
+== Methods
+
+
+* Allow tracking of API usage
+* Can be created for each HTTP method available
+* Are hit-based
+* Can track other events using metrics
+* Can define usage limits and pricing rules for each method
+* Automatically import methods:
+** Using Swagger specification
+** Using RAML specification
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+Methods let you track the usage of your API on 3scale. You can add a method for each of the HTTP methods available on the API endpoints for your API. Methods are hit-based. By default on 3scale, method calls trigger the built-in hits metric. To track other types of events, you can add metrics that report in different units. Usage limits and pricing rules for individual methods are defined from within each application plan.
+
+If your API has a lot of endpoints, 3scale offers two additional ways of automatically creating your methods and metrics on 3scale--importing via a Swagger specification or via a RAML specification.
+
+
+endif::showscript[]

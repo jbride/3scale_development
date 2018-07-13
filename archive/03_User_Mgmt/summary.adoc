@@ -1,0 +1,27 @@
+
+:scrollbar:
+:data-uri:
+
+
+== Summary
+
+
+* Account Data Model
+* Account Administrator
+* Account Administrator Features
+* User Rights on Admin Portal
+* Single Sign-On for Admin Portal
+* Webhooks
+* Developer Account
+* Service Subscriptions
+
+
+ifdef::showscript[]
+
+Transcript:
+
+This module provided an introduction to the account management in Red Hat 3scale API Management. The account data model was reviewed, followed by a description of the account administrator role and the two types of users. The module continued with a discussion of Admin Portal single sign-on, webhooks, and developer accounts. The module concluded with a look at service subscriptions.
+
+
+
+endif::showscript[]

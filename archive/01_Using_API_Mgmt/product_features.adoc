@@ -1,0 +1,42 @@
+:scrollbar:
+:data-uri:
+
+
+== Product Features
+
+[.noredheader,cols="30,70"]
+|======
+|*Access control* | Centrally sets up and manages policies and application plans for all APIs
+|*Security* | Authenticates and authorizes using API keys, user keys, or OAuth tokens
+|*Rate limits* | Manage and control flow of access to API resources
+|*Developer Portal* | Allows sign-up, API access, and API documentation for consumers
+|*ActiveDocs live documentation* | Based on Swagger framework, provides a way to document APIs and include in the Developer Portal
+|*Analytics* | Monitor and set alerts on traffic flow and produce reports
+|*Dashboard* | Provides quick, central visibility of all traffic, plans, and customer sign-up flows for the platform
+|*Monetization* | Sets up pricing rules, invoices, and collect payments
+|======
+
+
+NOTE: Monetization is available only on the SaaS platform.
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+Red Hat 3scale API Management provides a rich set of powerful features to enable API providers to create API management strategies. They include the following:
+
+* Access control
+* Security
+* Rate limits
+* Developer Portal
+* ActiveDocs live documentation
+* Analytics
+* Dashboard
+* Billing and monetization
+
+You learn how to use these features during this course.
+
+
+endif::showscript[]

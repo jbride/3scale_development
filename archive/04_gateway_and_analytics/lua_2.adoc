@@ -1,0 +1,47 @@
+:scrollbar:
+:data-uri:
+
+
+== Lua
+
+.Basic Concepts
+
+* Dynamically typed language
+* No type definitions
+* Eight basic types: nil, boolean, number, string, function, userdata, thread, table
+* Error handling - control returns to host
+* Garbage collection using automatic memory management
+* Variables - global, local, table
+
+
+ifdef::showscript[]
+
+Transcript:
+
+Lua is a dynamically typed language. This means that variables do not have types, only values do. There are no type definitions in the language. All values carry their own type.
+
+All values in Lua are first-class values. This means that all values can be stored in variables, passed as arguments to other functions, and returned as results.
+
+There are eight basic types in Lua: nil, boolean, number, string, function, userdata, thread, and table. The type nil has one single value, nil, whose main property is to be different from any other value; it usually represents the absence of a useful value.
+
+The type boolean has two values, false and true. Both nil and false make a condition false; any other value makes it true.
+
+The type number represents both integer numbers and real (floating-point) numbers. The type string represents immutable sequences of bytes.
+
+Lua can call (and manipulate) functions written in Lua and functions written in C. Both are represented by the type function.
+
+The type userdata is provided to allow arbitrary C data to be stored in Lua variables.
+
+The type thread represents independent threads of execution and is used to implement co-routines.
+
+The type table implements associative arrays--that is, arrays that can be indexed not only with numbers but also with any Lua values except nil and NaN.
+
+Tables, functions, threads, and (full) userdata values are objects; variables do not actually contain these values, only references to them. Assignment, parameter passing, and function returns always manipulate references to such values; these operations do not imply any kind of copy.
+
+Because Lua is an embedded extension language, all Lua actions start from C code in the host program calling a function from the Lua library. When you use Lua standalone, the lua application is the host program. Whenever an error occurs during the compilation or execution of a Lua chunk, control returns to the host, which can take appropriate measures, such as printing an error message.
+
+Lua performs automatic memory management. This means that you do not have to worry about allocating memory for new objects or freeing it when the objects are no longer needed. Lua manages memory automatically by running a garbage collector to collect all dead objects--that is, objects that are no longer accessible from Lua.
+
+
+
+endif::showscript[]

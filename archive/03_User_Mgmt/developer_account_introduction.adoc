@@ -1,0 +1,26 @@
+
+:scrollbar:
+:data-uri:
+
+
+== Developer Account
+
+* Provides access to service API endpoints
+* Provides access to Developer Portal
+* Can be managed by administrator or self-managed
+* Two user roles:
+** `admin` - can invite/add members, access all sections of Developer Portal
+** `member` - can manage keys and subscriptions
+
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+Developer accounts are the accounts subscribed to a particular API. They represent the end user's access to the APIs.
+
+A developer account provides access to one or more services. These accounts also give access to the Developer Portal, where users can manage their accounts. Each developer account can have multiple members, some of whom can be administrators of the developer account. Account signup and management can be completely self-managed through the Developer Portal, or can be controlled by site administrators through the Admin Portal.
+
+endif::showscript[]

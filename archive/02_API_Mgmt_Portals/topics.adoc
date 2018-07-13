@@ -1,0 +1,27 @@
+:scrollbar:
+:data-uri:
+
+
+== Module Topics
+
+* 3scale Admin and Developer Portals
+* 3scale Admin Portal
+* 3scale BizOps
+* API Documentation
+* 3scale ActiveDocs
+* 3scale Developer Portal
+* Liquid Programming Language
+* Restricted Content
+* Developer Sign-Up Flows
+* 3scale Command Line Interface
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+This module introduces the features and functionality of 3scale's Administration and Developer Portals. 3scale BizOps covers managing business operation workflows, and API Documentation describes creating and sharing API documentation with your API consumers using 3scale ActiveDocs. The module continues with the Developer Portal and covers how developers subscribe to an API and use the built-in CMS to create a custom Developer Portal with everything required to on-board new customers. Next the module looks at using the Liquid programming language to add content and logic to pages, manipulate email templates, and restrict page content. The module concludes with a discussion of 3scale's command line interface.
+
+
+endif::showscript[]

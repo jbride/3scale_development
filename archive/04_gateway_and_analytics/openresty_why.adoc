@@ -1,0 +1,24 @@
+:scrollbar:
+:data-uri:
+
+
+== OpenResty Web Platform
+
+.Advantages of Using in 3scale APIcast
+
+* Most web services are IO bound
+* Very similar to NodeJS and JavaScript
+* Writing synchronous code (async+await) in JavaScript
+* Handle 10,000-plus concurrent connections per second
+* Open source
+* Built on top on NGINX
+
+ifdef::showscript[]
+
+Transcript:
+
+By taking advantage of various well-designed NGINX modules, OpenResty effectively turns the NGINX server into a powerful web app server, in which web developers can use the Lua programming language to script various existing NGINX C modules and Lua modules and construct extremely high-performance web applications that are capable of handling 10,000 to over a million connections in a single box.
+
+OpenResty aims to run your server-side web app completely in the NGINX server, leveraging NGINX's event model to do non-blocking I/O not only with the HTTP clients, but also with remote back ends like MySQL, PostgreSQL, Memcached, and Redis.
+
+endif::showscript[]

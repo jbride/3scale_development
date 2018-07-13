@@ -1,0 +1,34 @@
+:scrollbar:
+:data-uri:
+
+
+== 3scale APIcast Gateway
+
+.Deployment Options
+
+
+* APIcast hosted - SaaS
+* APIcast built-in - API management platform (AMP) component only
+* APIcast self-managed - SaaS or AMP
+** Native deployment
+** Docker
+** OpenShift
+
+
+ifdef::showscript[]
+
+Transcript:
+
+You can use APIcast hosted or self-managed. In both cases, it needs connection to the rest of Red Hat 3scale API Management:
+
+* APIcast hosted: Red Hat 3scale API Management hosts APIcast in the cloud. In this case, APIcast is already deployed for you. It is limited to 50,000 calls per day.
+
+* APIcast built-in: Two APIcast deployments--staging and production--come by default with the AMP installation. They come preconfigured and ready to use out of the box.
+
+* APIcast self-managed: You can deploy APIcast wherever you want. The self-managed mode is the intended mode of operation for production environments. Recommended deployment options include:
+
+**  Native deployment: Install OpenResty and other dependencies on your own server and run APIcast using the code and configuration provided by Red Hat 3scale API Management.
+** Docker: Download a ready-to-use Docker-ized image that includes all of the dependencies to run APIcast in a Docker container.
+** OpenShift: Run APIcast on Red Hat OpenShift Container Platform. You can connect self-managed APIcasts both to a 3scale AMP installation and a 3scale online account.
+
+endif::showscript[]
