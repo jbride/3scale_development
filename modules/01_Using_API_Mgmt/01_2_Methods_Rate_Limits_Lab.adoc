@@ -212,14 +212,14 @@ In this section, you will remove these generic routes and replace with routes mo
 . From the command line, verify that you are logged in to OpenShift.
 . Verify that you are in the *3scale AMP* project:
 +
-[source,text]
+
 -----
 $ oc project $OCP_PROJECT_PREFIX-3scale-amp
 -----
 
 . Get the list of `apicast` routes defined in the project:
 +
-[source,text]
+
 -----
 $ oc get routes | grep apicast
 -----
@@ -236,7 +236,7 @@ system-provider-admin-route    user76-3scale-admin.apps.6a94.openshift.opentlc.c
 
 . Delete these default routes:
 +
-[source,text]
+
 -----
 $ oc delete route api-apicast-production-route
 $ oc delete route api-apicast-staging-route
@@ -244,7 +244,7 @@ $ oc delete route api-apicast-staging-route
 
 . Create new routes to the staging and production APIcast gateways:
 +
-[source,text]
+
 -----
 $ oc create route edge products-staging-route \
  --service=apicast-staging \
@@ -257,7 +257,7 @@ $ oc create route edge products-production-route \
 
 . Verify that the routes were created successfully:
 +
-[source,text]
+
 -----
 $ oc get routes  | grep products
 -----
@@ -383,7 +383,7 @@ NOTE: When running the `curl` request from the command line, you need to add a `
 . Make 5 requests to the URL and notice that the response is correct.
 +
 .Sample Output
-[source,text]
+
 -----
 {"productid":1,"productname":"Ninja Blender","productprice":320.0}
 
@@ -392,7 +392,7 @@ NOTE: When running the `curl` request from the command line, you need to add a `
 . Make a 6th request, and expect the following response:
 +
 .Sample Output
-[source,text]
+
 -----
 ..
 < HTTP/1.1 429 Too Many Requests
@@ -414,7 +414,7 @@ NOTE: When running the `curl` request from the command line, you need to add a `
 * Because the limit is set to 1 request per minute, expect an *HTTP 429 Forbidden* response on subsequent requests.
 +
 .Sample Output
-[source,text]
+
 -----
 ..
 < HTTP/1.1 429 Forbidden

@@ -22,15 +22,15 @@ An NGINX module plugs into the life-cycle phase of the gateway. There are variou
 
 The name of the module that is executed is defined by the environment variable `APICAST_MODULE`, which defaults to `apicast`.
 
-To write custom modules, you need to use inheritance to override the default `APICAST_MODULE` code with your custom code. link:https://github.com/3scale/apicast/tree/master/examples/custom-module[Custom Module^] provides a recommended skeleton for writing custom code.
+To write custom modules, you need to use inheritance to override the default `APICAST_MODULE` code with your custom code. link:https://github.com/3scale/apicast/tree/master/examples/custom-module[Custom Module] provides a recommended skeleton for writing custom code.
 
 === Create Custom Verbose Logging Module
 
-In this section you create a custom module to provide more verbose logging information in APIcast. The custom Lua file is available link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-module/verbose.lua[here^].
+In this section you create a custom module to provide more verbose logging information in APIcast. The custom Lua file is available link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-module/verbose.lua[here].
 
 . Examine the code for the `log` function:
 +
-[source,text]
+
 -----
 function _M.log()
   ngx.log(ngx.WARN,
@@ -47,7 +47,7 @@ end
 
 . Copy the `verbose.lua` file locally:
 +
-[source,text]
+
 -----
 $ curl -o verbose.lua https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-module/verbose.lua
 -----
@@ -55,35 +55,35 @@ $ curl -o verbose.lua https://raw.githubusercontent.com/3scale/apicast/3.1-stabl
 . Verify that you are logged in to OpenShift with your login credentials from the terminal.
 . Verify that you are using the `3scale AMP` project:
 +
-[source,text]
+
 -----
 $ oc project $OCP_PROJECT_PREFIX-3scale-amp
 -----
 
 . Create a config map in the OpenShift project, making sure to provide the correct path to the `verbose.lua` file:
 +
-[source,text]
+
 -----
 $ oc create configmap apicast-verbose --from-file=./verbose.lua
 -----
 
 . Create a volume for the container, and mount it to the appropriate path:
 +
-[source,text]
+
 -----
 $ oc set volume dc/apicast-staging --add --name=apicast-verbose --mount-path /opt/app-root/src/src/verbose.lua --source='{"configMap":{"name":"apicast-verbose","items":[{"key":"verbose.lua","path":"verbose.lua"}]}}'
 -----
 
 . The `oc volume` command does not support adding subpaths, so you need to apply a patch:
 +
-[source,text]
+
 -----
 $ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/0/subPath", "value":"verbose.lua"}]'
 -----
 
 . Set the environment variable `APICAST_MODULE`:
 +
-[source,text]
+
 -----
 $ oc env dc/apicast-staging APICAST_MODULE=verbose
 -----
@@ -97,7 +97,7 @@ $ oc env dc/apicast-staging APICAST_MODULE=verbose
 . Check the logs.
 * Expect to see a log similar to the following:
 +
-[source,text]
+
 -----
 2017/11/21 11:28:09 [warn] 30#30: *114 [lua] verbose.lua:11: log(): upstream response time: 0.085 upstream connect time: 0.000 while logging request, client: 10.1.0.1, server: _, request: "GET /?user_key=c29ee601788b80ea9b2239b2f736ee27 HTTP/1.1", upstream: "https://34.196.209.22:443/?user_key=c29ee601788b80ea9b2239b2f736ee27", host: "echo-api.3scale.net"
 -----
@@ -115,11 +115,11 @@ Similar to the custom module, a custom configuration can be used to inherit the 
 
 In this section you create a custom configuration to provide more a verbose response to client by echoing all the request headers in the response, along with the API response.
 
-The configuration is link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-config/echo.conf[here^].
+The configuration is link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-config/echo.conf[here].
 
 . Examine the code for the `log` function:
 +
-[source,text]
+
 -----
 server {
   listen 8080;
@@ -136,7 +136,7 @@ server {
 
 . Copy the `echo.conf` file locally:
 +
-[source,text]
+
 -----
 $ curl -o echo.conf https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/custom-config/echo.conf
 -----
@@ -144,28 +144,28 @@ $ curl -o echo.conf https://raw.githubusercontent.com/3scale/apicast/3.1-stable/
 . Verify that you are logged in to OpenShift with your login credentials from the terminal.
 . Verify that you are using the `3scale AMP` project:
 +
-[source,text]
+
 -----
 $ oc project $OCP_PROJECT_PREFIX-3scale-amp
 -----
 
 . Create a configuration map in the OpenShift project, making sure to provide the correct path to the `echo.conf` file:
 +
-[source,text]
+
 -----
 $ oc create configmap echo-conf --from-file=./echo.conf
 -----
 
 . Create a volume for the container, and mount it to the appropriate path:
 +
-[source,text]
+
 -----
 $ oc set volume dc/apicast-staging --add --name=echo-conf --mount-path /opt/app-root/app/sites.d/echo.conf --source='{"configMap":{"name":"echo-conf","items":[{"key":"echo.conf","path":"echo.conf"}]}}'
 -----
 
 . The `oc volume` command does not support adding subpaths, so you need to apply a patch:
 +
-[source,text]
+
 -----
 $ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/1/subPath", "value":"echo.conf"}]'
 -----
@@ -177,7 +177,7 @@ $ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/temp
 
 . Open a terminal and connect via RSH to the `apicast-staging` pod:
 +
-[source,text]
+
 -----
 $ oc rsh <your apicast pod>
 -----
@@ -186,14 +186,14 @@ $ oc rsh <your apicast pod>
 
 . Send a request to port 8080 of `localhost`:
 +
-[source,text]
+
 -----
 sh-4.2$ curl localhost:8080 -H 'Host: echo' -X 'POST'
 -----
 
 * Expect a response similar to the following:
 +
-[source,text]
+
 -----
 POST / HTTP/1.1
 Host: echo
@@ -209,16 +209,16 @@ In this section you add CORS handling to APIcast.
 
 Two files&#8212;`cors.lua` and `cors.conf`&#8212;configure CORS for NGINX.
 
-. Examine the `cors.lua` file link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.lua[here^].
+. Examine the `cors.lua` file link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.lua[here].
 
-. Examine the `cors.conf` file link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.conf[here^].
+. Examine the `cors.conf` file link:https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.conf[here].
 
 
 === Deploy CORS Custom Module and Configuration to OpenShift
 
 . Copy the `cors.lua` and `cors.conf` files locally:
 +
-[source,text]
+
 -----
 $ curl -o cors.lua https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.lua
 $ curl -o cors.conf https://raw.githubusercontent.com/3scale/apicast/3.1-stable/examples/cors/cors.conf
@@ -227,14 +227,14 @@ $ curl -o cors.conf https://raw.githubusercontent.com/3scale/apicast/3.1-stable/
 . Verify that you are logged in to OpenShift with your login credentials from the terminal.
 . Verify that you are using the `3scale AMP` project:
 +
-[source,text]
+
 -----
 $ oc project $OCP_PROJECT_PREFIX-3scale-amp
 -----
 
 . Create a configuration map in the OpenShift project, making sure to provide the correct path to the `cors.lua` and `cors.conf` files:
 +
-[source,text]
+
 -----
 $ oc create configmap apicast-cors --from-file=./cors.lua
 $ oc create configmap cors-conf --from-file=./cors.conf
@@ -242,7 +242,7 @@ $ oc create configmap cors-conf --from-file=./cors.conf
 
 . Create a volume for the container, and mount them to the appropriate path:
 +
-[source,text]
+
 -----
 $ oc set volume dc/apicast-staging --add --name=apicast-cors --mount-path /opt/app-root/src/src/cors.lua --source='{"configMap":{"name":"apicast-cors","items":[{"key":"cors.lua","path":"cors.lua"}]}}'
 $ oc set volume dc/apicast-staging --add --name=cors-conf --mount-path /opt/app-root/src/apicast.d/cors.conf --source='{"configMap":{"name":"cors-conf","items":[{"key":"cors.conf","path":"cors.conf"}]}}'
@@ -250,14 +250,14 @@ $ oc set volume dc/apicast-staging --add --name=cors-conf --mount-path /opt/app-
 
 . The `oc volume` command does not support adding subpaths, so you need to apply a patch:
 +
-[source,text]
+
 -----
 $ oc patch dc/apicast-staging --type=json -p '[{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/2/subPath", "value":"cors.lua"},{"op": "add", "path": "/spec/template/spec/containers/0/volumeMounts/3/subPath", "value":"cors.conf"}]'
 -----
 
 . Set the environment variable `APICAST_MODULE`:
 +
-[source,text]
+
 -----
 $ oc env dc/apicast-staging APICAST_MODULE=cors
 -----
@@ -269,14 +269,14 @@ $ oc env dc/apicast-staging APICAST_MODULE=cors
 
 . Send a `curl` request to the staging API endpoint using a CORS header:
 +
-[source,text]
+
 -----
 $ curl -v -k https://api-sj-3scale-apicast-staging.apps.dev.openshift.opentlc.com:443/?user_key=c29ee601788b80ea9b2239b2f736ee27  -H "Origin: http://example.com"   -H "Access-Control-Request-Method: GET"   -H "Access-Control-Request-Headers: X-Requested-With"
 -----
 
 . Verify that the response contains the headers for handling CORS requests:
 +
-[source,text]
+
 -----
 < Access-Control-Allow-Credentials: true
 < Access-Control-Allow-Methods: GET

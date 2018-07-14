@@ -35,7 +35,7 @@ image::images/3scale_amp_products_analytics_2.png[]
 . Note the `BODY` JSON format example on the right. Click the section to copy it into the *BODY* field.
 . Edit the request as shown below:
 +
-[source,JSON]
+
 -----
 {
   "productid": null,
@@ -50,7 +50,7 @@ image::images/3scale_amp_products_analytics_3.png[]
 
 * The product is created. Expect to see this response:
 +
-[source,text]
+
 -----
 {"message":"Product created"}
 -----
@@ -59,7 +59,7 @@ TIP: Due to an SSL certificate issue, the request may not succeed on the portal 
 
 . Create more products as shown below:
 +
-[source,JSON]
+
 -----
 {
   "productid": null,

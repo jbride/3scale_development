@@ -24,8 +24,8 @@ However, you will likely want to reference additional documentation as you are w
 
 Suggested reference material is as follows:
 
-* link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview^]
-* link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference^]
+* link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview]
+* link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference]
 +
 The same reference is also available by navigating your browser to the following in the Admin Portal:  _Documentation  (in the top left corner) -> Liquid Reference_
 +
@@ -36,7 +36,7 @@ image::images/liquid_reference.png[]
 
 In this section, you generate and test ActiveDocs documentation for the API created in the previous module.
 
-ActiveDocs is not a Swagger replacement; it is an instantiation of it. With ActiveDocs, you do not have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec["Create a (Swagger) Spec^"].
+ActiveDocs is not a Swagger replacement; it is an instantiation of it. With ActiveDocs, you do not have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec[Create a (Swagger) Spec].
 
 === Customize Products API Swagger configs
 In a previous lab, you have already been introduced to the swagger configuration file (in yaml representation) of your product API.
@@ -59,7 +59,7 @@ echo http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml
 .. Line 11: Change the scheme to `https`.
 .. Line 24: Add the following lines to add a user key:
 +
-[source,YAML]
+
 -----
         - name: "user_key"
           in: "query"
@@ -81,7 +81,7 @@ image::images/3scale_amp_products_swagger2.png[]
 .. Line 98: Delete the square brackets.
 .. Line 99: Repeat step c for adding a user key:
 +
-[source,YAML]
+
 -----
         - name: "user_key"
           in: "query"
@@ -174,11 +174,11 @@ $ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3sca
 
 == Customize Developer Portal
 
-In this lab you work on the Developer Portal for the API’s customers, partners, and users. The Developer Portal can be fully customized to meet your needs. See the link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview^] for more information.
+In this lab you work on the Developer Portal for the API’s customers, partners, and users. The Developer Portal can be fully customized to meet your needs. See the link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview] for more information.
 
 === Import Logo Files
 
-. Open a web browser and navigate to link:https://github.com/gpe-mw-training/3scale_development_labs/tree/master/DevPortal["3scale_development_labs/DevPortal^"].
+. Open a web browser and navigate to link:https://github.com/gpe-mw-training/3scale_development_labs/tree/master/DevPortal[3scale_development_labs/DevPortal].
 . Download these two files:
 * `RHMartBackground.jpg`
 * `RHMartLogo.png`
@@ -214,14 +214,14 @@ image::images/3scale_amp_products_dev_portal4.png[]
 +
 .. Delete line 46:
 +
-[source,text]
+
 -----
             <a class="navbar-brand" href="/">{{  provider.name }}</a>
 -----
 +
 .. Replace it with the following:
 +
-[source,text]
+
 -----
             <div class="logo">
                <a href="#">
@@ -249,7 +249,7 @@ image::images/3scale_amp_products_dev_portal7_0.png[]
 +
 .. Change line 11 to the following:
 +
-[source,text]
+
 -----
     var url = "{{provider.api_specs.products_spec.url}}";
 -----
@@ -265,7 +265,7 @@ image::images/3scale_amp_products_dev_portal8.png[]
 .. Go to the HTML editor, and perform a search and replace of `Echo` (with a capital _E_) to `RHMart` in lines 19, 98, and 112.
 .. Replace line 5 with the following:
 +
-[source,text]
+
 -----
             <h1 style="text-shadow: 4px 4px #000000;">RH Mart API</h1>
 -----
@@ -277,7 +277,7 @@ image::images/3scale_amp_products_dev_portal9.png[]
 
 .. Replace line 22 with the following:
 +
-[source,text]
+
 -----
             background-image: url('/images/RHMartBackground.jpg');
 -----
@@ -329,7 +329,7 @@ Using the same steps:
 
 .. Example request for `Create Account`:
 +
-[source,text]
+
 -----
 $ curl -k -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
   \"productid\": null,
@@ -340,14 +340,14 @@ $ curl -k -X POST --header "Content-Type: application/json" --header "Accept: ap
 +
 The response should be the following:
 +
-[source,text]
+
 -----
 {"message":"Product created"}
 -----
 
 .. Example request for `Delete Account`:
 +
-[source,text]
+
 -----
 $ curl -k -X DELETE --header "Accept: application/json" "https://products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443/rest/services/product/13?user_key=6e1bec836da1b3705da23635823f4f2d"
 
@@ -355,7 +355,7 @@ $ curl -k -X DELETE --header "Accept: application/json" "https://products-stage-
 +
 The response should be the following:
 +
-[source,text]
+
 -----
 {"message":"Product 13 deleted"}
 -----
@@ -392,7 +392,7 @@ image::images/3scale_amp_products_dev_portal_groups_4.png[]
 * *Liquid enabled*: Checked
 * *Text box*: Enter the following:
 +
-[source,text]
+
 -----
 <h2>Administration Portal</h2>
 
@@ -414,7 +414,7 @@ image::images/3scale_amp_products_dev_portal_groups_7.png[]
 
 .. Add the following on line 38, after the `Documentation` item.
 +
-[source,text]
+
 -----
         {% if current_account.name == 'RHAdmin'? %}
           <li class="{% if urls.docs.active? %}active{% endif %}">

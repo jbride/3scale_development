@@ -19,7 +19,7 @@ In this lab you familiarize yourself with the course's lab assets and deploy RES
 
 This course uses the same lab environment that you provisioned in the prerequisite course that covered implementation of Red Hat 3scale API Management. To run the labs in this course, continue to use the same OpenShift Container Platform and virtual machine as you used in the previous course.
 
-IMPORTANT: The OPENTLC lab environment is automatically deleted after 14 days. Therefore you must log in to the link:https://labs.opentlc.com[OPENTLC Lab portal^] and extend the lifetime of your environment by one more week. 
+IMPORTANT: The OPENTLC lab environment is automatically deleted after 14 days. Therefore you must log in to the link:https://labs.opentlc.com[OPENTLC Lab portal] and extend the lifetime of your environment by one more week. 
 
 == Explore Lab Assets
 
@@ -29,7 +29,7 @@ To support the lab exercises, you need API RESTful business services that you ca
 . Change to the `$HOME/lab/` directory.
 . Clone the latest `3scale_developer_labs`:
 +
-[source,text]
+
 -----
 $ git clone https://github.com/gpe-mw-training/3scale_development_labs
 -----
@@ -64,7 +64,7 @@ If not using the virtual machine, you will still need these same environment var
 
 . As the `jboss` user, execute each of the following commands, one at a time:
 +
-[source,text]
+
 -----
 $ echo "export GUID=<your OCP lab environment GUID as provided in the confirmation email>" >> ~/.bashrc
 $ echo 'export OCP_WILDCARD_DOMAIN=apps.$GUID.openshift.opentlc.com' >> ~/.bashrc
@@ -81,7 +81,7 @@ Otherwise, if you are an ILT student, then the value will be that of the user as
 
 . Set an environment variable with your initials:
 +
-[source,text]
+
 -----
 $ echo "export OCP_PROJECT_PREFIX=<your initials>" >> ~/.bashrc
 -----
@@ -89,7 +89,7 @@ $ echo "export OCP_PROJECT_PREFIX=<your initials>" >> ~/.bashrc
 
 . Enable the new environment variables in your existing shell:
 +
-[source,text]
+
 -----
 $ source ~/.bashrc
 -----
@@ -128,7 +128,7 @@ NOTE: The login session to your OpenShift environment is valid for 24 hours.  Ev
 
 . Create a new project for your Products API business service applications:
 +
-[source,text]
+
 -----
 $ oc new-project $OCP_PROJECT_PREFIX-products-api \
      --display-name="Products API" \
@@ -137,7 +137,7 @@ $ oc new-project $OCP_PROJECT_PREFIX-products-api \
 
 . If you are not already there, change to this new project:
 +
-[source,text]
+
 -----
 $ oc project $OCP_PROJECT_PREFIX-products-api
 -----
@@ -146,14 +146,14 @@ $ oc project $OCP_PROJECT_PREFIX-products-api
 
 . Import the `products-api` template to your OpenShift environment:
 +
-[source,text]
+
 -----
 $ oc create -f ~/lab/3scale_development_labs/templates/products-api.json
 -----
 +
 . Create a new application using the `products-api` template:
 +
-[source,text]
+
 -----
 $ oc new-app --template=products-api --param HOSTNAME_HTTP=products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
 -----
@@ -162,13 +162,13 @@ $ oc new-app --template=products-api --param HOSTNAME_HTTP=products-$OCP_PROJECT
 
 .. Wait until your `products-api` and `productsdb` pods have fully started:
 +
-[source,text]
+
 -----
 $ oc get pods
 -----
 +
 .Sample Output
-[source,text]
+
 -----
 NAME                               READY     STATUS      RESTARTS   AGE
 products-api-1-02s28               1/1       Running     0          4m
@@ -179,13 +179,13 @@ NOTE: It takes about 2-3 minutes for the application to be deployed. Before cont
 +
 .. Get the route details:
 +
-[source,text]
+
 -----
 $ oc get routes
 -----
 +
 .Sample Output
-[source,text]
+
 -----
 NAME                       HOST/PORT                                                                                   PATH      SERVICES               PORT      TERMINATION   WILDCARD
 products-api               products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com                                                              products-api           <all>                   None
@@ -201,13 +201,13 @@ products-api               products-sjayanti-redhat-com.apps.na1.openshift.opent
 
 . Test that the `products` API service accepts requests and returns the correct response:
 +
-[source,text]
+
 -----
 $ curl -v -k http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/services/product/1
 -----
 +
 .Sample Output
-[source,text]
+
 -----
 ..
 
