@@ -15,23 +15,43 @@ In this lab you familiarize yourself with the course's lab assets and deploy RES
 
 
 :numbered:
-== Environment Registration
+== Lab Environment
 
-This course uses the same lab environment that you provisioned in the prerequisite course that covered implementation of Red Hat 3scale API Management. To run the labs in this course, continue to use the same OpenShift Container Platform and virtual machine as you used in the previous course.
+This course uses the same lab environment that you provisioned in the prerequisite course that covered implementation of Red Hat 3scale API Management. 
+If your lab environment is still available, then you can continue to use the same OpenShift Container Platform and Red Hat 3scale API Management environment as you used in the previous course.
 
-IMPORTANT: The OPENTLC lab environment is automatically deleted after 14 days. Therefore you must log in to the link:https://labs.opentlc.com[OPENTLC Lab portal] and extend the lifetime of your environment by one more week. 
+IMPORTANT: The OPENTLC lab environment is automatically deleted after 7 days. 
+Prior to the deletion of your lab environment, you can log in to the link:https://labs.opentlc.com[OPENTLC Lab portal] and extend the lifetime of your environment by one more week. 
 
-== Explore Lab Assets
+If your lab environment has been deleted, then you'll need to re-provision a new lab environment and install Red Hat 3scale API Management.
+Please refer to the first couple of labs of the _Red Hat 3scale Implementation_ course for details.
 
-To support the lab exercises, you need API RESTful business services that you can manage and secure. These are provided in the lab assets. In this exercise, you explore these business services.
+=== Shell Environment Variables
 
-. At the shell prompt of your VM, verify that you are the `jboss` user.
-. Change to the `$HOME/lab/` directory.
+Recall from the first lab of the _3scale Implementation_ pre-requisite course that you permanently set the following environment variables in shell of your virtual machine:
+
+. *OCP_PROJECT_PREFIX*
+. *OCP_WILDCARD_DOMAIN*
+
+Ensure that all of these environment variables are still set.
+
+=== Lab Assets
+
+To support the lab exercises, you need RESTful business services that you can manage and secure. 
+The configurations for these services  are provided in the lab assets. In this exercise, you explore these business services.
+
+. SSH into your remote lab vm as the non-root operating system user.
+. Ensure the following directory exists:
++
+-----
+$ mkdir -p $HOME/lab/
+-----
+
 . Clone the latest `3scale_developer_labs`:
 +
 
 -----
-$ git clone https://github.com/gpe-mw-training/3scale_development_labs
+$ git clone https://github.com/gpe-mw-training/3scale_development_labs $HOME/lab/3scale_development_labs
 -----
 
 . Examine the subdirectory structure of the labs and note the available subprojects:
@@ -44,61 +64,11 @@ $ git clone https://github.com/gpe-mw-training/3scale_development_labs
 * *Stock* : JBoss Data Virtualization application providing a REST API for accessing Stock details across PostgreSQL and MySQL databases.
 * *Coolstore* : Homework assignment assets based on the JBoss Demo CoolStore microservices application.
 
-== Shell Environment Variables
-
-Recall from the first lab of the _3scale Implementation_ pre-requisite course that you permanently set the following environment variables in shell of your virtual machine:
-
-. *GUID*
-. *OCP_WILDCARD_DOMAIN*
-. *OCP_USER_ID*
-. *OCP_PROJECT_PREFIX*
-
-Ensure that all of these environment variables are still set.
-
-=== (Re)-Set Environment Variables
-
-For those that need to re-set the above listed environment variables in their shell, this section provides the same instructions for doing so found in the pre-req course.
-
-The lab instructions assume the use of the `jboss` operating system user of the provide client side virtual machine.
-If not using the virtual machine, you will still need these same environment variables set in your host operating system.
-
-. As the `jboss` user, execute each of the following commands, one at a time:
-+
-
------
-$ echo "export GUID=<your OCP lab environment GUID as provided in the confirmation email>" >> ~/.bashrc
-$ echo 'export OCP_WILDCARD_DOMAIN=apps.$GUID.openshift.opentlc.com' >> ~/.bashrc
------
-
-. Set an environment variable with your OpenShift user Id:
-+
------
-$ echo 'export OCP_USER_ID=<your OCP USER ID>' >> ~/.bashrc
------
-+
-NOTE:  If you are an elabs student, then the value will be your opentlc userId.
-Otherwise, if you are an ILT student, then the value will be that of the user assigned to you by your instructor.
-
-. Set an environment variable with your initials:
-+
-
------
-$ echo "export OCP_PROJECT_PREFIX=<your initials>" >> ~/.bashrc
------
-* OpenShift project names need to be unique within an OpenShift cluster, so this ensures that your project names begin with a unique prefix. This environment variable is used throughout the labs.
-
-. Enable the new environment variables in your existing shell:
-+
-
------
-$ source ~/.bashrc
------
-
-
 [[bservice_deployment]]
-== Deploy Products API Services in OpenShift Container Platform
+== Deploy Products API Services
 
-In this section you deploy the Products API on a Red Hat JBoss Enterprise Application Platform (EAP) container running on OpenShift. The products data exists in a PostgreSQL database, which is deployed to the same OpenShift namespace.
+In this section you deploy the Products API on a Red Hat JBoss Enterprise Application Platform (EAP) container running on OpenShift. 
+The products data exists in a PostgreSQL database, which is deployed to the same OpenShift namespace.
 
 === Optional: Understand the Products API
 
@@ -119,6 +89,36 @@ This _swagger.yaml_ is exposed by the Products service at runtime and can be vie
 +
 What is used to generate the _swagger.yaml_ configuration ?
 
+==== ClusterQuota
+
+A Cluster Admin of a production OpenShift environment typically applies clusterquotas and limitranges.
+
+In this section of the lab, you will impersonate the OCP cluster admin and apply link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/developer_guide/#dev-quotas[quotas] to the user:
+
+* *$OCP_USERNAME*  :  Name of user that will serve as the API Provider in this lab.
+
+The quotas will constrain the aggregate resource consumption of all projects associated with that user.
+
+. Impersonate cluster admin and set a cluster quota on the user: $OCP_USERNAME
++
+-----
+$ oc create clusterquota clusterquota-$OCP_USERNAME \
+        --project-annotation-selector=openshift.io/requester=$OCP_USERNAME \
+        --hard requests.cpu="1Gi" \
+        --hard limits.cpu="2Gi"  \
+        --hard requests.memory="4Gi" \
+        --hard limits.memory="8Gi" \
+        --hard configmaps="5" \
+        --hard pods="10" \
+        --hard persistentvolumeclaims="3"  \
+        --hard services="15" \
+        --hard secrets="15" \
+        --hard requests.storage="10Gi" \
+        --as=system:admin
+-----
++
+The templates and instructions provided in this course should provision runtimes that satisfy the constraints of these clusterquotas.
+
 
 === Create New Project for Products API Services
 
@@ -135,14 +135,32 @@ $ oc new-project $OCP_PROJECT_PREFIX-products-api \
      --description="Products API Business Services"
 -----
 
-. If you are not already there, change to this new project:
-+
 
+. Annotate the products-api project such that its resources are managed by a cluster quota:
++
 -----
-$ oc project $OCP_PROJECT_PREFIX-products-api
+$ oc annotate namespace $OCP_PROJECT_PREFIX-products-api openshift.io/requester=$OCP_USERNAME --overwrite --as=system:admin
 -----
 
 === Deploy and Test `products` API Service
+
+
+. Import the jboss-eap-7 image streams into the OpenShift namespace
+
+.. The _products_ API deploys on Red Hat JBoss EAP 7.
+.. It's likely that your lab environment does not include the appropriate JBoss EAP 7 image stream in the _openshift_ namespace.
+.. Import the JBoss EAP 7 image stream as follows:
++
+-----
+$ oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.17/eap/eap71-image-stream.json -n openshift --as=system:admin
+
+...
+
+imagestream.image.openshift.io/jboss-eap71-openshift created
+-----
++
+NOTE:  To execute the above command, the OCP user you are logged into needs the ability to _impersonate_ the OCP cluster admin.
+Please refer to the _3scale Implementation_ pre-requisite for more details about _impersonating_ the cluster admin user.
 
 . Import the `products-api` template to your OpenShift environment:
 +
@@ -150,36 +168,59 @@ $ oc project $OCP_PROJECT_PREFIX-products-api
 -----
 $ oc create -f ~/lab/3scale_development_labs/templates/products-api.json
 -----
-+
+
+
 . Create a new application using the `products-api` template:
 +
-
 -----
 $ oc new-app --template=products-api --param HOSTNAME_HTTP=products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
 -----
-+
-. Test the `products` API service deployed in your OpenShift environment:
 
-.. Wait until your `products-api` and `productsdb` pods have fully started:
-+
 
+.. Wait until your `products-api` build has completed
++
+-----
+$ oc get build
+
+NAME             TYPE      FROM          STATUS     STARTED              DURATION
+products-api-1   Source    Git@c72fb68   Complete   About a minute ago   59s
+-----
+
+.  Wait until the `productsdb` dc has fully started:
++
+-----
+$ oc get dc productsdb
+
+
+NAME         REVISION   DESIRED   CURRENT   TRIGGERED BY
+productsdb   1          1         1         config
+-----
+
+. Resume the paused _products-api_ dc:
++
+-----
+$ oc rollout resume dc/products-api
+-----
+
+. Wait until the corresponding _products-api_ pod has started:
++
 -----
 $ oc get pods
------
-+
-.Sample Output
 
------
+...
+
+
 NAME                               READY     STATUS      RESTARTS   AGE
+products-api-1-build               0/1       Completed   0          5m
 products-api-1-02s28               1/1       Running     0          4m
 productsdb-1-39dkc                 1/1       Running     0          5m
 -----
 +
-NOTE: It takes about 2-3 minutes for the application to be deployed. Before continuing to the next steps, confirm that your pods show a `Running` status, that the related build is complete, and that there are no deployment tasks running.
+NOTE: It takes about 2-3 minutes for the application to be deployed. 
+Before continuing to the next steps, confirm that your pods show a `Running` status, that the related build is complete, and that there are no deployment tasks running.
+ 
+. Get the route details:
 +
-.. Get the route details:
-+
-
 -----
 $ oc get routes
 -----
@@ -187,11 +228,8 @@ $ oc get routes
 .Sample Output
 
 -----
-NAME                       HOST/PORT                                                                                   PATH      SERVICES               PORT      TERMINATION   WILDCARD
-products-api               products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com                                                              products-api           <all>                   None
+products-api               products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com                  products-api           <all>                   None
 -----
-+
-.. Note the value for `HOST/PORT` for use in later labs. 
 
 * This is the URL to connect to the Products API service. 
 * It uses the format `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN`.
@@ -201,9 +239,8 @@ products-api               products-sjayanti-redhat-com.apps.na1.openshift.opent
 
 . Test that the `products` API service accepts requests and returns the correct response:
 +
-
 -----
-$ curl -v -k http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/services/product/1
+$ curl -v -k http://`oc get route products-api -o template --template {{.spec.host}} -n $OCP_PROJECT_PREFIX-products-api`/rest/services/product/1
 -----
 +
 .Sample Output
@@ -217,7 +254,7 @@ $ curl -v -k http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/servi
 . A list of all products can be retrieved by executing the following: 
 +
 -----
-$ curl -X GET http://"$(oc get route/products-api -o template --template {{.spec.host}})"/rest/services/products | python -m json.tool
+$ curl -X GET http://`oc get route/products-api -o template --template {{.spec.host}} -n $OCP_PROJECT_PREFIX-products-api`/rest/services/products | python -m json.tool
 -----
 +
 Expect to see a list of products that were seeded into your PostgreSQL based Products database.
@@ -229,7 +266,7 @@ Your Products service provides a _swagger.yaml_ configuration file that document
 To gain access to this _swagger.yaml_ config file, point your browser to the output of the following command:
 
 -----
-$ echo http://"$(oc get route/products-api -o template --template {{.spec.host}})"/rest/swagger.yaml
+$ echo http://`oc get route/products-api -o template --template {{.spec.host}} -n $OCP_PROJECT_PREFIX-products-api`/rest/swagger.yaml
 -----
 
 Via your browser, you can download this _swagger.yaml_ configuration file to your local filesystem and skim through it.
@@ -241,7 +278,7 @@ This Swagger documentation can be better visualized in a tool such as:  http://e
 . Enter the URL of your business API swagger specification.  This URL can be determined by executing the following:
 +
 -----
-$ echo http://"$(oc get route/products-api -n $OCP_PROJECT_PREFIX-products-api -o template --template {{.spec.host}})"/rest/swagger.yaml
+$ echo http://`oc get route/products-api -n $OCP_PROJECT_PREFIX-products-api -o template --template {{.spec.host}}`/rest/swagger.yaml
 -----
 
 . Click *OK*.
