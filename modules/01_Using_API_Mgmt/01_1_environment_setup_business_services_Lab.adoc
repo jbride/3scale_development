@@ -4,7 +4,7 @@
 :toc2:
 
 
-== Environment Registration and Business Services Lab
+== Lab Environment and Business Services
 
 In this lab you familiarize yourself with the course's lab assets and deploy RESTful business services to Red Hat OpenShift^(R)^ Container Platform.
 
@@ -17,23 +17,53 @@ In this lab you familiarize yourself with the course's lab assets and deploy RES
 :numbered:
 == Lab Environment
 
+=== Remote VM
 This course uses the same lab environment that you provisioned in the prerequisite course that covered implementation of Red Hat 3scale API Management. 
 If your lab environment is still available, then you can continue to use the same OpenShift Container Platform and Red Hat 3scale API Management environment as you used in the previous course.
 
 IMPORTANT: The OPENTLC lab environment is automatically deleted after 7 days. 
 Prior to the deletion of your lab environment, you can log in to the link:https://labs.opentlc.com[OPENTLC Lab portal] and extend the lifetime of your environment by one more week. 
 
-If your lab environment has been deleted, then you'll need to re-provision a new lab environment and install Red Hat 3scale API Management.
+If your lab environment has been deleted, then you'll need to re-provision a new lab environment.
 Please refer to the first couple of labs of the _Red Hat 3scale Implementation_ course for details.
 
 === Shell Environment Variables
 
 Recall from the first lab of the _3scale Implementation_ pre-requisite course that you permanently set the following environment variables in shell of your virtual machine:
 
-. *OCP_PROJECT_PREFIX*
 . *OCP_WILDCARD_DOMAIN*
++
+Wildcard DNS of your OpenShift environment.
+
+. *OCP_PROJECT_PREFIX*
++
+Unique identifier used to deconflict OpenShift project names across a shared OpenShift cluster.
+
+. *$OCP_USERNAME*
++
+Name of user that will serve as the API Provider in this lab.
+
+. *API_MANAGER_NS*
++
+Name of OpenShift project where API Manager is deployed to.
+
 
 Ensure that all of these environment variables are still set.
+
+
+=== API Manager
+Your remote VM should be provisioned with the Red Hat 3scale API Manager as per the intructions in the _Red Hat 3scale Implementation_ course.
+
+. You should have _view_ access to the API Manager provisioned in the following namespace:  `API_MANAGER_NS` .
+
+. You should be able to access the Admin Portal of the default _tenant_ of the API Manager by navigating to the output of the following:
++
+-----
+$ echo -en "\nhttps://`oc get route system-provider-admin -n $API_MANAGER_NS --template "{{.spec.host}}"` \n\n"
+-----
++
+Authenticate by using credentials of:   admin / admin.
+
 
 === Lab Assets
 
@@ -64,8 +94,45 @@ $ git clone https://github.com/gpe-mw-training/3scale_development_labs $HOME/lab
 * *Stock* : JBoss Data Virtualization application providing a REST API for accessing Stock details across PostgreSQL and MySQL databases.
 * *Coolstore* : Homework assignment assets based on the JBoss Demo CoolStore microservices application.
 
+
+=== ClusterQuota
+
+A Cluster Admin of a production OpenShift environment typically applies clusterquotas and limitranges.
+
+In this section of the lab, you will impersonate the OCP cluster admin and apply link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/developer_guide/#dev-quotas[quotas] to the user:
+
+The quotas will constrain the aggregate resource consumption of all projects associated with that user.
+
+. Impersonate cluster admin and set a cluster quota on the user: $OCP_USERNAME
++
+-----
+$ oc create clusterquota clusterquota-$OCP_USERNAME \
+        --project-annotation-selector=openshift.io/requester=$OCP_USERNAME \
+        --hard requests.cpu="1Gi" \
+        --hard limits.cpu="2Gi"  \
+        --hard requests.memory="4Gi" \
+        --hard limits.memory="8Gi" \
+        --hard configmaps="5" \
+        --hard pods="10" \
+        --hard persistentvolumeclaims="3"  \
+        --hard services="15" \
+        --hard secrets="15" \
+        --hard requests.storage="10Gi" \
+        --as=system:admin
+-----
++
+The templates and instructions provided in this course will provision runtimes that satisfy the constraints of these clusterquotas.
+
+=== LimitRange
+Your OpenShift environment is configured to create a new _LimitRange_ upon creation of a new project.
+
+This LimitRange is specified by the OpenShift cluster admin.
+
+In the next section when you create the project where your backend business services will reside, you can view the corresponding LimitRange that the cluster admin has imposed on your project.
+
+
 [[bservice_deployment]]
-== Deploy Products API Services
+== Products API 
 
 In this section you deploy the Products API on a Red Hat JBoss Enterprise Application Platform (EAP) container running on OpenShift. 
 The products data exists in a PostgreSQL database, which is deployed to the same OpenShift namespace.
@@ -88,36 +155,6 @@ To test your understanding of the _Products API_ assets, answer the following qu
 This _swagger.yaml_ is exposed by the Products service at runtime and can be viewed in a tool such as:  http://editor.swagger.io .
 +
 What is used to generate the _swagger.yaml_ configuration ?
-
-==== ClusterQuota
-
-A Cluster Admin of a production OpenShift environment typically applies clusterquotas and limitranges.
-
-In this section of the lab, you will impersonate the OCP cluster admin and apply link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/developer_guide/#dev-quotas[quotas] to the user:
-
-* *$OCP_USERNAME*  :  Name of user that will serve as the API Provider in this lab.
-
-The quotas will constrain the aggregate resource consumption of all projects associated with that user.
-
-. Impersonate cluster admin and set a cluster quota on the user: $OCP_USERNAME
-+
------
-$ oc create clusterquota clusterquota-$OCP_USERNAME \
-        --project-annotation-selector=openshift.io/requester=$OCP_USERNAME \
-        --hard requests.cpu="1Gi" \
-        --hard limits.cpu="2Gi"  \
-        --hard requests.memory="4Gi" \
-        --hard limits.memory="8Gi" \
-        --hard configmaps="5" \
-        --hard pods="10" \
-        --hard persistentvolumeclaims="3"  \
-        --hard services="15" \
-        --hard secrets="15" \
-        --hard requests.storage="10Gi" \
-        --as=system:admin
------
-+
-The templates and instructions provided in this course should provision runtimes that satisfy the constraints of these clusterquotas.
 
 
 === Create New Project for Products API Services
@@ -235,7 +272,7 @@ products-api               products-sjayanti-redhat-com.apps.na1.openshift.opent
 * It uses the format `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN`.
 
 
-== Products API Smoke Test
+=== Smoke Test
 
 . Test that the `products` API service accepts requests and returns the correct response:
 +
@@ -259,7 +296,7 @@ $ curl -X GET http://`oc get route/products-api -o template --template {{.spec.h
 +
 Expect to see a list of products that were seeded into your PostgreSQL based Products database.
 
-== Products API Documentation
+=== Documentation
 
 Your Products service provides a _swagger.yaml_ configuration file that documents the resources that it exposes.
 
@@ -307,4 +344,5 @@ image::images/3scale_amp_products_api_swagger_4.png[]
 Now that you are familiar with the API, the next step is to define the methods and mappings for the API in the 3scale API Management portal.
 
 
-The `products` REST API service is now running and exposed to external clients. In later lab exercises, you learn how to manage and secure these mock business services using Red Hat 3scale API Management.
+The `products` REST API service is now running and exposed to external clients. 
+In later lab exercises, you manage and secure these mock business services using Red Hat 3scale API Management.

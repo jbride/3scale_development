@@ -3,12 +3,11 @@
 :toc2:
 
 
-
 == Metrics, Methods, and Rate Limits Lab
 
 .Overview
 
-In this lab you secure and manage the Products API REST JEE application deployed in the previous lab. 
+In this lab you secure and manage the JEE application that exposes the RESTful Products API. 
 
 In particular, _methods_, _metrics_, and _rate limits_ are defined and used.
 
@@ -21,39 +20,33 @@ In particular, _methods_, _metrics_, and _rate limits_ are defined and used.
 * Apply rate limits for basic users to control access to the API
 
 .Prerequisites
-* Completion of the previous labs in this course
-* `OCP_WILDCARD_DOMAIN` environment variable set in your shell
-+
-TIP: To check if your shell still has this environment variable set, execute the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
-
 * 3scale Admin Portal URL and user credentials to log in
 
 :numbered:
 
 
-== Initial API Resources
+== Manage API Resources
 
-In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APIcast gateway. You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
+In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APIcast gateway. 
+You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
 
 
-=== Log In to Admin Portal
+=== Default _Developer_ Account
 
-. In a browser window, access 3scale by Red Hat's Admin Portal.
-+
-NOTE: The URL for 3scale by Red Hat's Admin Portal was noted in the previous lab. It should use the following form: `https://$OCP_PROJECT_PREFIX-3scale-admin.$OCP_WILDCARD_DOMAIN`, where `$OCP_PROJECT_PREFIX` and `$OCP_WILDCARD_DOMAIN` are the values set in your `~/.bashrc`.
+A new API Manager typically comes provisioned with a default account called:  `Developer`.
+If you have not already done so, this default _Developer_ account can be deleted.
 
-. Log in to 3scale by Red Hat's Admin Portal using your credentials:
-+
-image::images/3scale_amp_admin_portal_login.png[]
+Deletion of this `Developer` account will reduce possible confusion later on in this lab.
+If this default `Developer` account is not suspended, new API services that are defined will automatically have a default _application_ (with corresponding API keys) created for this user.
+You'll then have to subsequently make sure you are using the desired _application_ and not this default _application_ associated with this default _developer_ account.
+
+. In a browser window, access Admin Portal of the default tenant provisioned with your API Manager.
 
 . Navigate to *Developers -> Developer: Account Summary -> Edit* 
 . Delete the default `Developer` account (if not already deleted) :
 +
 image::images/3scale_amp_admin_delete_developers.png[]
 +
-NOTE:  Deletion of this `Developer` account will reduce possible confusion later on in this lab.
-If this default `Developer` account is not suspended, new API services that are defined will automatically have a default _application_ (with corresponding API keys) created for this user.
-You'll then have to subsequently make sure you are using the desired _application_ and not this default _application_ associated with this default _developer_ account.
 
 === Define Products API Service
 
