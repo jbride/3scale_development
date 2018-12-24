@@ -11,10 +11,9 @@ In this lab you secure and manage the JEE application that exposes the RESTful P
 
 In particular, _methods_, _metrics_, and _rate limits_ are defined and used.
 
-
 .Goals
 
-* Expose Products API REST service with 3scale AMP
+* Expose RESTful Products API with 3scale AMP
 * Create application plans for basic and premium users
 * Define methods and metrics
 * Apply rate limits for basic users to control access to the API
@@ -42,37 +41,32 @@ You'll then have to subsequently make sure you are using the desired _applicatio
 
 . In a browser window, access Admin Portal of the default tenant provisioned with your API Manager.
 
-. Navigate to *Developers -> Developer: Account Summary -> Edit* 
-. Delete the default `Developer` account (if not already deleted) :
+. Navigate to the *Audience* perspective (from the drop-down in the top panel of the Admin Portal).
+. Navigate to `Accounts -> Listing` and click the _Developer_ account (if not already deleted).
+. Click the green `edit` link.
+. Delete the default `Developer` account :
 +
 image::images/3scale_amp_admin_delete_developers.png[]
-+
+
 
 === Define Products API Service
 
-In this section you define a service that manages access to the Products API business service that you provisioned in the previous lab.
+In this section you define an API service that manages access to the Products API business service that you provisioned in the previous lab.
 
-. Navigate to the *API* tab.
-+
-NOTE: Note that a service is already defined for a _Echo API_. This service is useful for simple route testing, so do not delete it.
+. In the Admin Portal, select the *Dashboard* perspective from the drop-down in the top panel.
 
-. Click *Create Service* to create a new service with the following information:
+. In the `APIs` section of the page, click *NEW API * 
+. Populate the form to create a new API with the following information:
 * *Name*: `Products`
 * *System Name*: `products_system`
 * *Description*: `RHMart Products API`
-* *Gateway*: `NGINX APIcast self-managed`
-* *Authentication*: `API Key (user_key)`
-+
-image::images/3scale_amp_products_create_service_1.png[]
-
-. Do not change the remaining default fields, and click *Create Service*:
-+
-image::images/3scale_amp_products_create_service_2.png[]
-
+. Click `Add API`
 
 === Define Application Plans
 
-Plans are used for granting access to specific APIs and endpoints, limiting traffic, and monetizing API usage. Application plans let you configure access rights to an API by specifying rate limits and pricing rules. All applications must be associated with a plan.  Multiple custom application plans can be defined for an API.
+Plans are used for granting access to specific APIs and endpoints, limiting traffic, and monetizing API usage. 
+Application plans let you configure access rights to an API by specifying rate limits and pricing rules. All applications must be associated with a plan.  
+Multiple custom application plans can be defined for an API.
 
 In this section of the lab, you'll create two new Application Plans for the *Products* service.
  
@@ -91,7 +85,9 @@ image::images/3scale_amp_products_app_plan2.png[]
 
 . Create another application plan with the name `ProductsPremiumPlan` and a system name of `products/premium`.
 * The `ProductPremiumPlan` is used in later labs in this course.
-. For *Default Plan*, select *ProductsBasicPlan*.
+
+. In the `Application Plans` listing page, select *ProductsBasicPlan* from the _Default Plan_ drop-down.
+
 . Click *Publish* for both *ProductsBasicPlan* and *ProductsPremiumPlan*:
 +
 image::images/3scale_amp_products_app_plan_publish.png[]
@@ -99,7 +95,7 @@ image::images/3scale_amp_products_app_plan_publish.png[]
 
 === Define Accounts and Users
 
-. Click *Developers*.
+. Navigate to  *Audience -> Accounts -> Listing*.
 . Click *Create*.
 . Create a new account with the following credentials:
 * *Username*: `rhbankdev`
@@ -111,14 +107,16 @@ image::images/3scale_amp_products_create_dev.png[]
 
 === Create Application
 
-In this section you associate an application to your previously defined users. This generates a user key for the application. The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
+In this section you associate an application to your previously defined users. 
+This generates a user key for the application. 
+The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
 
 NOTE: It's likely that an _application_ was already auto-generated and an association made between the _RHBank_ account and the _ProductsBasicPlan_ Application Plan.
-If so, you can disregard this auto-generated Application.
+If so, you can delete this auto-generated Application.
 Follow the instructions below to gain practice in creating a new Application.
 
-. Navigate to the *Developers* tab.
-. Select *RHBank* -> *Application*.
+. Navigate to  *Audience -> Accounts -> Listing*.
+. Select *RHBank* -> *0 Applications*.
 +
 image::images/3scale_amp_products_create_app.png[]
 +
@@ -145,8 +143,13 @@ Afterwards, in a later section of this lab, we'll use those methods to define _r
 
 === Methods
 
-. Navigate to the *API* tab.
-. In the *Products* service, select *Integration*.
+Your RESTful backend service exposes _resources_ via different HTTP verbs.
+In a similar manner, your 3scale API defines corresponding _methods_.
+
+In this section of the lab, you define various API _methods_ that correspond with the various resources exposed by the _products_ API.
+
+. Navigate to the *API:Products* perspective.
+. Select *Integration*.
 . Click *add the base URL of your API and save the configuration*:
 +
 image::images/3scale_amp_products_api_integration1.png[]
@@ -176,6 +179,8 @@ image::images/3scale_amp_products_create_all_methods.png[]
 
 === Mappings
 
+Now that API _methods_ have been defined, in this section of the lab you create mappings between those API _methods_ and the actual _resource_ and HTTP verb exposed by the _products_ RESTful service.
+
 . For the *Get Product* method, click *Add a mapping rule*.
 . Click *edit*.
 . Enter the following values:
@@ -197,105 +202,83 @@ image::images/3scale_amp_products_create_all_mappings.png[]
 
 == Product API Stage and Prod Routes
 
-Remote clients will invoke your Products API via a routes assigned to your _apicast_  stage and production services.
+Remote clients will invoke your Products API via a routes assigned to your API gateway stage and production services.
 
-The default installation of 3scale does include generic routes to your _apicast_ services.
-In this section, you will remove these generic routes and replace with routes more specific to your Products API.
+Use the API gateways found in your $GW_PROJECT project.
 
 . From the command line, verify that you are logged in to OpenShift.
-. Verify that you are in the *3scale AMP* project:
+
+. Get the list of routes defined in the $GW_PROJECT :
 +
-
 -----
-$ oc project $OCP_PROJECT_PREFIX-3scale-amp
------
-
-. Get the list of `apicast` routes defined in the project:
-+
-
------
-$ oc get routes | grep apicast
+$ oc get route -n $GW_PROJECT | grep apicast
 -----
 +
 .Sample Output
 -----
-NAME                           HOST/PORT                                                              PATH      SERVICES             PORT      TERMINATION   WILDCARD
-api-apicast-production-route   api-user76-3scale-apicast-production.apps.6a94.openshift.opentlc.com             apicast-production   gateway   edge/Allow    None
-api-apicast-staging-route      api-user76-3scale-apicast-staging.apps.6a94.openshift.opentlc.com                apicast-staging      gateway   edge/Allow    None
-backend-route                  backend-user76-3scale.apps.6a94.openshift.opentlc.com                            backend-listener     http      edge/Allow    None
-system-developer-route         user76-3scale.apps.6a94.openshift.opentlc.com                                    system-developer     http      edge/Allow    None
-system-provider-admin-route    user76-3scale-admin.apps.6a94.openshift.opentlc.com                              system-provider      http      edge/Allow    None
+
+swarm-prod-apicast-user1    swarm-prod-apicast-user1.apps.clientvm.1677.openshift.opentlc.com              prod-apicast    gateway   edge/Allow    None
+swarm-stage-apicast-user1   swarm-stage-apicast-user1.apps.clientvm.1677.openshift.opentlc.com             stage-apicast   gateway   edge/Allow    None
 -----
 
-. Delete these default routes:
+. Delete all of these routes:
 +
-
 -----
-$ oc delete route api-apicast-production-route
-$ oc delete route api-apicast-staging-route
+$ oc delete route --all -n $GW_PROJECT
 -----
 
 . Create new routes to the staging and production APIcast gateways:
 +
-
 -----
 $ oc create route edge products-staging-route \
- --service=apicast-staging \
- --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
+ --service=stage-apicast \
+ --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN \
+ -n $GW_PROJECT
 
 $ oc create route edge products-production-route \
- --service=apicast-production \
- --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN
------
-
-. Verify that the routes were created successfully:
-+
-
------
-$ oc get routes  | grep products
------
-+
-.Sample Output
------
-products-production-route       products-production-apicast-user76.apps.na1.openshift.opentlc.com               apicast-production        gateway   edge          None
-products-staging-route          products-staging-apicast-user76.apps.na1.openshift.opentlc.com                  apicast-staging           gateway   edge          None
+ --service=prod-apicast \
+ --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN \
+ -n $GW_PROJECT
 -----
 
 === Assign API Endpoints
 
 . Return to 3scale by Red Hat's Admin Portal.
-. Enter the products API and business service routes to the configuration:
-* *Private base URL*: Route into the products API business service endpoint
+. In the _Integration_ page for your _products API_, populate the private and public base URLs:
+
+..  *Private base URL*: URL of the products API business service endpoint. The value will be the output of the following:
 +
-IMPORTANT: This is the route you set in the Business Services Lab. It should be `http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:80`. Note that the values do not resolve on 3scale AMP, so you need to provide the full path--for example: `http://products-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:80`
+-----
+$ echo -en "\n\nhttp://products-api.$OCP_PROJECT_PREFIX-products-api:8080\n\n"
+-----
+
+.. *Staging public base URL*: Route to the products staging endpoint. The value will be the output of the following:
 +
-NOTE: If your business service is running in the same OpenShift cluster as your APIcast gateway, then you can use the service endpoint instead of the route endpoint. The service endpoint will be the service host and port information is provided in the service description, as shown below: 
+-----
+$ echo -en "\n\nhttps://`oc get route products-staging-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
+-----
+
+
+.. *Production public base URL*: Route to the products production endpoint. The value will be the output of the following:
 +
-image::images/ocp_product_service_endpoint.png[]
-+
-* *Staging public base URL*: Route to the products APIcast staging endpoint
-+
-IMPORTANT: This is the staging route URL you created in the previous section. It should be `https://products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Note that the values do not resolve on 3scale AMP, so you need to provide the full path--for example: `products-staging-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
-+
-* *Production public base URL*: Route to the products APIcast production endpoint
-+
-IMPORTANT: This is the production route URL you created in the previous section. It should be `https://products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN:443`. Note that the values do not resolve on 3scale AMP, so you need to provide the full path--for example: `https://products-production-apicast-sjayanti-redhat-com.apps.na1.openshift.opentlc.com:443`.
+-----
+$ echo -en "\n\nhttps://`oc get route products-production-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
+-----
 
 * *API test GET request*: `/rest/services/product/1`
 
 . Do not change the remaining values, and click *Update the Staging Environment*.
-* 3scale AMP tests the connection, and the route turns green when the API routing is successful. 
+* 3scale API Manager tests the connection, and the route turns green when the API routing is successful. 
 * Note the following message: *Connection between client, gateway & API is working correctly as reflected in the analytics section.*
 
 . Make a request based on the `curl` request generated in the client to verify that the staging API URL is accessed correctly:
 +
 image::images/3scale_amp_products_curl_test_url.png[]
-+
-NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
+
 . Once the request is successful, click *Promote to Production* and test the `curl` request for production.
 +
-Recall that you may have to wait up to 5 minutes for the new _proxy_ state to be synchronized in your production APIcast.
-Alternatively, you could redeploy your production APIcast if you don't want to wait. 
+Recall that you may have to wait up to 5 minutes for the new _proxy_ state to be synchronized in your production API gateway.
+Alternatively, you could redeploy your production API gateway if you don't want to wait. 
 
 
 == Rate Limiting
@@ -306,15 +289,17 @@ In this section you configure and test a rate-limiting policy in an application 
 
 Rate limits allow you to throttle access to your API resources. You can configure different limits for separate developer segments through the use of application plans.
 
-Once you have rate limits in place, these limits control the responses a developer receives when he or she makes authorization request calls to the backend service using 3scale. The limits are configured in the Admin Portal, and are enforced by the APIcast gateway during service invocation. The gateway receives the configuration information from the 3scale backend which contains the rate limits for the different application plans within each service. 
+Once you have rate limits in place, these limits control the responses a developer receives when he or she makes authorization request calls to the backend service using 3scale. 
+The limits are configured in the Admin Portal, and are enforced by the API gateway during service invocation. 
+The gateway receives the configuration information from the 3scale backend which contains the rate limits for the different application plans within each service. 
 
 The sequence of steps is as follows:
 
-. APIcast refreshes itself with the latest API configurations from the backend every 5 minutes (or as configured).
-. APIcast implements a local in-memory cache for authorization keys and metrics.
-. With every inbound request to a backend service, APIcast uses an asynch transport to make an `authrep` request to the backend listener API in 3scale.
-. An `authrep` response from the 3scale backend updates the local apicast cache.
-. APIcast rejects all subsequent inbound requests if the backend determines that the rate limit has been exceeded.
+. API gateway refreshes itself with the latest API configurations from the backend every 5 minutes (or as configured).
+. API gateway implements a local in-memory cache for authorization keys and metrics.
+. With every inbound request to a backend service, API gateway uses an asynch transport to make an `authrep` request to the backend listener API in 3scale.
+. An `authrep` response from the 3scale backend updates the local API gateway cache.
+. API gateway rejects all subsequent inbound requests if the backend determines that the rate limit has been exceeded.
 
 In this lab, you will check the rate limiting in the context of the Products API. 
 
@@ -325,8 +310,7 @@ In a later lab of this course, you will create a different application plan (nam
 
 === Set Rate Limits
 
-. In 3scale by Red Hat's Admin Portal, verify that you are logged in, and then click the *APIs* tab.
-. Expand the *Products* API.
+. In the Admin Portal, expand the *Products* API.
 . Click *Published Application Plans*.
 . Select *ProductsBasicPlan*:
 +
@@ -358,6 +342,7 @@ image::images/3scale_amp_products_app_plan_limit4.png[]
 +
 image::images/3scale_amp_products_app_plan_limit5.png[]
 
+
 === Test Rate Limits
 
 . Click the *Integration* tab.
@@ -368,8 +353,6 @@ image::images/3scale_amp_products_app_plan_limit6.png[]
 . Copy the `curl` request link.
 +
 image::images/3scale_amp_products_curl_test_url.png[]
-+
-NOTE: When running the `curl` request from the command line, you need to add a `-k` argument to the request for the request to execute correctly.
 +
 * The request is to URL `rest/services/product/1`, so it makes a `GET` request to the `Get` method configured.
 
@@ -417,6 +400,8 @@ Limits exceeded
 -----
 +
 NOTE: In the SaaS version of 3scale AMP (and in a future release of 3scale on-premise), you can create pricing rules for your APIs in the application plans. This functionality is out of scope for this lab.
+
+
 
 === Test Rate Limits in Production (Bonus)
 
