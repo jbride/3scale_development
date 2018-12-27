@@ -29,7 +29,7 @@ Please refer to the first couple of labs of the _Red Hat 3scale Implementation_ 
 
 === Shell Environment Variables
 
-Recall from the first lab of the _3scale Implementation_ pre-requisite course that you permanently set the following environment variables in shell of your virtual machine:
+Recall from the first lab of the _3scale Implementation_ pre-requisite course that you permanently set the following environment variables in the shell of your remote virtual machine:
 
 . *OCP_WILDCARD_DOMAIN*
 +
@@ -39,7 +39,7 @@ Wildcard DNS of your OpenShift environment.
 +
 Unique identifier used to deconflict OpenShift project names across a shared OpenShift cluster.
 
-. *$OCP_USERNAME*
+. *OCP_USERNAME*
 +
 Name of user that will serve as the API Provider in this lab.
 
@@ -52,13 +52,17 @@ Name of OpenShift project where API Manager is deployed to.
 Name of the OpenShift project where your API gateways (stage and prod) are deployed to.
 
 
-Ensure that all of these environment variables are still set.
+Ensure that all of these environment variables are still set in your remote virtual machine.
 
 
 === API Manager
 Your remote VM should be provisioned with the Red Hat 3scale API Manager as per the intructions in the _Red Hat 3scale Implementation_ course.
 
-. You should have _view_ access to the API Manager provisioned in the following namespace:  `API_MANAGER_NS` .
+. Using the `oc` utility found in the course virtual machine, log into the master API of your OpenShift environment using the user: $OCP_USERNAME
++
+NOTE: The login session to your OpenShift environment is valid for 24 hours.  Every 24 hours, you'll have to re-authenticate using the `oc` utility and subsequently re-generate a new session.
+
+. You should have _view_ access to the API Manager provisioned in the following namespace:  `$API_MANAGER_NS` .
 
 . You should be able to access the Admin Portal of the default _tenant_ of the API Manager by navigating to the output of the following:
 +
@@ -71,7 +75,7 @@ Authenticate by using credentials of:   admin / admin.
 === API Gateways
 In addition to an API Manager, API Gateways (stage and prod) should also be provisioned in your remote lab environment.
 
-Instructions for how to do so are also to be found in the _Red Hat 3scale Implementation_ course.
+Instructions for how to do so are also found in the _Red Hat 3scale Implementation_ course.
 
 You should have admin access to an OpenShift project where your API Gateways reside.
 The name of this project can be determined via the shell environment variable:  $GW_PROJECT.
@@ -91,8 +95,7 @@ stage-apicast-5dfbd75bb5-rg2x4   1/1       Running   0          50s
 To support the lab exercises, you need RESTful business services that you can manage and secure. 
 The configurations for these services  are provided in the lab assets. In this exercise, you explore these business services.
 
-. SSH into your remote lab vm as the non-root operating system user.
-. Ensure the following directory exists:
+. In your remote lab VM, ensure the following directory exists:
 +
 -----
 $ mkdir -p $HOME/lab/
@@ -145,10 +148,6 @@ What is used to generate the _swagger.yaml_ configuration ?
 === OpenShift Project
 
 In this section, you will create an OpenShift project where your _products_ API service will be deployed to.
-
-. Using the `oc` utility found in the course virtual machine, log into the master API of your OpenShift environment.
-+
-NOTE: The login session to your OpenShift environment is valid for 24 hours.  Every 24 hours, you'll have to re-authenticate using the `oc` utility and subsequently re-generate a new session.
 
 . Create a new project for your Products API business service applications:
 +

@@ -3,7 +3,7 @@
 :toc2:
 
 
-== Metrics, Methods, and Rate Limits Lab
+== Methods, Mappings and Rate Limits Lab
 
 .Overview
 
@@ -13,22 +13,61 @@ In particular, _methods_, _metrics_, and _rate limits_ are defined and used.
 
 .Goals
 
-* Expose RESTful Products API with 3scale AMP
-* Create application plans for basic and premium users
-* Define methods and metrics
-* Apply rate limits for basic users to control access to the API
-
-.Prerequisites
-* 3scale Admin Portal URL and user credentials to log in
+* Expose RESTful Products API with 3scale API Manager
+* Create application plans for _basic_ and _premium_ users
+* Define _methods_ and _mappings_
+* Apply rate limits for _basic_ users to control access to the API
 
 :numbered:
 
+
+== Product API Stage and Prod Routes
+
+Recall in the previous lab the set-up of your _Products API_.
+
+Remote clients will invoke your Products API via a routes assigned to your _stage_ and _production_ API Gateways in your $GW_PROJECT namespace.
+
+In this section of the lab, you create these _product_ specific routes on your API gateways.
+
+. From the command line, verify that you are logged in to OpenShift.
+
+. Get the list of routes defined in the $GW_PROJECT :
++
+-----
+$ oc get route -n $GW_PROJECT | grep apicast
+-----
++
+.Sample Output
+-----
+
+swarm-prod-apicast-user1    swarm-prod-apicast-user1.apps.clientvm.1677.openshift.opentlc.com              prod-apicast    gateway   edge/Allow    None
+swarm-stage-apicast-user1   swarm-stage-apicast-user1.apps.clientvm.1677.openshift.opentlc.com             stage-apicast   gateway   edge/Allow    None
+-----
+
+. Delete all of these routes:
++
+-----
+$ oc delete route --all -n $GW_PROJECT
+-----
+
+. Create new routes to the staging and production APIcast gateways:
++
+-----
+$ oc create route edge products-staging-route \
+ --service=stage-apicast \
+ --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN \
+ -n $GW_PROJECT
+
+$ oc create route edge products-production-route \
+ --service=prod-apicast \
+ --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN \
+ -n $GW_PROJECT
+-----
 
 == Manage API Resources
 
 In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APIcast gateway. 
 You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
-
 
 === Default _Developer_ Account
 
@@ -105,6 +144,7 @@ image::images/3scale_amp_products_app_plan_publish.png[]
 +
 image::images/3scale_amp_products_create_dev.png[]
 
+
 === Create Application
 
 In this section you associate an application to your previously defined users. 
@@ -134,7 +174,46 @@ image::images/3scale_amp_products_create_app2.png[]
 image::images/3scale_amp_products_app_plan_userkey.png[]
 
 
-== Create Methods and Mappings
+== Products API Integration
+
+=== Assign API Endpoints
+. Navigate to the *API:Products* perspective.
+. Select *Integration*.
+. Click *add the base URL of your API and save the configuration*:
++
+image::images/3scale_amp_products_api_integration1.png[]
+
+. Populate the private and public URLs of your API as follows:
+
+..  *Private base URL*: URL of the products API business service endpoint. The value will be the output of the following:
++
+-----
+$ echo -en "\n\nhttp://products-api.$OCP_PROJECT_PREFIX-products-api:8080\n\n"
+-----
+
+.. *Staging public base URL*: Route to the products staging endpoint. The value will be the output of the following:
++
+-----
+$ echo -en "\n\nhttps://`oc get route products-staging-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
+-----
+
+
+.. *Production public base URL*: Route to the products production endpoint. The value will be the output of the following:
++
+-----
+$ echo -en "\n\nhttps://`oc get route products-production-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
+-----
+
+* *API test GET request*: `/rest/services/product/1`
+
+. Do not change the remaining values, and click *Update the Staging Environment*.
+* 3scale API Manager tests the connection, and the route turns green when the API routing is successful. 
+* Note the following message: *Connection between client, gateway & API is working correctly as reflected in the analytics section.*
+
+. Make a request based on the `curl` request generated in the client to verify that the staging API URL is accessed correctly:
++
+image::images/3scale_amp_products_curl_test_url.png[]
+=== Create Methods and Mappings
 
 From the previous lab, recall the resources exposed by the Products API when you reviewed them in: http://editor.swagger.io.
 This understanding of the Products API will now be utilized to define _methods_ in 3scale and map those methods to the resources exposed by your Products API.
@@ -148,12 +227,7 @@ In a similar manner, your 3scale API defines corresponding _methods_.
 
 In this section of the lab, you define various API _methods_ that correspond with the various resources exposed by the _products_ API.
 
-. Navigate to the *API:Products* perspective.
-. Select *Integration*.
-. Click *add the base URL of your API and save the configuration*:
-+
-image::images/3scale_amp_products_api_integration1.png[]
-+
+
 . Expand the *Mapping Rules* section.
 . Click *Define Metric/method*.
 . In the *Methods* section, click *New method*.
@@ -200,80 +274,7 @@ Now that API _methods_ have been defined, in this section of the lab you create 
 image::images/3scale_amp_products_create_all_mappings.png[]
 
 
-== Product API Stage and Prod Routes
 
-Remote clients will invoke your Products API via a routes assigned to your API gateway stage and production services.
-
-Use the API gateways found in your $GW_PROJECT project.
-
-. From the command line, verify that you are logged in to OpenShift.
-
-. Get the list of routes defined in the $GW_PROJECT :
-+
------
-$ oc get route -n $GW_PROJECT | grep apicast
------
-+
-.Sample Output
------
-
-swarm-prod-apicast-user1    swarm-prod-apicast-user1.apps.clientvm.1677.openshift.opentlc.com              prod-apicast    gateway   edge/Allow    None
-swarm-stage-apicast-user1   swarm-stage-apicast-user1.apps.clientvm.1677.openshift.opentlc.com             stage-apicast   gateway   edge/Allow    None
------
-
-. Delete all of these routes:
-+
------
-$ oc delete route --all -n $GW_PROJECT
------
-
-. Create new routes to the staging and production APIcast gateways:
-+
------
-$ oc create route edge products-staging-route \
- --service=stage-apicast \
- --hostname=products-staging-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN \
- -n $GW_PROJECT
-
-$ oc create route edge products-production-route \
- --service=prod-apicast \
- --hostname=products-production-apicast-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN \
- -n $GW_PROJECT
------
-
-=== Assign API Endpoints
-
-. Return to 3scale by Red Hat's Admin Portal.
-. In the _Integration_ page for your _products API_, populate the private and public base URLs:
-
-..  *Private base URL*: URL of the products API business service endpoint. The value will be the output of the following:
-+
------
-$ echo -en "\n\nhttp://products-api.$OCP_PROJECT_PREFIX-products-api:8080\n\n"
------
-
-.. *Staging public base URL*: Route to the products staging endpoint. The value will be the output of the following:
-+
------
-$ echo -en "\n\nhttps://`oc get route products-staging-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
------
-
-
-.. *Production public base URL*: Route to the products production endpoint. The value will be the output of the following:
-+
------
-$ echo -en "\n\nhttps://`oc get route products-production-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
------
-
-* *API test GET request*: `/rest/services/product/1`
-
-. Do not change the remaining values, and click *Update the Staging Environment*.
-* 3scale API Manager tests the connection, and the route turns green when the API routing is successful. 
-* Note the following message: *Connection between client, gateway & API is working correctly as reflected in the analytics section.*
-
-. Make a request based on the `curl` request generated in the client to verify that the staging API URL is accessed correctly:
-+
-image::images/3scale_amp_products_curl_test_url.png[]
 
 . Once the request is successful, click *Promote to Production* and test the `curl` request for production.
 +
@@ -399,7 +400,7 @@ NOTE: When running the `curl` request from the command line, you need to add a `
 Limits exceeded
 -----
 +
-NOTE: In the SaaS version of 3scale AMP (and in a future release of 3scale on-premise), you can create pricing rules for your APIs in the application plans. This functionality is out of scope for this lab.
+NOTE: You can create pricing rules for your APIs in the application plans. This functionality is out of scope for this lab.
 
 
 
