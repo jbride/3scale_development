@@ -88,7 +88,7 @@ You'll then have to subsequently make sure you are using the desired _applicatio
 image::images/3scale_amp_admin_delete_developers.png[]
 
 
-=== Define Products API Service
+=== Define Products API 
 
 In this section you define an API service that manages access to the Products API business service that you provisioned in the previous lab.
 
@@ -174,9 +174,9 @@ image::images/3scale_amp_products_create_app2.png[]
 image::images/3scale_amp_products_app_plan_userkey.png[]
 
 
-== Products API Integration
+=== Products API Integration
 
-=== Assign API Endpoints
+==== Assign API Endpoints
 . Navigate to the *API:Products* perspective.
 . Select *Integration*.
 . Click *add the base URL of your API and save the configuration*:
@@ -213,14 +213,15 @@ $ echo -en "\n\nhttps://`oc get route products-production-route -o template --te
 . Make a request based on the `curl` request generated in the client to verify that the staging API URL is accessed correctly:
 +
 image::images/3scale_amp_products_curl_test_url.png[]
-=== Create Methods and Mappings
+
+==== Methods and Mappings
 
 From the previous lab, recall the resources exposed by the Products API when you reviewed them in: http://editor.swagger.io.
 This understanding of the Products API will now be utilized to define _methods_ in 3scale and map those methods to the resources exposed by your Products API.
 
 Afterwards, in a later section of this lab, we'll use those methods to define _rate limits_ and collect utilization _metrics_ on each of those Product API resources.
 
-=== Methods
+===== Methods
 
 Your RESTful backend service exposes _resources_ via different HTTP verbs.
 In a similar manner, your 3scale API defines corresponding _methods_.
@@ -251,7 +252,7 @@ image::images/3scale_amp_products_create_method.png[]
 +
 image::images/3scale_amp_products_create_all_methods.png[]
 
-=== Mappings
+===== Mappings
 
 Now that API _methods_ have been defined, in this section of the lab you create mappings between those API _methods_ and the actual _resource_ and HTTP verb exposed by the _products_ RESTful service.
 
