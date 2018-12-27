@@ -94,7 +94,7 @@ In this section you define an API service that manages access to the Products AP
 
 . In the Admin Portal, select the *Dashboard* perspective from the drop-down in the top panel.
 
-. In the `APIs` section of the page, click *NEW API * 
+. In the `APIs` section of the page, click *NEW API* 
 . Populate the form to create a new API with the following information:
 * *Name*: `Products`
 * *System Name*: `products_system`
@@ -110,11 +110,9 @@ Multiple custom application plans can be defined for an API.
 In this section of the lab, you'll create two new Application Plans for the *Products* service.
  
 
-. In the APIs section, expand the *Products* API and scroll down to the *Published Application Plans* section.
-+
-image::images/3scale_amp_products_app_plan.png[]
+. From the top panel, select _API:Products_ and on the _Overview_ page scroll down to the *Published Application Plans* section.
 . Create `ProductsBasicPlan`:
-.. Click *Create Application Plan*.
+.. Click: *Create Application Plan*.
 .. Use the following parameters:
 * *Name*: `ProductsBasicPlan`
 * *System Name*: `products/basic`
@@ -166,10 +164,8 @@ image::images/3scale_amp_products_create_app.png[]
 * *Service plan*: `Default`
 * *Name*: `ProductsApp`
 * *Description*: `Products Application`
-+
-image::images/3scale_amp_products_create_app2.png[]
 
-. After the application is created, make a note of the user key:
+. Click the blue `Create Application` button in the bottom right corner.  After the application is created, make a note of the user key:
 +
 image::images/3scale_amp_products_app_plan_userkey.png[]
 
@@ -178,10 +174,8 @@ image::images/3scale_amp_products_app_plan_userkey.png[]
 
 ==== Assign API Endpoints
 . Navigate to the *API:Products* perspective.
-. Select *Integration*.
+. Select *Integration -> Configuration*.
 . Click *add the base URL of your API and save the configuration*:
-+
-image::images/3scale_amp_products_api_integration1.png[]
 
 . Populate the private and public URLs of your API as follows:
 
