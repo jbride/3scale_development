@@ -50,7 +50,7 @@ swarm-stage-apicast-user1   swarm-stage-apicast-user1.apps.clientvm.1677.openshi
 $ oc delete route --all -n $GW_PROJECT
 -----
 
-. Create new routes to the staging and production APIcast gateways:
+. Create new routes to the staging and production API gateways:
 +
 -----
 $ oc create route edge products-staging-route \
@@ -66,7 +66,7 @@ $ oc create route edge products-production-route \
 
 == Manage API Resources
 
-In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's APIcast gateway. 
+In this section you expose the Products API business services created in an earlier lab using 3scale by Red Hat's API gateway. 
 You use 3scale by Red Hat's Admin Portal to create the accounts, applications, application plans, services, and API definitions.
 
 === Default _Developer_ Account
@@ -147,7 +147,7 @@ image::images/3scale_amp_products_create_dev.png[]
 
 In this section you associate an application to your previously defined users. 
 This generates a user key for the application. 
-The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise APIcast gateway.
+The user key is used as a query parameter to the HTTP request to invoke your business services via your on-premise API gateway.
 
 NOTE: It's likely that an _application_ was already auto-generated and an association made between the _RHBank_ account and the _ProductsBasicPlan_ Application Plan.
 If so, you can delete this auto-generated Application.
@@ -223,8 +223,7 @@ In a similar manner, your 3scale API defines corresponding _methods_.
 In this section of the lab, you define various API _methods_ that correspond with the various resources exposed by the _products_ API.
 
 
-. Expand the *Mapping Rules* section.
-. Click *Define Metric/method*.
+. Navigate to: `API:Products -> Integration -> Methods & Metrics`.
 . In the *Methods* section, click *New method*.
 . Enter the following values:
 * *Friendly name*: `Get Product`
@@ -234,7 +233,7 @@ In this section of the lab, you define various API _methods_ that correspond wit
 +
 image::images/3scale_amp_products_create_method.png[]
 
-. Repeat steps 6 to 8 for the following methods:
+. Repeat the previous steps to create the following additional methods:
 +
 [options="header"]
 |=======================
@@ -243,20 +242,21 @@ image::images/3scale_amp_products_create_method.png[]
 |`Delete Product`|`product/delete`|`Delete a product by ID.`
 |`Get All Products`|`product/getall`|`Get all products.`
 |=======================
-+
-image::images/3scale_amp_products_create_all_methods.png[]
 
 ===== Mappings
 
 Now that API _methods_ have been defined, in this section of the lab you create mappings between those API _methods_ and the actual _resource_ and HTTP verb exposed by the _products_ RESTful service.
 
 . For the *Get Product* method, click *Add a mapping rule*.
-. Click *edit*.
+. Click the green *edit* pencil on the far right of the _Mapping Rules_ section of the Product API _Configuration_ page.
 . Enter the following values:
 * *Verb*: `GET`
 * *Pattern*: `/rest/services/product/`
 * *Method*: `product/get`
-. Repeat steps 10 to 12 for the other mapping rules:
+. 
+
+. Repeat the previous steps to create the following additional _methods_:
+. Repeat the previous steps to create the following additional _mappings_ :
 +
 [options="header"]
 |=======================
@@ -271,7 +271,12 @@ image::images/3scale_amp_products_create_all_mappings.png[]
 
 
 
-. Once the request is successful, click *Promote to Production* and test the `curl` request for production.
+. Click `Update & test in Staging Environment`.  
++
+Once the request is successful, click `Back to Integration & Configuration`.
+
+. Click *Promote to Production* 
+. Create a `curl` request and test the Products API from the production API gateway..
 +
 Recall that you may have to wait up to 5 minutes for the new _proxy_ state to be synchronized in your production API gateway.
 Alternatively, you could redeploy your production API gateway if you don't want to wait. 
@@ -306,13 +311,10 @@ In a later lab of this course, you will create a different application plan (nam
 
 === Set Rate Limits
 
-. In the Admin Portal, expand the *Products* API.
-. Click *Published Application Plans*.
+. In the Admin Portal, navigate to `API:Products -> Overview -> Published Application Plans`
 . Select *ProductsBasicPlan*:
-+
-image::images/3scale_amp_products_app_plan_limit1.png[]
 
-. Scroll down to the *Metrics, Methods & Limits* section.
+. Scroll down to the *Metrics, Methods, Limits & Pricing Rules* section.
 . Disable the *Create Product* and *Delete Product* methods by clicking the green check marks in the *Enabled* column:
 +
 image::images/3scale_amp_products_app_plan_limit2.png[]
@@ -335,8 +337,6 @@ image::images/3scale_amp_products_app_plan_limit4.png[]
 * *Max. value*: `1`
 . Click *create usage limit*.
 . Click *Update Application plan*:
-+
-image::images/3scale_amp_products_app_plan_limit5.png[]
 
 
 === Test Rate Limits
@@ -404,7 +404,7 @@ NOTE: You can create pricing rules for your APIs in the application plans. This 
 Now, try the following steps:
 
 . Promote the Products API service to Production.
-. Bounce the APIcast production pod for the configuration to be updated.
+. Bounce the production API gateway pod for the configuration to be updated.
 . Try sending the requests to the rate limit URLs as in the previous section. Alternate between production and staging URLs.
 
 To test your understanding of the rate limits, try to answer the following questions:
