@@ -341,10 +341,8 @@ image::images/3scale_amp_products_app_plan_limit4.png[]
 
 === Test Rate Limits
 
-. Click the *Integration* tab.
+. Navigate to *API:Products -> Integration -> Configuration* .
 . Click *edit APIcast configuration*:
-+
-image::images/3scale_amp_products_app_plan_limit6.png[]
 
 . Copy the `curl` request link.
 +
