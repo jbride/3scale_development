@@ -294,7 +294,7 @@ $ echo http://`oc get route/products-api -o template --template {{.spec.host}} -
 
 Via your browser, you can download this _swagger.yaml_ configuration file to your local filesystem and skim through it.
 
-This Swagger documentation can be better visualized in a tool such as:  http://editor.swagger.io
+This OpenAPI (aka: Swagger) documentation can be better visualized in a tool such as:  http://editor.swagger.io
 
 . In a new browser window, navigate to `http://editor.swagger.io/`.
 . Select *File -> Import URL*.
