@@ -8,14 +8,12 @@
 
 .Overview
 
-In this lab you learn techniques for user communication, account management via invitations, and using custom keys for applications. 
-
-
+In this lab you learn techniques for communication with API consumers, account management via invitations, and using custom keys for applications. 
 
 .Goals
 
-* Send email message to users
-* Send email invitation to add user to account
+* Send email message to API consumers
+* Send email invitation to add API consumer to account
 * Customize user key tokens
 * Apply end user rate limits
 
@@ -26,33 +24,50 @@ In this lab you learn techniques for user communication, account management via 
 +
 TIP: To check if your shell still has this environment variable set, execute the `echo $OCP_WILDCARD_DOMAIN` command. If the variable is no longer set, return to the first lab in this course and follow the steps there to set it again.
 
-* Admin Portal URL and user credentials to log in
+* Admin Portal URL and API provider credentials to log in
 
 :numbered:
 
 
 == Send Email
 
-In this section you see how a 3scale API Management administrator can send an email message to any registered account user.
+In this section you see how an administrator of a API tenant can send an email message to any API consumer associated with that tenant.
+
+Recall that SMTP configurations were set in the prerequisite course:  _Red Hat 3scale API Management Implementation_.
+
+You can use the same SMTP configurations in this lab.
 
 === Reconfirm SMTP Setup
 
-. Log in to your OpenShift Management Console and navigate to *Resources -> Config Maps -> smtp*.
-. Check that the ConfigMap shows the SMTP credentials as configured:
+. Recall that the smtp configurations for your API manager are maintained in a configmap called:  _smtp_.
+. Check that the ConfigMap is populated with your desired SMTP credentials :
 +
-image::images/ocp_amp_config_map_smtp.png[]
+-----
+$ oc describe configmap smtp -n $API_MANAGER_NS
+
+apiVersion: v1
+data:
+  address: smtp.sendgrid.net
+  authentication: plain
+  domain: ""
+  openssl.verify.mode: ""
+  password: xxxxxxxxxx
+  port: "587"
+  username: xxxxxx
+kind: ConfigMap
+
+-----
 +
 NOTE: Note that the setup stores the password as plain text, so use a separate account as your SMTP instead of your personal email account.
 +
 . If the smtp ConfigMap needs to be updated, then you need to bounce the following deployments to reread the configuration:
 ** `system-app`
-** `system-resque`
 ** `system-sidekiq`
 
 
 === Send Message from Admin Portal
 
-. In the 3scale API Management Admin Portal, verify that you are logged in, and then click the *Developers* tab.
+. In the 3scale API Management Admin Portal, verify that you are logged in to the default tenant, and then navigate to: `Audience -> Accounts`.
 . Click the *RHBank* account.
 . On the Account Summary page, click *Send Message*:
 +
@@ -66,45 +81,47 @@ image::images/3scale_amp_products_account_send_message.png[]
 +
 image::images/3scale_amp_products_account_send_message_2.png[]
 
-. Verify that the sent message is listed in the *Messages* tab by clicking *Sent messages*:
+. Verify the sent message by navigating to: `Audience -> Messages -> *Sent messages`:
 +
 image::images/3scale_amp_products_account_send_message_5.png[]
 
-=== Confirm Email Receipt in Developer Account
+=== Confirm Email Receipt 
 
-. Confirm that the email has been received in the email ID registered for the user:
+Check the email of the _RHBank_ API consumer.
+
+. If your smtp provider is Gmail, you may encounter an issue with Google blocking the sign-in attempt from the Red Hat OpenShift Container Platform cluster on AWS. 
+
+.. You might notice the following error:
++
+image::images/3scale_amp_email_gmail_error.png[]
+
+.. Log in to your Gmail account and update the permissions in Gmail to permit the login for SMTP.
+
+
+. Confirm that the email has been received in _RHBank_'s email:
 +
 image::images/3scale_amp_products_account_send_message_3.png[]
-+
-NOTE: The email is sent from the email address registered with AMP for the SMTP credentials.
-+
-====
-IMPORTANT: If you are using a Gmail account, you may encounter an issue with Google blocking the sign-in attempt from the Red Hat OpenShift Container Platform cluster on AWS. You might notice the following error:
 
-image::images/3scale_amp_email_gmail_error.png[]
-====
-+
-TIP: Log in to your Gmail account and update the permissions in Gmail to permit the login for SMTP.
 
-. Confirm that the email is in the *Sent* folder of the SMTP account:
+. Confirm that the email is in the *Sent* folder of the account associated SMTP provider:
 +
 image::images/3scale_amp_products_account_send_message_4.png[]
 
 
 == Invite User to Join Developer Account
 
-When the developer account for RHBank was created in the previous lab, the account was created for a specific email ID, username, and password. 
+When the RHBank account was created in the previous lab, the account was created for a specific email ID, username, and password. 
 In 3scale API Management, multiple users can be created for the same account. 
 
-In this section of the lab, new user's will be invited to account.
+In this section of the lab, new user's will be invited to an account.
 
-You'll do this initially as the 3scale site admin and then do so again as the _RHBank_ account admin.
+You'll do this initially as the admin of an API provider tenant and then do so again as the _RHBank_ account admin.
 
-=== Site Admin: Send Invitation to User's Email Address
+=== Tenant Admin: Send Invitation to User's Email Address
 
-. Click the *Developers* tab.
+. Navigate to *Audience -> Accounts* .
 . Click the *RHBank* account.
-. Click *Invitations*:
+. Click *0 Invitations*:
 +
 image::images/3scale_amp_products_account_invite_user.png[]
 +
@@ -125,10 +142,11 @@ NOTE: If the user does not receive the invitation, you can resend the invitation
 +
 image::images/3scale_amp_products_account_invite_user_4.png[]
 
-. Click the link in the email to join the developer account. This opens the *Invitation Sign In* form on the Developer Portal.
+. Click the link in the email to join the API consumer account. This opens the *Invitation Sign In* form in the Developer Portal.
 +
 
-NOTE: The Developer Portal is by default restricted behind an access code, so you might encounter an error page after clicking the activation link. To prevent this, go to the *Settings -> Developer Portal* section of Admin Portal and delete the *Developer Portal Access Code*.
+NOTE: The Developer Portal is by default restricted behind an access code, so you might encounter an error page after clicking the activation link. 
+To prevent this, navigate to *Audience -> Developer Portal -> Settings -> Developer Portal -> Domains & Access* . Afterwards, delete the *Developer Portal Access Code*.
 +
 image::images/3scale_amp_products_account_invite_user_11.png[]
 
@@ -137,7 +155,8 @@ image::images/3scale_amp_products_account_invite_user_11.png[]
 +
 image::images/3scale_amp_products_account_invite_user_5.png[]
 +
-NOTE: An invited user can check their application plan and user key by logging in to the Developer Portal. You observe this workflow in the "Custom Developer Portal" module of the course.
+NOTE: An invited user can check their application plan and user key by logging in to the Developer Portal.
+
 
 === Check User in Admin Portal
 
@@ -167,6 +186,7 @@ image::images/3scale_amp_products_account_invite_user_9.jpg[]
 . Notice that you get an *Access Denied* error because these tabs are reserved for `admin` users.
 . Sign out of the Developer Portal.
 
+
 === Account Admin: Send Invitation to User’s Email Address
 
 Previously you created an account called _RHBank_ and an account admin called: _rhbankdev_.
@@ -176,8 +196,8 @@ As an account admin, the user _rhbankdev_ can invite other users to the account 
 NOTE:  Account admins (ie: _rhbankdev_ ) only have access to the Developer Portal.  
 They do not have access to the 3scale Admin Portal.
 
-. Log in as an `admin` user of the RHBank account (`rhbankdev`).
-. Click the *Users* tab.
+. Log in to the Developer Portal as an `admin` user of the RHBank account (`rhbankdev`).
+. Navigate to `Settings -> Users`.
 . Observe that you can now view the users list, and also invite users using the portal:
 +
 image::images/3scale_amp_products_account_invite_user_10.png[]
@@ -186,11 +206,13 @@ image::images/3scale_amp_products_account_invite_user_10.png[]
 
 == Regenerate and Customize User Keys
 
-In this section you learn how users can manage the user key for accessing APIs managed by 3scale API Management. You do two procedures: regenerating the random key generated, and letting the user enter a custom key.
+In this section you learn how users can manage the user key for accessing APIs managed by 3scale API Management. 
+You do two procedures: regenerating the random key generated, and letting the user enter a custom key.
 
 === Regenerate User Key from Admin Portal
 
-. In the Admin Portal, verify that you are logged in, and then click the *Applications* tab.
+. In the Admin Portal, verify that you are logged in to the default tenant.
+. Navigate to: `API:Products -> Applications -> Listing`
 . Click *ProductsApp*
 . Click *Regenerate*:
 +
@@ -202,7 +224,7 @@ image::images/3scale_amp_products_app_userkey_regenerate.png[]
 
 === Enable User to Manage their API Key
 
-. As a site admin logged into the Admin Portal, navigate to: `APIs -> Products -> Settings -> Application Requirements`
+. As an admin logged into the default tenant of the Admin Portal, navigate to: `API:Products -> Integration -> Settings -> Application Requirements`
 . Ensure that the following checkbox is enabled:  `Developers can manage applications`
 . In the Developer Portal, log in as one of the users that was previously invited to the `RHBank` Account.
 . As this account user, navigate to: `Applications` and click on _ProductsApp_
@@ -229,16 +251,20 @@ NOTE: A custom user key can also be provided in the Developer Portal.  You could
 
 == Change Authentication to App ID and App Key
 
-An alternative to using the API key (user key) for authentication is to use a combination of app ID and app key. In this method, the application is identified by its app ID and then authenticated with the app key. 
+An alternative to using the API key (user key) for authentication is to use a combination of app ID and app key. 
+In this method, the application is identified by its app ID and then authenticated with the app key. 
+
+This security mechanism tends to be superior to use of only a simple API key.
+The App Id + App key security mechanism provides improved long term management.
+Multiple App keys can be generated and each distributed to different API consumers of the same application.
+The lifecycle of each of these App keys can be managed independently of eachother and of the application.
 
 In this section you change the authentication for the Products service to use the app ID and app key instead of the API key.
 
 === Update Service
 
-. In the Admin Portal, verify that you are logged in, and then click the *API* tab.
-. For the Products service, click *Integration*:
-+
-image::images/3scale_amp_products_app_appid_key.png[]
+. In the Admin Portal, verify that you are logged in to the default teant.
+. Navigate to `API:Product -> Integration -> Configuration` .
 +
 . Click *edit integration settings* in the Integration & Configuration page:
 +
@@ -250,7 +276,7 @@ image::images/3scale_amp_products_app_appid_key_3.png[]
 +
 . Click *Update Service*.
 . Click *OK* in the confirmation pop-up window to accept the changes.
-. Click  *Applications* and select *ProductsApp*.
+. Navigate to *Applications -> Listing* and select *ProductsApp*.
 . Observe that the *API Credentials* section was changed to reflect the new authentication:
 +
 image::images/3scale_amp_products_app_appid_key_4.png[]
@@ -263,10 +289,8 @@ NOTE: You can generate multiple application keys. Generate one more key.
 
 === Test Authentication
 
-. Navigate to *APIs* and select *Products > Integration & Configuration*.
+. For the _Products_ API, navigate to `Integration -> Configuration`.
 . Click *edit APIcast configuration*:
-+
-image::images/3scale_amp_products_app_appid_key_5.png[]
 +
 . Scroll to the bottom of the page and notice that the sample curl request generated has `app_id` and `app_key` prefilled:
 +
@@ -275,8 +299,10 @@ image::images/3scale_amp_products_app_appid_key_6.png[]
 . Click *Update & test in Staging Environment and observe that the request succeeds and the integration becomes be green without errors.
 . Test the other app key generated and ensure that the request succeeds.
 +
-NOTE: The app key can be created or deleted through the Developer Portal as well. After you have completed the "Custom Developer Portal" module, revisit this procedure and manage app keys through the Developer Portal. 
+NOTE: The app key can be created or deleted through the Developer Portal as well. 
 
 === Change API Docs
 
-Do this section after completing the labs in the "Custom Developer Portal" module. Because the authentication has changed from user key to app ID and app key, you need to update the Swagger API to reflect this change. As a bonus exercise, update the APIDocs as suggested in module 3, substituting the user key with app ID and app key correctly so that test requests can be sent from the Documentation page of the portal to this API endpoint.
+In a previous lab, you were introduced to the creation and updating of _ActiveDocs_ based API documentation.
+
+In this section, you are encouraged to modify the _ActiveDocs_ for your Products API to reflect the use of the app ID and key security mechanism.
