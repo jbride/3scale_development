@@ -4,7 +4,7 @@
 
 
 
-== Users, Accounts, and Applications Management Lab
+== API Consumer Management Lab
 
 .Overview
 
@@ -249,60 +249,4 @@ image::images/3scale_amp_products_app_userkey_custom_2.png[]
 +
 NOTE: A custom user key can also be provided in the Developer Portal.  You could perform this procedure again after completing the labs in the "Custom Developer Portal" module, and create the custom key in the Developer Portal. 
 
-== Change Authentication to App ID and App Key
 
-An alternative to using the API key (user key) for authentication is to use a combination of app ID and app key. 
-In this method, the application is identified by its app ID and then authenticated with the app key. 
-
-This security mechanism tends to be superior to use of only a simple API key.
-The App Id + App key security mechanism provides improved long term management.
-Multiple App keys can be generated and each distributed to different API consumers of the same application.
-The lifecycle of each of these App keys can be managed independently of eachother and of the application.
-
-In this section you change the authentication for the Products service to use the app ID and app key instead of the API key.
-
-=== Update Service
-
-. In the Admin Portal, verify that you are logged in to the default teant.
-. Navigate to `API:Product -> Integration -> Configuration` .
-+
-. Click *edit integration settings* in the Integration & Configuration page:
-+
-image::images/3scale_amp_products_app_appid_key_2.png[]
-+
-. Scroll down to the *Authentication* section, and change the authentication to *App_ID and App_Key Pair*:
-+
-image::images/3scale_amp_products_app_appid_key_3.png[]
-+
-. Click *Update Service*.
-. Click *OK* in the confirmation pop-up window to accept the changes.
-. Navigate to *Applications -> Listing* and select *ProductsApp*.
-. Observe that the *API Credentials* section was changed to reflect the new authentication:
-+
-image::images/3scale_amp_products_app_appid_key_4.png[]
-+
-. Click *Add Random key* to provide a new app key for this application.
-. Notice that a new application key was generated. 
-+
-NOTE: You can generate multiple application keys. Generate one more key.
-
-
-=== Test Authentication
-
-. For the _Products_ API, navigate to `Integration -> Configuration`.
-. Click *edit APIcast configuration*:
-+
-. Scroll to the bottom of the page and notice that the sample curl request generated has `app_id` and `app_key` prefilled:
-+
-image::images/3scale_amp_products_app_appid_key_6.png[]
-+
-. Click *Update & test in Staging Environment and observe that the request succeeds and the integration becomes be green without errors.
-. Test the other app key generated and ensure that the request succeeds.
-+
-NOTE: The app key can be created or deleted through the Developer Portal as well. 
-
-=== Change API Docs
-
-In a previous lab, you were introduced to the creation and updating of _ActiveDocs_ based API documentation.
-
-In this section, you are encouraged to modify the _ActiveDocs_ for your Products API to reflect the use of the app ID and key security mechanism.
