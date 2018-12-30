@@ -2,19 +2,16 @@
 :data-uri:
 :toc2:
 
-
-
-== Analytics Lab
+= Analytics Lab
 
 In this lab, you set up and view the analytics provided by Red Hat 3scale API Management. You also export data and events from 3scale API Management so that an external analytics tool can be used.
 
+You start by generating some load for the API and then check the analytics graphics to understand the API traffic.
+
 :numbered:
 
-== Using Analytics on Red Hat 3scale API Management
 
-In this section, you generate some load for the API and then check the analytics graphics to understand the API traffic.
-
-=== Generate Load on Products API
+== Generate Load on Products API
 
 . Log in to your 3scale Admin Portal with your user credentials.
 . Navigate to the *Developer Portal* tab.
@@ -87,9 +84,9 @@ image::images/3scale_amp_products_analytics_4.png[]
 . Click *Try it out* a few more times to generate traffic.
 . Try the `Delete` and `Get Product` methods.
 
-=== Observe Analytics
+== Observe Analytics
 
-==== Admin Portal for All Applications
+=== Admin Portal for All Applications
 
 . In 3scale by Red Hat's Admin Portal, log in with your user credentials.
 . Navigate to the *Analytics* tab:
@@ -106,7 +103,7 @@ image::images/3scale_amp_products_analytics_7.png[]
 
 . Click *Top Applications*, *Daily Averages*, and *Alerts*, and observe the statistics shared.
 
-==== Admin Portal for Specific Application
+=== Admin Portal for Specific Application
 
 . Click the *Applications* tab and then *ProductsPremiumPlan*:
 +
@@ -117,7 +114,7 @@ image::images/3scale_amp_products_analytics_8.png[]
 image::images/3scale_amp_products_analytics_9.png[]
 
 
-==== Developer Portal for Specific User
+=== Developer Portal for Specific User
 
 . Log in to the Developer Portal as user `rhadmin` with the password you provided for the account.
 . Click  the *Statistics* tab:
