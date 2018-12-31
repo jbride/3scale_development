@@ -2,7 +2,7 @@
 :data-uri:
 :toc2:
 
-= Analytics and Securit Lab
+= Analytics and Security Lab
 
 In this lab, you set up and view the analytics provided by Red Hat 3scale API Management. 
 
@@ -15,86 +15,52 @@ Towards the end of this lab, you change the security mechanism used on your Prod
 :numbered:
 
 
-== Generate Load on Products API
-
-. As you've done in previous labs, navigate to the _Developer Portal_.
-. Log in as the `rhadmin` user with the password utilized in the earlier lab.
-. Click the *Documentation* tab:
-+
-image::images/3scale_amp_products_analytics_1.png[]
-
-. Expand the _/services/product_ resource that allows for a HTTP POST request.
-. Click the user key *Value* field and accept the default key provided for this application:
-+
-image::images/3scale_amp_products_analytics_2.png[]
-
-. Note the `BODY` JSON format example on the right. Click the section to copy it into the *BODY* field.
-. Edit the request as shown below:
-+
-
------
-{
-  "productid": null,
-  "productname": "Samsung LED TV",
-  "productprice": 299.95
-}
------
-
-. Click *Try it Out*:
-+
-image::images/3scale_amp_products_analytics_3.png[]
-
-* The product is created. Expect to see this response:
-+
-
------
-{"message":"Product created"}
------
-+
-TIP: Due to an SSL certificate issue, the request may not succeed on the portal when using 3scale AMP. In this case, copy and paste the `curl` request generated into a terminal and execute the request.
-
-. Create more products as shown below:
-+
-
------
-{
-  "productid": null,
-  "productname": "Panasonic LED TV",
-  "productprice": 399.95
-}
-
-{
-  "productid": null,
-  "productname": "Panasonic Plasma TV",
-  "productprice": 199.95
-}
-
-{
-  "productid": null,
-  "productname": "JVC OLED TV",
-  "productprice": 1999.95
-}
------
-
-. Submit a `Get Products` request, and verify that the products you created are available in the list of products:
-+
-image::images/3scale_amp_products_analytics_4.png[]
-
-. Click *Try it out* a few more times to generate traffic.
-. Try the `Delete` and `Get Product` methods.
-
 == Observe Analytics
 
-=== Admin Portal for All Applications
+=== Generate Load on Products API
 
-. In 3scale by Red Hat's Admin Portal, log in with your user credentials.
-. Navigate to the *Analytics* tab:
+In this section, you make various requests on your Products API so that this load can be visualized in the analytics portal of the 3scale API Manager in the next section.
+
+. At a terminal winodw, ssh into your remote lab virtual machine
+. Create an environment variable for the user key of your _ProductsPremiumApp_ application.
+.. You can determine the user key by authenticating into the Developer Portal as the _RHAdmin_ user.
+.. At the command line, create the following environment variable:
 +
-image::images/3scale_amp_products_analytics_5.png[]
+-----
+$ PRODUCTS_PREMIUM_APP_USER_KEY=<your user key>
+-----
+
+. Add a new product via initiating a POST request to the _/services/product_ resource of the Products API
 +
-. Click *Products*:
-+
-image::images/3scale_amp_products_analytics_6.png[]
+-----
+$ curl -v -k -X POST \
+    --header 'Content-Type: application/json'  \
+    --header 'Accept: application/json' \
+    -d '{  "productid": null, "productname": "Samsung LED TV", "productprice": 299.95 }' \
+    https://`oc get route products-staging-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443/rest/services/product?user_key=$PRODUCTS_PREMIUM_APP_USER_KEY
+
+....
+
+{"message":"Product created"}
+-----
+
+
+. Create more products in a similar manner using the following request bodies :
+.. {  "productid": null, "productname": "Panasoic LED TV", "productprice": 399.95 }
+.. {  "productid": null, "productname": "Panasoic Plasma TV", "productprice": 199.95 }
+.. {  "productid": null, "productname": "JVC OLED TV", "productprice": 199.95 }
+
+
+. In a similar manner, try the `Delete` and `Get Product` methods.
+
+
+=== API Provider: Observe analytics for all applications
+
+Recall that there are various _applications_ associated with the _Products API_.
+In this section of the lab, you will observe the aggregate of all requests of all applications of the Products API.
+
+. In 3scale by Red Hat's Admin Portal, log in to the default tenant.
+. Navigate to `API:Products -> Analytics -> Usage`:
 
 . Observe the statistics provided:
 +
@@ -102,18 +68,17 @@ image::images/3scale_amp_products_analytics_7.png[]
 
 . Click *Top Applications*, *Daily Averages*, and *Alerts*, and observe the statistics shared.
 
-=== Admin Portal for Specific Application
+=== API Provider: Observe analytics for a specific application
 
-. Click the *Applications* tab and then *ProductsPremiumPlan*:
-+
-image::images/3scale_amp_products_analytics_8.png[]
+. Navigate to `API:Products -> Applications -> Listing`:
+. Click the *ProductsPremiumPlan*:
 
-. Click *Analytics* to view the statistics pertaining to this application:
+. Click *Analytics* link at the top of the page to view the statistics pertaining to this application:
 +
 image::images/3scale_amp_products_analytics_9.png[]
 
 
-=== Developer Portal for Specific User
+=== API Consumer: Observe analytics for a specific user
 
 . Log in to the Developer Portal as user `rhadmin` with the password you provided for the account.
 . Click  the *Statistics* tab:
@@ -178,9 +143,3 @@ image::images/3scale_amp_products_app_appid_key_6.png[]
 . Test the other app key generated and ensure that the request succeeds.
 +
 NOTE: The app key can be created or deleted through the Developer Portal as well. 
-
-=== Change API Docs
-
-In a previous lab, you were introduced to the creation and updating of _ActiveDocs_ based API documentation.
-
-In this section, you are encouraged to modify the _ActiveDocs_ for your Products API to reflect the use of the app ID and key security mechanism.

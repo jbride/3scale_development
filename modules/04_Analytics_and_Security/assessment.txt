@@ -11,15 +11,9 @@ APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?||
 APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||number|||0|0|||
 APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||array|||1|100|||
 APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||function|||0|0|||
-APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||conf.d|||0|0|||
-APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||sites.d|||1|100|||
-APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||main.d|||0|0|||
-APIMGMTDEV|APIMGMTDEV0305|1|LAB: To use custom configuration with APIcast, in which mount path is the echo.conf file mounted?|||apicast.d|||0|0|||
-APIMGMTDEV|APIMGMTDEV0306|5|The default module for the APIcast gateway is called apicast.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0306|5|The default module for the APIcast gateway is called apicast.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0307|1|Which NGINX phase is NOT part of the apicast default module?|||init_worker|||0|0|||
-APIMGMTDEV|APIMGMTDEV0307|1|Which NGINX phase is NOT part of the apicast default module?|||rewrite|||0|0|||
-APIMGMTDEV|APIMGMTDEV0307|1|Which NGINX phase is NOT part of the apicast default module?|||post_action|||0|0|||
-APIMGMTDEV|APIMGMTDEV0307|1|Which NGINX phase is NOT part of the apicast default module?|||log|||1|100|||
-APIMGMTDEV|APIMGMTDEV0308|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0308|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0305|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0305|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0306|5|LAB: Analytics can only by viewed by an API Provider.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0306|5|LAB: Analytics can only by viewed by an API Provider.|||FALSE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0307|5|LAB: Analytics are configured in the settings section of an API.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0307|5|LAB: Analytics are configured in the settings section of an API.|||FALSE|||1|100|||

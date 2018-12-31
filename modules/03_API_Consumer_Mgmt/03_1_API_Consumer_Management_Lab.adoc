@@ -247,6 +247,6 @@ image::images/3scale_amp_products_app_userkey_custom_2.png[]
 . Observe that the user key was updated to your custom key.
 . Test the API request by changing the user key to ensure that it works.
 +
-NOTE: A custom user key can also be provided in the Developer Portal.  You could perform this procedure again after completing the labs in the "Custom Developer Portal" module, and create the custom key in the Developer Portal. 
+NOTE: A user key can also be _regenerated_ by an API consumer _admin_ from the Developer Portal. 
 
 
