@@ -6,7 +6,8 @@
 
 == NGINX Customizations Lab
 
-In this lab you learn about APIcast gateway customizations. You study two popular custom Lua scripts that are required for 3scale by Red Hat's APIcast gateway to manage APIs, and learn how to deploy and test the custom scripts.
+In this lab you learn about API gateway customizations. 
+You study two popular custom Lua scripts that are required for an API gateway to manage APIs, and learn how to deploy and test the custom scripts.
 
 .Goals
 * Create custom module in NGINX gateway for logging
@@ -18,11 +19,15 @@ In this lab you learn about APIcast gateway customizations. You study two popula
 
 == Create Custom Module for Logging
 
-An NGINX module plugs into the life-cycle phase of the gateway. There are various APIcast phases, such as `init`, `init_worker`, `rewrite`, `access`, `content`, `log`, `post_action`, `balancer`, `header_filter`, `body_filter`, etc. A module handles processing of each request. Only one module can be executed.
+An NGINX module plugs into the life-cycle phase of the gateway. 
+There are various APIcast phases, such as `init`, `init_worker`, `rewrite`, `access`, `content`, `log`, `post_action`, `balancer`, `header_filter`, `body_filter`, etc. 
 
+A module handles processing of each request. 
+Only one module can be executed.
 The name of the module that is executed is defined by the environment variable `APICAST_MODULE`, which defaults to `apicast`.
 
-To write custom modules, you need to use inheritance to override the default `APICAST_MODULE` code with your custom code. link:https://github.com/3scale/apicast/tree/master/examples/custom-module[Custom Module] provides a recommended skeleton for writing custom code.
+To write custom modules, you need to use inheritance to override the default `APICAST_MODULE` code with your custom code. 
+The link:https://github.com/3scale/apicast/tree/master/examples/custom-module[Custom Module example] from the API gateway source code provides a recommended skeleton for writing custom code.
 
 === Create Custom Verbose Logging Module
 

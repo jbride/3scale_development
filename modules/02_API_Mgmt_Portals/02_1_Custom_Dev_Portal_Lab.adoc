@@ -19,7 +19,7 @@ In this lab you create API documentation for the APIs managed by Red Hat 3scale 
 
 == Reference
 
-This lab will introduce you the Developer Portal.
+This lab will introduce you the Content Management System and Developer Portal.
 However, you will likely want to reference additional documentation as you are working through this lab.
 
 Suggested reference material is as follows:
@@ -27,7 +27,7 @@ Suggested reference material is as follows:
 * link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview]
 * link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference]
 +
-The same reference is also available by navigating your browser to the following in the Admin Portal:  _Documentation  (in the top left corner) -> Liquid Reference_
+The same reference is also available by navigating your browser to the following in the Admin Portal:  _Documentation  (in the top right corner) -> Liquid Reference_
 +
 image::images/liquid_reference.png[]
 
@@ -36,26 +36,36 @@ image::images/liquid_reference.png[]
 
 In this section, you generate and test ActiveDocs documentation for the API created in the previous module.
 
-ActiveDocs is not a Swagger replacement; it is an instantiation of it. With ActiveDocs, you do not have to run your own Swagger server or deal with the UI components of the interactive documentation. The interactive documentation is served and rendered from your 3scale Developer Portal. For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec[Create a (Swagger) Spec].
+ActiveDocs is not a replacement for the OpenAPI Specification; it is an instantiation of it. 
+With ActiveDocs, you do not have to run your own OpenAPI server or deal with the UI components of the interactive documentation. 
+The interactive documentation is served and rendered from your 3scale Developer Portal. 
+For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec[Create a (Swagger) Spec].
 
 === Customize Products API Swagger configs
-In a previous lab, you have already been introduced to the swagger configuration file (in yaml representation) of your product API.
+In a previous lab, you have already been introduced to the OpenAPI  configuration file (in yaml representation) of your product API.
 
-In this section of the lab, you will customize that swagger configuration so as to make it specific to your products API managed by your apicast gateway.
+In this section of the lab, you will customize that swagger configuration so as to make it specific to your products API managed by your API gateway.
 
 . In a new browser window, navigate to `http://editor.swagger.io/`.
 . Select *File -> Import URL*.
 . Enter the URL of your business API swagger specification as per the output of the following :
 +
 -----
-echo http://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml
+$ echo -en "\n\nhttp://products-$OCP_PROJECT_PREFIX.$OCP_WILDCARD_DOMAIN/rest/swagger.yaml\n\n"
 -----
 
 . Click *OK*.
-. In the YAML editor, make the following changes:
-.. Line 6: Change the host to your `products-apicast-staging` route endpoint--for example:
+. The editor should now render the yaml as well as HTML representation of the _Products_ API:
 +
-`products-stage-apicast-sjayanti-redhat-com-3scale-amp.apps.na1.openshift.opentlc.com:443`
+iamge::images/products_swagger_editor.png[]
+
+. In the YAML editor, make the following changes:
+.. Line 6: Change the host to your `products-apicast-staging` route endpoint.  The value should be the output of the following:
++
+-----
+$ echo -en "\n\n`oc get route products-staging-route -o template --template {{.spec.host}} -n $GW_PROJECT`:443\n\n"
+-----
+
 .. Line 11: Change the scheme to `https`.
 .. Line 24: Add the following lines to add a user key:
 +
@@ -77,20 +87,9 @@ And, via the _x-data-threescale-name_ configuration, this field will be auto-fil
 +
 image::images/3scale_amp_products_swagger2.png[]
 
-.. Line 74: Repeat step c.
+.. Line 74: Repeat the step to add the _user_key_ parameter.
 .. Line 98: Delete the square brackets.
-.. Line 99: Repeat step c for adding a user key:
-+
-
------
-        - name: "user_key"
-          in: "query"
-          type: string
-          x-data-threescale-name: "user_keys"
-          required: true
------
-+
-image::images/3scale_amp_products_swagger3.png[]
+.. Line 99: Repeat the step to add the _user_key_ parameter:
 
 . Select *File -> Convert and save as JSON*:
 +
@@ -103,14 +102,8 @@ image::images/3scale_amp_products_swagger4.png[]
 
 
 . Log in to your 3scale Admin Portal from the browser.
-. Click the *APIs* tab.
-. Click *ActiveDocs*:
-+
-image::images/3scale_amp_products_activedocs1.png[]
-
-. Click *Create a new spec*:
-+
-image::images/3scale_amp_products_activedocs2.png[]
+. Navigate to: *API:Products -> ActiveDocs*:
+. Click *Create your first spec*:
 
 . Enter the following values:
 * *Name*: `Products`
@@ -135,17 +128,18 @@ image::images/3scale_amp_products_activedocs5.png[]
 
 . Click *Get all Products* to expand the method.
 . Go to the *Parameters* section.
-. Click the *user_key* value field.
+. Populate the *user_key* value field with your application's API key.
 . Select the *ProductsApp* user key.
 . Click *Try it out*:
 +
 image::images/3scale_amp_products_activedocs6.png[]
-+
-. If you get a *No response from server* error from the server, you need to accept the SSL certificate of the server by opening the request URL in a browser window and clicking *proceed to <URL>*:
+
+.. If you get a *No response from server* error from the server, you need to accept the SSL certificate of the server by opening the request URL in a browser window and clicking *proceed to <URL>*:
 +
 image::images/3scale_amp_products_activedocs7.png[]
 
-. Return to ActiveDocs and try the request again. Expect it to return an HTTP *200* response code and the response body:
+.. Return to ActiveDocs and try the request again. 
+Expect it to return an HTTP *200* response code and the response body:
 +
 image::images/3scale_amp_products_activedocs8.png[]
 
@@ -153,28 +147,22 @@ image::images/3scale_amp_products_activedocs8.png[]
 
 From time to time, you'll likely need the URL to your developer portal.
 
-The CMS of your 3scale AMP provides a link at the top of the homepage called:  _Visit Developer Portal_.
+The Content Management System  of your 3scale AMP provides a link at the following:  _Audience -> Developer Portal -> Visit Portal_.
 Clicking that link will automatically redirect your browser to the URL of the developer portal.
 
-The welcome email sent to new developer users also includes the link to the developer portal.
-
-Another simple mechanism to determine the URL to your developer portal is directly from OpenShift.
-
-. In you browser, navigate to and log into your OCP Web Console.
-. Navigate to: `Applications -> Routes`.
-. The URL to your developer portal is the _Hostname_ of the route called:  `system-developer-route`:
-+
-image::images/dev_portal_route.png[]
+The welcome email sent to new API consumers also includes the link to the developer portal.
 
 Alternatively, you could just as easily determine this using the OpenShift oc utility:
 
 -----
-$ echo -en "\n\n`oc get route system-developer-route -n $OCP_PROJECT_PREFIX-3scale-amp --template "https://{{.spec.host}}"`\n\n"
+$ echo -en "\n\n`oc get route system-developer -n $API_MANAGER_NS --template "https://{{.spec.host}}"`\n\n"
 -----
 
 == Customize Developer Portal
 
-In this lab you work on the Developer Portal for the API’s customers, partners, and users. The Developer Portal can be fully customized to meet your needs. See the link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview] for more information.
+In this lab you customize the Developer Portal for the Product API’s consumers. 
+The Developer Portal can be fully customized via the built-in _Content Mangement System_ (CMS).
+See the link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview] for more information.
 
 === Import Logo Files
 
@@ -182,27 +170,25 @@ In this lab you work on the Developer Portal for the API’s customers, partners
 . Download these two files:
 * `RHMartBackground.jpg`
 * `RHMartLogo.png`
-. Log in to 3scale by Red Hat's Admin Portal with your username and password.
-. Click the *Developer Portal* tab, and then click *New Page -> New File*:
-+
-image::images/3scale_amp_products_dev_portal1.png[]
-
-. Enter the following:
+. In the Admin Portal, navigate to *Audience -> Developer Portal -> Content* .
+. To import the _RHMartLogo.png_ file, click *New Page -> New File*:
+.. Enter the following:
 * *Section*: `images`
 * *Path*: `/images/RHMartLogo.png`
 * *Attachment*: `RHMartLogo.png` from your local host
 +
 image::images/3scale_amp_products_dev_portal2.png[]
+.. Click *Create File*
 
-. Click *Create File*, and then click *New File*.
-. Enter the following:
+. To import the _RHMartBackground.png_ file, click *New File*.
+.. Enter the following:
 * *Section*: `images`
 * *Path*:  `/images/RHMartBackground.png`
 * *Attachment*: `RHMartBackground.png` from your local host
 +
 image::images/3scale_amp_products_dev_portal3.png[]
 
-. Click *Create File*.
+.. Click *Create File*.
 
 === Change the HTML/CSS
 
@@ -212,7 +198,7 @@ image::images/3scale_amp_products_dev_portal3.png[]
 +
 image::images/3scale_amp_products_dev_portal4.png[]
 +
-.. Delete line 46:
+.. Delete line 41:
 +
 
 -----
@@ -262,13 +248,13 @@ image::images/3scale_amp_products_dev_portal7_1.png[]
 +
 image::images/3scale_amp_products_dev_portal8.png[]
 
-.. Go to the HTML editor, and perform a search and replace of `Echo` (with a capital _E_) to `RHMart` in lines 19, 98, and 112.
-.. Replace line 5 with the following:
+.. Go to the HTML editor and replace line 5 with the following:
 +
 
 -----
             <h1 style="text-shadow: 4px 4px #000000;">RH Mart API</h1>
 -----
+.. Perform a search and replace of `Echo` (with a capital _E_) to `RHMart` in lines 19, 98, and 112.
 
 .. Click *Save*.
 . Under the *css* folder, click *default.css*:
@@ -283,7 +269,7 @@ image::images/3scale_amp_products_dev_portal9.png[]
 -----
 +
 .. Scroll down to the bottom of the page and click *Save*.
-. Click the *0 Drafts* tab, and then click *Publish All*:
+. Navigate to `Audience -> Developer Portal -> Drafts` and then click *Publish All*:
 +
 image::images/3scale_amp_products_dev_portal10.png[]
 
@@ -292,16 +278,14 @@ image::images/3scale_amp_products_dev_portal10.png[]
 
 === Test the Changes
 
-. Click *Visit Developer Portal*:
-+
-image::images/3scale_amp_products_dev_portal11.png[]
-+
-* The Developer Portal opens in a new tab on your browser:
+. Click *Audience -> Developer Portal -> Visit Portal*:
+
+. The Developer Portal opens in a new tab on your browser:
 +
 image::images/3scale_amp_products_dev_portal12.png[]
 
 . Click *SIGN IN* at the top right, and log in as `rhbankdev` with the password provided in the previous lab.
-. On the homepage, explore the *Applications*, *Statistics*, and *Credentials* sections.
+. On the homepage, explore the *Applications* and *Statistics* sections.
 +
 image::images/3scale_amp_products_dev_portal13.png[]
 
@@ -365,7 +349,7 @@ The response should be the following:
 In this section you create a private section of the developer portal for access by users of the `RHAdmin` group.
 
 . Log in to 3scale by Red Hat's Admin Portal using your credentials.
-. Click the *Developer Portal* tab, and then click *New Section*:
+. Navigate to the _Content_ section of the Content Management System and then click *New Section*:
 +
 image::images/3scale_amp_products_dev_portal_groups_1.png[]
 
@@ -373,8 +357,6 @@ image::images/3scale_amp_products_dev_portal_groups_1.png[]
 * *Title*: `admin`
 * *Parent*: `Root`
 * *Partial Path*: `/rhadmin`
-+
-image::images/3scale_amp_products_dev_portal_groups_2.png[]
 
 .. Verify that *public* is unchecked, and click *Create Section*.
 * Your new section appears in the main menu:
@@ -382,8 +364,6 @@ image::images/3scale_amp_products_dev_portal_groups_2.png[]
 image::images/3scale_amp_products_dev_portal_groups_3.png[]
 
 . Select *New Page -> New Page*:
-+
-image::images/3scale_amp_products_dev_portal_groups_4.png[]
 
 .. In the *New Page* form, enter the following values:
 * *Title*: `Admin Page`
@@ -426,23 +406,21 @@ image::images/3scale_amp_products_dev_portal_groups_7.png[]
 image::images/3scale_amp_products_dev_portal_groups_8.png[]
 
 .. Click *Save*.
-. Click the *Drafts* tab on the top, and then click *Publish All*:
+. Navigate to your *Drafts* and then click *Publish All*:
 +
 image::images/3scale_amp_products_dev_portal_groups_9.png[]
 +
 * All your changes are published and can be tested from the Developer Portal.
 
-. Click *Groups*, and then click *Create Group*:
-+
-image::images/3scale_amp_products_dev_portal_groups_10.png[]
+. Navigate to *Audience -> Developer Portal -> Groups*, and then click *Create Group*:
 
 .. Enter the following values:
 * *Name*: `RHAdmin`
 * *Allowed Sections*: `admin`
 .. Click *Create Group*.
-. Navigate to the *Developers* section, and click the *RHAdmin* account.
+. Navigate to the *Audience -> Accounts* section, and click the *RHAdmin* account.
 +
-TIP: This is the account you created in the previous lab to use the *ProductsPremiumPlan*.
+TIP: This is the account you created in the previous section to use the *ProductsPremiumPlan*.
 
 .. Click *O Group Memberships*:
 +
