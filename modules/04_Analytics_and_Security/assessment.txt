@@ -1,19 +1,15 @@
 QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
 APIMGMTDEV|APIMGMTDEV0301|5|The API Traffic Controllers can be deployed separately from the API management layer.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0301|5|The API Traffic Controllers can be deployed separately from the API management layer.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0302|1|Which of the following Traffic Controllers can be used with 3scale API Management?|||APIcast gateway|||1|100|||
+APIMGMTDEV|APIMGMTDEV0302|1|Which of the following Traffic Controllers can be used with 3scale API Management?|||API gateway|||1|100|||
 APIMGMTDEV|APIMGMTDEV0302|1|Which of the following Traffic Controllers can be used with 3scale API Management?|||Developer Portal|||0|0|||
 APIMGMTDEV|APIMGMTDEV0302|1|Which of the following Traffic Controllers can be used with 3scale API Management?|||API Management platform|||0|0|||
 APIMGMTDEV|APIMGMTDEV0302|1|Which of the following Traffic Controllers can be used with 3scale API Management?|||None of the above|||0|0|||
 APIMGMTDEV|APIMGMTDEV0303|5|OpenResty is a web platform built on top of an NGINX web server.|||TRUE|||1|100|||
 APIMGMTDEV|APIMGMTDEV0303|5|OpenResty is a web platform built on top of an NGINX web server.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||boolean|||0|0|||
-APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||number|||0|0|||
-APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||array|||1|100|||
-APIMGMTDEV|APIMGMTDEV0304|1|Which of the following is NOT a basic type in Lua?|||function|||0|0|||
-APIMGMTDEV|APIMGMTDEV0305|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||TRUE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0305|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||FALSE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0306|5|LAB: Analytics can only by viewed by an API Provider.|||TRUE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0306|5|LAB: Analytics can only by viewed by an API Provider.|||FALSE|||1|100|||
-APIMGMTDEV|APIMGMTDEV0307|5|LAB: Analytics are configured in the settings section of an API.|||TRUE|||0|0|||
-APIMGMTDEV|APIMGMTDEV0307|5|LAB: Analytics are configured in the settings section of an API.|||FALSE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0304|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||TRUE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0304|5|LAB: The statistics for a user's subscribed application can be accessed from the Developer Portal.|||FALSE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0305|5|LAB: Analytics can only by viewed by an API Provider.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0305|5|LAB: Analytics can only by viewed by an API Provider.|||FALSE|||1|100|||
+APIMGMTDEV|APIMGMTDEV0306|5|LAB: Analytics are configured in the settings section of an API.|||TRUE|||0|0|||
+APIMGMTDEV|APIMGMTDEV0306|5|LAB: Analytics are configured in the settings section of an API.|||FALSE|||1|100|||
