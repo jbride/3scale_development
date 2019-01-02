@@ -1,0 +1,20 @@
+:scrollbar:
+:data-uri:
+
+
+== CMS Overview
+
+image:images/developer-portal-overview.png[]
+
+
+
+ifdef::showscript[]
+
+Transcript:
+
+This slide shows the structure of the Developer Portal CMS. You can customize the look and feel of the entire Developer Portal to match your branding.
+
+The next slide discusses some of the elements and functionality shown on this slide.
+
+
+endif::showscript[]

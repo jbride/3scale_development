@@ -1,0 +1,38 @@
+:scrollbar:
+:data-uri:
+
+
+== 3scale Admin Portal
+
+.Functionality
+
+[.noredheader,cols="30,70",caption=""]
+|======
+| *API BizOps* | Add/invite developers, approve accounts and applications, and contact developers
+| *Access control* | Define API, create plans, set up rate limits and pricing rules
+| *Accounts* | Manage administrator and member rights to use Admin Portal
+| *Analytics* | Report API performance insights
+| *API DevOps* | REST API for administrator, automating deployments
+| *API documentation* | Document Swagger API using 3scale ActiveDocs
+| *Developer Portal CMS* | Create and customize Developer Portal
+| *Billing* | Integrate payment gateways and invoicing
+|======
+
+ifdef::showscript[]
+
+Transcript:
+
+
+
+3scale's Admin Portal provides functionality in a number of areas.
+
+* Use *API BizOps* to add/invite developers, approve accounts and applications, and contact developers.
+* Use *Access control* to define an API, create plans, and set up rate limits and pricing rules.
+* Use *Accounts* functionality to manage administrator and member rights to use the Admin Portal.
+* Use *Analytics* to report API performance insights.
+* *API DevOps* provides the REST API for the administrator and can be used to automate deployments.
+* *API documentation* is where you document the Swagger API using 3scale ActiveDocs.
+* Use the *Developer Portal CMS* functionality to create and customize the Developer Portal.
+*  *Billing* is where you integrate payment gateways and invoicing.
+
+endif::showscript[]
