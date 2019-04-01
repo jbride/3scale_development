@@ -81,7 +81,7 @@ You should have admin access to an OpenShift project where your API Gateways res
 The name of this project can be determined via the shell environment variable:  $GW_PROJECT.
 
 -----
-$ oc get pods -n $GW_PROJET
+$ oc get pods -n $GW_PROJECT
 
 ...
 
