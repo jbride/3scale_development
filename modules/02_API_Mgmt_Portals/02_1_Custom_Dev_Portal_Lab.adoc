@@ -39,7 +39,7 @@ In this section, you generate and test ActiveDocs documentation for the API crea
 ActiveDocs is not a replacement for the OpenAPI Specification; it is an instantiation of it. 
 With ActiveDocs, you do not have to run your own OpenAPI server or deal with the UI components of the interactive documentation. 
 The interactive documentation is served and rendered from your 3scale Developer Portal. 
-For more information, see link:https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.4/html-single/developer_portal/[Create a (Swagger) Spec].
+For more information, see link:https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.4/html-single/api_documentation/[Create a (Swagger) Spec].
 
 === Customize Products API Swagger configs
 In a previous lab, you have already been introduced to the OpenAPI  configuration file (in yaml representation) of your product API.
