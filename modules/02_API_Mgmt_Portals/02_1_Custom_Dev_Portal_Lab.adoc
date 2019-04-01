@@ -24,8 +24,8 @@ However, you will likely want to reference additional documentation as you are w
 
 Suggested reference material is as follows:
 
-* link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview]
-* link:https://support.3scale.net/docs/developer-portal/liquid-reference[Liquid Reference]
+* link:https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.4/html-single/developer_portal/[Developer Portal Overview]
+* link:https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.4/html-single/developer_portal/#liquid-reference[Liquid Reference]
 +
 The same reference is also available by navigating your browser to the following in the Admin Portal:  _Documentation  (in the top right corner) -> Liquid Reference_
 +
@@ -39,7 +39,7 @@ In this section, you generate and test ActiveDocs documentation for the API crea
 ActiveDocs is not a replacement for the OpenAPI Specification; it is an instantiation of it. 
 With ActiveDocs, you do not have to run your own OpenAPI server or deal with the UI components of the interactive documentation. 
 The interactive documentation is served and rendered from your 3scale Developer Portal. 
-For more information, see link:https://support.3scale.net/docs/api-documentation/create-activedocs-spec[Create a (Swagger) Spec].
+For more information, see link:https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.4/html-single/developer_portal/[Create a (Swagger) Spec].
 
 === Customize Products API Swagger configs
 In a previous lab, you have already been introduced to the OpenAPI  configuration file (in yaml representation) of your product API.
@@ -162,7 +162,6 @@ $ echo -en "\n\n`oc get route system-developer -n $API_MANAGER_NS --template "ht
 
 In this lab you customize the Developer Portal for the Product API’s consumers. 
 The Developer Portal can be fully customized via the built-in _Content Mangement System_ (CMS).
-See the link:https://support.3scale.net/docs/developer-portal/overview[Developer Portal Overview] for more information.
 
 === Import Logo Files
 
