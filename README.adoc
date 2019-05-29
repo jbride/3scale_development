@@ -11,3 +11,4 @@ See [Table of content](toc.adoc)
 1.4 - Jan 2, 2019 - Update to 3scale 2.4
 1.5 - ?
 1.6 - Apr 1, 2019 - https://github.com/redhat-gpe/3scale_development/issues/93
+1.6.1 - May 29, 2019 - missing audio fix
