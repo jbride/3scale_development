@@ -84,7 +84,7 @@ FIELDS:
     course in all search and catalog views.
   responsible: dev, post-kickoff
   value: |
-    TBD
+    Red Hat 3scale API Management Development focuses on exposing students to the various aspects of managing APIs. The course also covers managing SOAP or ODATA web services using Red Hat 3scale API Management.
 
 - name: RECOMMENDED SKILLS
   description: |
